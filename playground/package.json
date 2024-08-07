@@ -1,0 +1,35 @@
+{
+    "name": "playground",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "auth-component-library": "file:..",
+        "react": "file:../node_modules/react",
+        "react-dom": "file:../node_modules/react-dom",
+        "react-qr-code": "file:../node_modules/react-qr-code",
+        "react-scripts": "3.4.3",
+        "sass": "1.69.5"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "dev": "yarn start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

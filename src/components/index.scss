@@ -1,0 +1,288 @@
+.mfa-password-modal {
+    .modal-dialog {
+      padding: 16px !important;
+    }
+  
+    .modal-body {
+      padding: 16px !important;
+      // height: 202px;
+    }
+  }
+  .mfa-password-error {
+    font-weight: 400;
+    line-height: 16px;
+    color: #ee3819;
+    margin: 4px auto auto auto;
+  }
+  
+  .mfa-password-email {
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0px;
+  }
+  
+  .mfa-password-input-box {
+    width: 278px;
+    margin: 0 auto;
+  }
+  
+  // 2nd Modal
+  .mfa-main-modal {
+    .modal-dialog {
+      padding: 16px !important;
+    }
+  
+    .modal-body {
+      padding: 16px !important;
+      height: 396px;
+    }
+  }
+  
+  // 2nd Modal 1st Screen - Qr Screen
+  .mfa-qr {
+    height: 100%;
+  }
+  
+  .mfa-qr-text {
+    font-weight: 600;
+    line-height: 22px;
+  }
+  
+  .mfa-otp-text {
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0px 0px 8px 0px;
+  }
+  
+  .mfa-recovery-text-secondary {
+    font-weight: 400;
+    line-height: 18px;
+    color: #5f6166;
+    margin: 0px;
+  }
+  
+  .mfa-qr-container {
+    max-width: 332px;
+  }
+  
+  .mfa-recovery-container {
+    max-width: 430px;
+  }
+  
+  // 2nd Modal 2st Screen - Otp Verification
+  .margin-top-20 {
+    margin-top: 20px;
+  }
+  
+  input[type='text'].mfa-otp-input {
+    border: 1px solid #b7bcc4;
+    border-radius: 4px;
+    background-color: #fff;
+    aspect-ratio: 1;
+    width: 40px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 0px;
+    font-size: 24px !important;
+  }
+  
+  .mfa-otp-input-invalid {
+    border: 1px solid #ee3819 !important;
+  }
+  
+  .qr-code-loader {
+    height: 200px;
+    width: 200px;
+    background: linear-gradient(90deg, #ecebeb 0%, #f3f3f3 100%);
+    margin: auto;
+  }
+  
+  .input-spinner-loader {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+  }
+  
+  .mfa-otp-spinner-loader {
+    position: absolute;
+    right: -24px;
+    top: 3px;
+  }
+  
+  // .mfa-toggle {
+  //   gap: 8px;
+  
+  //   label {
+  //     margin-bottom: 0;
+  //     line-height: 10px;
+  //   }
+  // }
+  
+  // .mfa-qrcode-container {
+  //   margin: 0px auto;
+  //   max-width: 332px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   text-align: center;
+  //   gap: 8px;
+  // }
+  
+  // .mfa-otp-container {
+  //   margin: 0px auto;
+  //   max-width: 340px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   text-align: center;
+  // }
+  
+  // .mfa-qrcode-text {
+  //   font-weight: 600;
+  //   line-height: 22px;
+  //   margin: 0px;
+  // }
+  
+  // .mfa-qrcode-text-secondary {
+  //   font-weight: 400;
+  //   line-height: 18px;
+  //   color: #5f6166;
+  //   margin: 0px 18px;
+  // }
+  
+  // .mfa-btn-container {
+  //   // width: 614px;
+  //   // margin: 0px auto;
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   margin-bottom: 12px;
+  //   margin-top: 39px;
+  // }
+  
+  // .mfa-password-btn-container {
+  //   margin-top: 42px;
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   margin-bottom: 12px;
+  // }
+  
+  // .mfa-otp-text {
+  //   font-weight: 600;
+  //   line-height: 22px;
+  //   margin: 0px;
+  // }
+  
+  // .mfa-otp-text-secondary {
+  //   font-weight: 400;
+  //   line-height: 18px;
+  //   color: #5f6166;
+  //   margin: 8px 0px 0px;
+  // }
+  
+  // .otp-btn-container {
+  //   margin-bottom: 8px;
+  //   margin-top: 94px;
+  //   padding: 4px 0px;
+  // }
+  
+  // .mt-66 {
+  //   margin-top: 66px;
+  // }
+  
+  // .mfa-password-loader {
+  //   justify-content: center;
+  //   display: flex;
+  //   align-items: center;
+  // }
+  
+  // .mfa-otp-text-container {
+  //   margin-top: 20px;
+  // }
+  
+  // .mfa-recoveryMail-container {
+  //   width: 430px;
+  //   margin: auto;
+  //   margin-top: 16px;
+  //   text-align: center;
+  // }
+  
+  // .recoveryMail-primaryText {
+  //   font-weight: 600;
+  //   line-height: 22px;
+  //   margin: 0px;
+  // }
+  
+  // .recoveryMail-secondaryText {
+  //   font-weight: 400;
+  //   line-height: 18px;
+  //   color: #5f6166;
+  //   margin: 0px;
+  // }
+  
+  // .mfa-recoveryMail-input {
+  //   width: 278px;
+  //   height: 32px;
+  //   border: none;
+  //   background-color: #f2f5f5;
+  //   border-radius: 2px;
+  //   padding: 0px;
+  //   text-align: center;
+  // }
+  
+  // .mfa-settingPage-recoveryMail-input {
+  //   width: 278px;
+  //   height: 32px;
+  //   border: none;
+  //   background-color: #f2f5f5;
+  //   border-radius: 2px;
+  //   padding: 0px;
+  //   text-align: left;
+  //   padding: 7px 8px;
+  // }
+  
+  // .mfa-recoveryEmail-btn-container {
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   margin-bottom: 8px;
+  //   margin-top: 206px;
+  //   align-items: center;
+  //   gap: 16px;
+  // }
+  
+  // .mt-186 {
+  //   margin-top: 186px;
+  // }
+  
+  // .mfa-recoveryMail-input-invalid {
+  //   border: 1px solid #ee3819;
+  // }
+  
+  // .mfa-recoveryEmail-error {
+  //   color: #ee3819;
+  //   font-size: 12px;
+  //   font-weight: 400;
+  //   line-height: 16px;
+  //   margin-top: 4px;
+  // }
+  
+  .mfa-add-recovery-email {
+    margin-bottom: 4px;
+  }
+  
+  // .mfa-setup-authenticator {
+  //   font-weight: 600;
+  //   line-height: 18px;
+  //   text-align: left;
+  //   color: #0f67ea;
+  //   padding: 4px 0px;
+  //   margin-top: 8px;
+  //   margin-bottom: 16px;
+  // }
+  
+  // 1st Modal
+  .mfa-change-password {
+    padding-bottom: 24px;
+  }
+  .mfa-otp-message-text{
+    font-size: 12px;
+  }

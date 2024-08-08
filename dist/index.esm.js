@@ -257,14 +257,24 @@ const mfaRecoveryEmailValidator = function (email, loginEmail) {
   let emailTester = arguments.length > 3 ? arguments[3] : undefined;
   let DisplayText = arguments.length > 4 ? arguments[4] : undefined;
   let getLocalizeText = arguments.length > 5 ? arguments[5] : undefined;
-  console.log('in mfaRecoveryEmailValidator');
+  console.log({
+    email,
+    loginEmail,
+    allowEmptyString,
+    emailTester,
+    DisplayText,
+    getLocalizeText
+  });
   if (!email || !email.trim()) {
     return allowEmptyString ? '' : getLocalizeText(DisplayText.RECOVERY_EMAIL_MANDATORY);
   }
+  console.log('22');
   if (!emailTester(email)) return getLocalizeText(DisplayText.NOT_VALID_EMAIL);
+  console.log('26');
   if (email === loginEmail) {
     return 'Recovery email cannot be same as login e-mail.';
   }
+  console.log('33');
   return '';
 };
 

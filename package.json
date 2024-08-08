@@ -1,5 +1,5 @@
 {
-    "name": "dev-test",
+    "name": "dev-test-mfa",
     "files": [
         "./dist"
     ],

@@ -6,6 +6,7 @@ const mfaRecoveryEmailValidator = (
     DisplayText,
     getLocalizeText
 ) => {
+    console.log('in mfaRecoveryEmailValidator');
     if (!email || !email.trim()) {
         return allowEmptyString
             ? ''

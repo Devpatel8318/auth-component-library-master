@@ -22,6 +22,7 @@ const RecoveryEmail = ({
     };
 
     useEffect(() => {
+        console.log('recoverEmail changed');
         if (!recoveryEmail) return setRecoveryEmailError('');
 
         const error = mfaRecoveryEmailValidator(
@@ -32,6 +33,7 @@ const RecoveryEmail = ({
             DisplayText,
             getLocalizeText
         );
+        console.log({ error });
         if (error) {
             setRecoveryEmailError(error);
         }

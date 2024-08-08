@@ -266,6 +266,7 @@ const mfaRecoveryEmailValidator = function (email, loginEmail) {
   let emailTester = arguments.length > 3 ? arguments[3] : undefined;
   let DisplayText = arguments.length > 4 ? arguments[4] : undefined;
   let getLocalizeText = arguments.length > 5 ? arguments[5] : undefined;
+  console.log('in mfaRecoveryEmailValidator');
   if (!email || !email.trim()) {
     return allowEmptyString ? '' : getLocalizeText(DisplayText.RECOVERY_EMAIL_MANDATORY);
   }
@@ -296,8 +297,12 @@ const RecoveryEmail = _ref => {
     setRecoveryEmail(e.target.value.trim());
   };
   React.useEffect(() => {
+    console.log('recoverEmail changed');
     if (!recoveryEmail) return setRecoveryEmailError('');
     const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeText);
+    console.log({
+      error
+    });
     if (error) {
       setRecoveryEmailError(error);
     }

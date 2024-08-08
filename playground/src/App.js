@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { QRScreen } from 'auth-component-library';
-import 'auth-component-library/dist/styles.css';
+import { QRScreen } from 'dev-test';
+import 'dev-test/dist/styles.css';
 
 import './globalStyle/base.scss';
 import './globalStyle/common.scss';

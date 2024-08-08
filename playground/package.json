@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "auth-component-library": "file:..",
+        "dev-test": "file:..",
         "react": "file:../node_modules/react",
         "react-dom": "file:../node_modules/react-dom",
         "react-qr-code": "file:../node_modules/react-qr-code",

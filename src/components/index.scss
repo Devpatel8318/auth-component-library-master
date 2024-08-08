@@ -7,18 +7,6 @@
     padding: 16px !important;
   }
 }
-
-.mfa-main-modal {
-  .modal-dialog {
-    padding: 16px !important;
-  }
-
-  .modal-body {
-    padding: 16px !important;
-    height: 396px;
-  }
-}
-
 .mfa-password-error {
   font-weight: 400;
   line-height: 16px;
@@ -37,7 +25,16 @@
   margin: 0 auto;
 }
 
+.mfa-main-modal {
+  .modal-dialog {
+    padding: 16px !important;
+  }
 
+  .modal-body {
+    padding: 16px !important;
+    height: 396px;
+  }
+}
 
 .mfa-qr {
   height: 100%;
@@ -51,7 +48,7 @@
 .mfa-otp-text {
   font-weight: 600;
   line-height: 22px;
-  margin: 0px 0px 8px 0px;
+  margin: 0px;
 }
 
 .mfa-recovery-text-secondary {
@@ -62,7 +59,7 @@
 }
 
 .mfa-qr-container {
-  max-width: 332px;
+  max-width: 340px;
 }
 
 .mfa-recovery-container {
@@ -83,6 +80,7 @@ input[type='text'].mfa-otp-input {
   text-align: center;
   padding: 0px;
   font-size: 24px !important;
+  margin-right:20px;
 }
 
 .mfa-otp-input-invalid {
@@ -112,6 +110,10 @@ input[type='text'].mfa-otp-input {
   padding-bottom: 24px;
 }
 
-.mfa-otp-message-text {
+.mfa-otp-message-text{
   font-size: 12px;
+}
+
+.mfa-text-24{
+  font-size: 24px !important;
 }

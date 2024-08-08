@@ -8,11 +8,11 @@
         "react-dom": "file:../node_modules/react-dom",
         "react-qr-code": "file:../node_modules/react-qr-code",
         "react-scripts": "3.4.3",
-        "sass": "1.69.5"
+        "sass": "1.77.8"
     },
     "scripts": {
         "start": "react-scripts start",
-        "dev": "yarn start",
+        "dev": "npm rebuild node-sass && yarn start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

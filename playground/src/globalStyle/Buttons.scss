@@ -1,0 +1,319 @@
+@import './variable.scss';
+
+.btn {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: $buttonFont !important;
+  font-size: var(--buttonFont) !important;
+  margin-bottom: 0;
+  font-stretch: normal;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 18px;
+  letter-spacing: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  min-width: 100px;
+  border-radius: 2px;
+}
+
+.btnFxWd {
+  cursor: default !important;
+  min-width: 109px !important;
+}
+.btn-minWidth-auto {
+  min-width: auto;
+}
+.create-btn {
+  padding: 3px 16px 3px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.refresh-btn {
+  min-width: 108px;
+  padding: 6px 8px;
+}
+
+.button-with-icon {
+  padding: 3px 16px 3px 8px;
+}
+
+.button-with-icon {
+  min-width: 116px;
+  padding: 0px 16px 0px 8px;
+  font-size: 14px !important;
+}
+
+.btn-medium {
+  padding: 6px 16px;
+}
+
+.single-btn {
+  padding: 3px 16px 3px 8px;
+}
+
+.view-button {
+  min-width: auto;
+  padding: 4px 15px;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background-color: $colorPrimary;
+  background-color: var(--colorPrimary);
+  border-color: $colorPrimary;
+  border-color: var(--colorPrimary);
+
+  &:hover {
+    background-color: $primaryBtnHover;
+    border-color: $primaryBtnHover;
+    background-color: var(--primaryBtnHover);
+    border-color: var(--primaryBtnHover);
+  }
+
+  &:focus {
+    background-color: $primaryBtnFocus;
+    border-color: $primaryBtnFocus;
+    background-color: var(--primaryBtnFocus);
+    border-color: var(--primaryBtnFocus);
+  }
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: $colorPrimary;
+  background-color: var(--colorPrimary);
+  border-color: var(--colorPrimary);
+  opacity: 0.3;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: $primaryBtnFocus;
+  border-color: $primaryBtnFocus;
+  background-color: var(--primaryBtnFocus);
+  border-color: var(--primaryBtnFocus);
+  box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: none;
+  border: 1px solid $colorPrimary !important;
+  border: 1px solid var(--colorPrimary) !important;
+  transition: background 0.3s linear 0s;
+  color: $colorPrimary !important;
+  color: var(--colorPrimary) !important;
+  border: none;
+
+  &:hover {
+    background: rgba(137, 185, 255, 0.15);
+    border: 1px solid $secoundaryBtnHover;
+    border: 1px solid var(--secoundaryBtnHover);
+    transition: background 0.3s linear 0s;
+    color: $colorPrimary;
+    color: var(--secoundaryBtn);
+  }
+
+  .btn-secondary:hover i {
+    color: $secoundaryBtn !important;
+    color: var(--secoundaryBtn) !important;
+  }
+
+  &:focus {
+    background: rgba(137, 185, 255, 0.25);
+    color: $secoundaryBtn;
+    color: var(--secoundaryBtn);
+    outline: none;
+    background: #edf4ff;
+  }
+}
+
+.btn-secondary {
+  background: none;
+  color: $secoundaryBtn;
+  border-color: $colorPrimary;
+  color: var(--$colorPrimary);
+  border-color: var(--$colorPrimary);
+
+  &:hover {
+    background: rgba(137, 185, 255, 0.15);
+    color: $colorPrimary;
+    color: var(--$colorPrimary);
+    border-color: $btnSecondary;
+    border-color: var(--btnSecondary);
+  }
+
+  &:focus {
+    color: var(--$colorPrimary);
+    outline: none;
+    background: rgba(137, 185, 255, 0.25);
+  }
+}
+
+.btn-secondary.disabled,
+.btn-secondary:disabled {
+  opacity: 0.3;
+  color: var(--$colorPrimary);
+  border-color: var(--$colorPrimary);
+}
+.btn.btn-secondary.disabled,
+.btn.btn-secondary[disabled],
+fieldset[disabled] .btn {
+  cursor: not-allowed;
+  box-shadow: none;
+  background: #fff;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  box-shadow: none;
+  background: none;
+  opacity: 0.3;
+  color: var(--$colorPrimary);
+  border-color: var(--$colorPrimary);
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+  border-color: var(--secondaryBtnFocuse);
+  color: $secoundaryBtn;
+  color: var(--secoundaryBtn);
+  box-shadow: none;
+}
+
+.add-queue.team-header-dropdown
+  .btn-secondary:not(:disabled):not(.disabled):active {
+  opacity: 1;
+}
+
+.btn-orange {
+  background: $dangerFont;
+  background: var(--dangerFont);
+  color: #fff !important;
+}
+
+.btn-warning {
+  border-color: $warningFont !important;
+  border-color: var(--warningFont) !important;
+  background-color: transparent !important;
+  color: var(--warningFont);
+  color: $warningFont;
+
+  &:hover {
+    background-color: rgba(255, 248, 237, 1) !important;
+    border-color: var(--warningFont);
+    color: var(--warningFont);
+  }
+
+  &:focus {
+    background-color: rgba(255, 248, 237, 1) !important;
+    border-color: var(--warningFont);
+    color: var(--warningFont);
+  }
+}
+
+.btn-danger {
+  border-color: $dangerFont;
+  border-color: var(--dangerFont);
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(238, 56, 25, 0.1);
+    border-color: var(--dangerFont);
+    color: var(--dangerFont);
+  }
+
+  &:focus {
+    background-color: rgba(238, 56, 25, 0.1);
+    border-color: var(--dangerFont);
+    color: var(--dangerFont);
+  }
+}
+
+.delete-popup .btn-danger {
+  &:focus {
+    border-color: $dangerFont;
+    border-color: var(--dangerFont);
+    background-color: transparent;
+  }
+
+  &:hover {
+    border-color: $dangerFont;
+    border-color: var(--dangerFont);
+    background-color: rgba(238, 56, 25, 0.1);
+  }
+}
+
+.btn-danger.disabled,
+.btn-danger:disabled {
+  background-color: transparent;
+  border-color: var(--dangerFont);
+  color: var(--dangerFont);
+  opacity: 0.3;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active,
+.btn-danger:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+  background-color: transparent;
+  border-color: var(--dangerFont);
+  box-shadow: none;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active:focus,
+.btn-danger:not(:disabled):not(.disabled).active:focus,
+.show > .btn-danger.dropdown-toggle:focus {
+  box-shadow: none;
+  background-color: rgba(238, 56, 25, 0.1);
+  border-color: var(--dangerFont);
+  color: var(--dangerFont);
+}
+
+.add-queue .dropdown-toggle-split {
+  padding: 3px;
+  width: auto;
+  min-width: auto;
+
+  i {
+    margin-right: 0 !important;
+  }
+}
+
+.post-common-btn:after {
+  height: 25px;
+  display: block;
+  width: 1px;
+  background: #fff;
+  border-right: 1px solid #fff;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 3px;
+}
+
+.btn-primary svg path {
+  fill: #fff;
+}
+
+// .repeat-post-pinned-btn {
+//   .btn-primary svg path {
+//     fill: #fff;
+//     stroke: #fff;
+//   }
+// }

@@ -1,0 +1,92 @@
+$colorPrimary: #0f67ea;
+$backgroundSecondary: #ffcb00;
+$colorSecondary: #18181a;
+$colorGrey: #5f6166;
+$boxBackground: #f3f3f3;
+$btnSecondary: #f3f5f7;
+$colorOrange: #f49d37;
+$fontSize: 24px;
+$containerWidth: 1190px;
+$pageTopPadding: 36px;
+$pageBottomPadding: 40px;
+$robotFont: 'Roboto', sans-serif;
+$linkColor: #0f67ea;
+$borderRadius: 2px;
+$prPadding: 0;
+$plPadding: 0;
+$noBorder: 0;
+$lightBorder: #edf4ff;
+$borderColor: #edf4ff;
+$calendarbordercolor: #d8d8d8;
+$blueBorder: #89b9ff;
+$borderYellow: #ffcb00;
+$tableBorder: #edf4ff;
+$sideBarColor: #f3f5f7;
+$sideBarWrapper: #293545;
+$dangerFont: #ee3819;
+$successFont: #5cb85c;
+$warningFont: #d97f02;
+$infofont: #18181a;
+$successBkg: #dff0d8;
+$dangerBkg: #fff2ed;
+$warningBkg: #fff8ed;
+$infoBkg: #edf4ff;
+$ui02: #f3f5f7;
+$primaryBtnHover: #0054d1;
+$primaryBtnFocus: #0045ac;
+$secoundaryBtnHover: rgba(137, 185, 255, 0.15);
+$secoundaryBtn: #0f67ea;
+$btnLightBlue: #71d2f4;
+$accountCardColor: #fff;
+$borderDanger: #eec5be;
+$linkHoverColor: #0054d1;
+$authBannerBGColor: #eef7ff;
+
+// dynamic fonts
+$headerFont: 14px;
+$tableHeaderFont: 12px;
+$buttonFont: 14px;
+$subHeaderFont: 14px;
+$paragraphFont: 14px;
+$smallTextFont: 12px;
+$bodyFont: 14px;
+$sidebarFont: 12px;
+$paraHeading: 16px;
+$smallHeading: 14px;
+$bigHeading: 18px;
+$h3Heading: 18px;
+$h4Heading: 16px;
+
+:root {
+  --headerFont: 14px;
+  --tableHeaderFont: 12px;
+  --buttonFont: 14px;
+  --subHeaderFont: 14px;
+  --paragraphFont: 14px;
+  --smallTextFont: 12px;
+  --bodyFont: 14px;
+  --sidebarFont: 12px;
+  --paraHeading: 16px;
+  --smallHeading: 14px;
+  --h3Heading: 18px;
+  --h4Heading: 16px;
+  --bigHeading: 18px;
+}
+
+@media (min-width: 1850px) and (max-width: 3220px) {
+  :root {
+    --headerFont: 16px;
+    --tableHeaderFont: 14px;
+    --buttonFont: 16px;
+    --subHeaderFont: 16px;
+    --paragraphFont: 16px;
+    --smallTextFont: 14px;
+    --bodyFont: 16px;
+    --sidebarFont: 14px;
+    --paraHeading: 18px;
+    --smallHeading: 16px;
+    --h3Heading: 20px;
+    --h4Heading: 18px;
+    --bigHeading: 20px;
+  }
+}

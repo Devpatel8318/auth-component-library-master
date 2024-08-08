@@ -1,0 +1,1756 @@
+@import '../globalStyle/variable.scss';
+
+.facebook_insights_counter_chield {
+  background: #edf4ff;
+  padding: 16px 16px 16px 16px;
+  border-radius: 8px;
+  min-height: 143px;
+}
+
+.timeline_hashcloud_parent {
+  a {
+    color: inherit !important;
+  }
+}
+
+.analytics-donwload {
+  .splitButton {
+    .split-btn-color-primary {
+      padding: 3px 8px 3px 16px;
+      border: 1px solid $colorPrimary;
+      border: 1px solid var(--colorPrimary);
+      border-radius: 2px !important;
+      font-size: 14px !important;
+
+      &:hover {
+        color: $colorPrimary;
+        color: var(--colorPrimary);
+        background: rgba(137, 185, 255, 0.15);
+        background: var(--secoundaryBtnHover);
+      }
+    }
+
+    .dropdown-menu {
+      left: auto !important;
+      border-radius: 2px;
+      right: -1px;
+      top: 29px !important;
+      min-width: 165px;
+
+      ul {
+        margin: 8px 0;
+      }
+
+      a {
+        font-size: 14px !important;
+        color: $colorPrimary;
+        color: var(--colorPrimary);
+      }
+    }
+  }
+}
+
+.popular-posts-container .analytics-post-table .no-record-data p {
+  display: block !important;
+}
+
+.noDataFond {
+  margin-left: 40%;
+}
+
+.noData {
+  background-color: transparent !important;
+}
+
+.noDataTable {
+  min-height: 400px;
+}
+
+.table-data-no-record {
+  width: 212px;
+}
+
+.line-height-small {
+  line-height: normal !important;
+}
+
+.insights_counter_span .insights_downgrad,
+.insights_counter_span .insights_upgrad {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.insights_counter_span .insights_upgrad span {
+  color: #0a7e0a;
+}
+
+.analytics-donwload .splitbutton-arrow svg {
+  display: none;
+}
+
+.analytics-donwload .splitbutton-arrow::after {
+  content: '';
+  background-color: $colorPrimary;
+  background-color: var(--colorPrimary);
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
+}
+
+.analytics-donwload .splitButton.show .splitbutton-arrow::after {
+  content: '';
+  background-color: $colorPrimary;
+  background-color: var(--colorPrimary);
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
+}
+
+.audience_growth_canvas {
+  canvas {
+    height: 253px !important;
+  }
+}
+
+.audience_engagement_canvas {
+  canvas {
+    height: 224px !important;
+  }
+}
+
+.stories-performance-chart {
+  canvas {
+    height: 204px !important;
+  }
+}
+
+.gender-chart {
+  canvas {
+    height: 136px !important;
+    width: 136px !important;
+  }
+}
+
+.youtube-gender-chart.gender-chart {
+  canvas {
+    height: 170px !important;
+    width: 170px !important;
+  }
+}
+
+.post_engagement_canvas {
+  height: 232px !important;
+}
+
+.twitter_engagement_canvas {
+  height: 254px !important;
+}
+
+.page_fan_canvas {
+  height: 302px !important;
+}
+
+.analyticsMainData {
+  margin-top: 25px;
+}
+
+.analytics-disable {
+  cursor: not-allowed !important;
+  opacity: 0.3;
+}
+
+.analytics-overview {
+  border-radius: 0 0 8px 8px;
+  background-color: #ffffff;
+  padding-top: 16px;
+
+  .back-link {
+    span {
+      font-size: $smallTextFont !important;
+      font-size: var(--smallTextFont) !important;
+      line-height: 14px;
+    }
+  }
+}
+
+.analytics-main {
+  margin-bottom: 26px;
+
+  // .details-bg {
+  //   padding-left: 24px;
+  //   padding-right: 24px;
+  // }
+}
+
+.edit-report-analytics.analytics-main .details-bg {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.analytics-report-main.analytics-main .details-bg {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.analytics-donwload .splitButton .dropdown-menu a {
+  padding: 8px 16px 8px 8px;
+}
+
+.analytics-donwload .splitButton .dropdown-menu li {
+  margin: 0px 4px;
+}
+
+.analytics-main .splitButton .dropdown-toggle i {
+  margin-left: 8px;
+}
+
+.analyticsImage {
+  max-width: 95% !important;
+}
+
+.fb-download-pdf {
+  svg {
+    path {
+      fill: $colorPrimary;
+      fill: var(--colorPrimary);
+      stroke: $colorPrimary;
+      stroke: var(--colorPrimary);
+    }
+  }
+}
+
+.email-pdf {
+  path {
+    fill: $colorPrimary;
+    fill: var(--colorPrimary);
+  }
+}
+
+.schedule-pdf {
+  path:first-child {
+    fill: $colorPrimary;
+    fill: var(--colorPrimary);
+    stroke: $colorPrimary;
+    stroke: var(--colorPrimary);
+  }
+
+  path:nth-child(2) {
+    fill: $colorPrimary;
+    fill: var(--colorPrimary);
+    stroke: $colorPrimary;
+    stroke: var(--colorPrimary);
+  }
+
+  path:nth-child(3) {
+    stroke: $colorPrimary;
+    stroke: var(--colorPrimary);
+  }
+
+  path:nth-child(4) {
+    fill: $colorPrimary;
+    fill: var(--colorPrimary);
+  }
+}
+
+.hashperformance-table,
+.new-followers-graph {
+  padding: 30px 0;
+  background: #fff;
+  min-height: 300px;
+}
+
+.instagram-post-table-msg {
+  width: 16%;
+}
+
+.mention-border {
+  border-bottom: 3px solid #f9f8fa;
+}
+
+.analyticsblock {
+  h5 {
+    font-weight: 600;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: $paragraphFont !important;
+    font-size: var(--paragraphFont) !important;
+    line-height: 21px;
+    margin-bottom: 4px !important;
+  }
+
+  p {
+    color: $colorGrey;
+    font-size: $smallTextFont !important;
+    font-size: var(--smallTextFont) !important;
+    line-height: 15px;
+  }
+}
+
+.es .analyticsblock .nav.nav-tabs li a {
+  padding: 4.5px 6px;
+}
+
+.analytics_report_parent {
+  background: $ui02;
+  padding: 30px 0px;
+}
+
+.analytics_container .table td {
+  word-break: break-all;
+}
+
+.load_more p {
+  margin-top: 0;
+  font-size: $paragraphFont !important;
+  font-size: var(--paragraphFont) !important;
+  margin-bottom: 0;
+}
+
+.stat-title p i {
+  margin-right: 5px;
+  font-size: 21px;
+  color: #a7a7a7;
+  margin-top: 0;
+}
+
+// .facebook_date_range {
+//   font-size: $paragraphFont !important;
+//   font-size: var(--paragraphFont) !important;
+//   margin-right: 10px;
+// }
+
+.facebook_date_range span {
+  display: block;
+  font-size: $smallTextFont !important;
+  font-size: var(--smallTextFont) !important;
+  color: $colorGrey;
+  line-height: 11px;
+}
+
+.analyticsblock {
+  .nav.nav-tabs {
+    border: 1px solid #aab5c6;
+    border-radius: 2px;
+
+    li {
+      list-style-type: none;
+      text-align: center;
+      margin-right: 0;
+      border-right: 1px solid #aab5c6;
+      font-size: 14px;
+
+      a {
+        padding: 4.5px 8px;
+        display: block;
+        color: #777a80;
+      }
+
+      &:hover {
+        background-color: rgba(137, 185, 255, 0.15);
+        border-color: #aab5c6;
+        color: $colorGrey;
+
+        a {
+          color: $colorGrey;
+        }
+      }
+    }
+  }
+}
+
+.analyticsblock {
+  .nav.nav-tabs {
+    li.active {
+      background-color: $colorPrimary;
+      background-color: var(--colorPrimary);
+      border-color: $colorPrimary;
+      border-color: var(--colorPrimary);
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.analyticsblock {
+  .nav.nav-tabs {
+    li:nth-child(2) {
+      border-right: none;
+    }
+  }
+}
+
+.analyticsblock {
+  .nav.nav-tabs {
+    li.active:first-child {
+      background-color: $colorPrimary;
+      background-color: var(--colorPrimary);
+      border-right-color: #aab5c6;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.analytics_post_table {
+  .nav-tabs {
+    li {
+      border-right: 1px solid #aab5c6 !important;
+
+      &:last-child {
+        border-right: none !important;
+      }
+
+      &:hover {
+        background-color: rgba(137, 185, 255, 0.15);
+        border-color: #aab5c6;
+        color: $colorGrey;
+
+        a {
+          color: $colorGrey;
+        }
+      }
+    }
+  }
+}
+
+.facebook_insights_counter {
+  border-bottom: 3px solid #f9f8fa;
+}
+
+.facebook_insights_counter.video_insight_counter {
+  padding-bottom: 15px;
+  margin-top: 0;
+}
+
+.instagram-stubImage {
+  width: 100%;
+}
+
+.audience_insights_table_data {
+  border-bottom: 2px solid #f9f8fa;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.audience_insights_table,
+.audience_insights_table table,
+.country_table table,
+.twitter_graph_overview_stats table,
+.user_online_table table {
+  width: 100%;
+}
+
+.analytics_post_table ul {
+  border-bottom: none;
+}
+
+.post_tab_content td:empty {
+  height: 0;
+}
+
+.scrolling-content {
+  overflow-y: auto !important;
+}
+
+.img-rounded {
+  border-radius: 2px;
+}
+
+.post_tab_content {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 0 15px 15px 15px;
+  height: auto;
+}
+
+.posts-table .scrolling-content,
+.stories-table .scrolling-content {
+  margin-top: 0px;
+}
+
+.post_tab_content tr td.first {
+  width: 11%;
+}
+
+.analytics-post-table tr th.sticky-top {
+  border-top: none;
+  background-color: #f8f9fa;
+}
+
+.post_tab_content {
+  table {
+    tbody {
+      tr {
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.search_hashcloud_parent,
+.timeline_hashcloud_parent {
+  overflow: hidden;
+}
+
+.contributors {
+  h3 {
+    font-size: $paragraphFont !important;
+    font-size: var(--paragraphFont) !important;
+    font-weight: 600;
+    line-height: 21px;
+  }
+}
+
+.no_hash_data {
+  margin-top: 9%;
+  text-align: center;
+  display: block;
+  font-size: $paragraphFont !important;
+  font-size: var(--paragraphFont) !important;
+}
+
+.hashtag_performance h3 {
+  font-size: $paragraphFont !important;
+  font-size: var(--paragraphFont) !important;
+  line-height: 21px;
+  font-weight: 600;
+}
+
+.hashtag_performance p {
+  color: $colorGrey;
+  font-size: $smallTextFont !important;
+  font-size: var(--smallTextFont) !important;
+}
+
+.insights-counter-loader {
+  text-align: center;
+  padding-top: 4%;
+}
+
+// .insights_counter_span img {
+//   height: 15px;
+// }
+
+div.jqcloud {
+  color: $colorSecondary !important;
+  color: var(--colorSecondary) !important;
+  overflow: hidden;
+  position: relative;
+  font-size: 10px;
+  line-height: normal;
+}
+
+.fa_count span {
+  font-size: 24px;
+}
+
+p.insights_counter_span {
+  font-size: $smallTextFont !important;
+  font-size: var(--smallTextFont) !important;
+  min-height: 31px;
+  // padding-right: 16px;
+}
+
+.pt .insights_counter h4 {
+  min-height: 39px;
+}
+
+.pt p.insights_counter_span {
+  min-height: 20px;
+}
+
+.table td.image-message {
+  padding: 12px;
+  word-break: break-all;
+}
+
+.table td.analytics-external-link {
+  width: 3%;
+}
+
+// .minute-counter span {
+//   padding: 0;
+// }
+
+// .video-label-loading .minute-counter {
+//   margin-top: 15px;
+// }
+
+// .video-label-loading {
+//   height: 167px;
+// }
+
+.video-counter-title .video-overview-icons {
+  background-position: 0 3px !important;
+  background-repeat: no-repeat;
+  width: 50px;
+  padding-left: 60px;
+}
+
+.video-overview-wrapper>div:first-child {
+  padding-left: 15px;
+}
+
+.video-overview-wrapper>div:first-child {
+  padding-left: 15px;
+}
+
+.video-overview-header img {
+  height: 45px;
+  width: 45px;
+}
+
+#video-performance-table td:first-child,
+#video-performance-table th:first-child {
+  width: 20%;
+  word-break: break-word;
+
+  i {
+    font-size: $smallTextFont !important;
+    font-size: var(--smallTextFont) !important;
+  }
+}
+
+.overview-blank-data {
+  min-height: 65px;
+}
+
+.instagram-post-loader .padding-rotate-top {
+  padding-top: 10px !important;
+}
+
+#video-performance-table .reconnect-errormsg {
+  padding-left: 10px;
+}
+
+.overview-title {
+  h2 {
+    font-size: $paragraphFont !important;
+    font-size: var(--paragraphFont) !important;
+    font-weight: 400;
+  }
+}
+
+.sort-table .fa-sort-up {
+  position: relative;
+  top: 5px;
+}
+
+.sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 6;
+}
+
+.table_review_message {
+  width: 64%;
+}
+
+.analytics-post-table {
+  color: $colorSecondary;
+  color: var(--colorSecondary);
+  border-top: none !important;
+  position: relative;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+
+  p {
+    font-size: $paragraphFont !important;
+    font-size: var(--paragraphFont) !important;
+    line-height: 21px;
+    color: $colorSecondary;
+    color: var(--colorSecondary);
+    display: inline !important;
+  }
+
+  svg {
+    max-width: inherit !important;
+  }
+
+  tbody {
+    position: relative;
+  }
+
+  tr {
+    border-radius: 8px;
+    margin-bottom: 20px;
+    position: relative;
+
+    th {
+      color: $colorSecondary;
+      color: var(--colorSecondary);
+      font-weight: 400;
+      border-bottom: 1px solid #b7bcc4;
+      padding: 15px 7.5px;
+      border-top: none;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    td {
+      border: none;
+      z-index: 1;
+      position: relative;
+      padding: 15px 7.5px;
+      background-color: #fff;
+    }
+  }
+
+  td:first-child,
+  td:nth-child(2) {
+    vertical-align: middle;
+  }
+}
+
+.analytics-post-table .analytics-last-button svg.boost-icon-hover path {
+  stroke: $colorPrimary;
+  stroke: var(--colorPrimary);
+}
+
+.analytics-post-table .analytics-last-button svg.reshare-icon-hover path {
+  stroke: $colorPrimary;
+  stroke: var(--colorPrimary);
+  fill: $colorPrimary;
+  fill: var(--colorPrimary);
+}
+
+.post-external-link svg path {
+  fill: $colorPrimary;
+  fill: var(--colorPrimary);
+}
+
+.de .analytics-post-table tr th {
+  padding: 15px 2.5px;
+}
+
+.analytics-post-table a:hover .analytics-last-button svg rect,
+.analytics-post-table a:hover .analytics-last-button svg:hover rect {
+  fill: #0054d1;
+}
+
+.analytics-post-table a:hover .analytics-last-button svg path,
+.analytics-post-table a:hover .analytics-last-button svg:hover path {
+  stroke: #0054d1;
+}
+
+.white-label .analytics-post-table a:hover .analytics-last-button svg rect,
+.white-label .analytics-post-table a:hover .analytics-last-button svg:hover rect {
+  fill: $colorPrimary;
+  fill: var(--colorPrimary);
+}
+
+.white-label .analytics-post-table a:hover .analytics-last-button svg.boost-icon-hover path,
+.white-label .analytics-post-table a:hover .analytics-last-button svg.boost-icon-hover:hover path {
+  stroke: $colorPrimary;
+  stroke: var(--colorPrimary);
+}
+
+.white-label .analytics-post-table a:hover .analytics-last-button svg.reshare-icon-hover path,
+.white-label .analytics-post-table a:hover .analytics-last-button svg.reshare-icon-hover:hover path {
+  fill: $colorPrimary;
+  fill: var(--colorPrimary);
+  stroke: $colorPrimary;
+  stroke: var(--colorPrimary);
+}
+
+.analytics-review-table tr td:nth-child(1) {
+  vertical-align: top !important;
+}
+
+.analytics-review-table tr td:nth-child(2) {
+  vertical-align: top !important;
+}
+
+.analytics-review-table tr td:nth-child(5) {
+  vertical-align: top !important;
+}
+
+.analytics-review-table tr th:nth-child(2) {
+  width: 10% !important;
+}
+
+.fr .analytics-review-table tr th:nth-child(2) {
+  width: 12% !important;
+}
+
+.analytics-review-table tr th.table-likes {
+  width: 9% !important;
+}
+
+.post_tab_content .analytics-post-table tbody tr {
+  background-color: transparent;
+}
+
+.analytics-post-table tr th:first-child {
+  width: 12.7%;
+}
+
+.analytics-post-table tr th:nth-child(2) {
+  width: 8%;
+}
+
+.analytics-hashtag-table tr th:nth-child(2) {
+  width: 9% !important;
+}
+
+.de .analytics-hashtag-table tr th:nth-child(2) {
+  width: 11% !important;
+}
+
+.pt .analytics-hashtag-table tr th:nth-child(2),
+.es .analytics-hashtag-table tr th:nth-child(2) {
+  width: 16% !important;
+}
+
+.fr .analytics-hashtag-table tr th:nth-child(2) {
+  width: 15% !important;
+}
+
+.de .analytics-hashtag-table tr th:nth-child(3) {
+  width: 18% !important;
+}
+
+.de .analytics-hashtag-table tr th:nth-child(4) {
+  width: 20% !important;
+}
+
+.analytics-hashtag-table tr th:nth-child(5) {
+  width: 20%;
+}
+
+.analytics-hashtag-table tr th:nth-child(6) {
+  width: 20%;
+}
+
+.facebook-analytics tr td:nth-child(8) {
+  vertical-align: middle;
+}
+
+.search-filter.stories-search {
+  width: 100%;
+}
+
+.post_tab_content table tbody tr td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.post_tab_content table tbody tr td:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.analytics-post-table tr th.table-likes {
+  width: 6%;
+}
+
+.analytics-post-table tr th.table-comments {
+  width: 9%;
+}
+
+.analytics-post-table tr th.table-watch-time {
+  width: 11%;
+}
+
+.analytics-post-table.linkedin-post-table tr th.table-comments {
+  width: 10%;
+}
+
+.es .analytics-post-table tr th.table-comments,
+.fr .analytics-post-table tr th.table-comments {
+  width: 10%;
+}
+
+.fr .analytics-post-table.linkedin-post-table tr th.table-comments {
+  width: 11%;
+}
+
+.analytics-post-table tr th.table-engagement {
+  width: 11%;
+}
+
+.it .analytics-post-table tr th.table-engagement {
+  width: 13%;
+}
+
+.analytics-post-table tr th.table-reach {
+  width: 7%;
+}
+
+.analytics-post-table tr th.table-shares {
+  width: 7%;
+}
+
+.fr .analytics-post-table tr th.table-shares {
+  width: 8%;
+}
+
+.analytics-post-table tr th.table-impression {
+  width: 11%;
+}
+
+.analytics-post-table tr th.table-impression.fb-new-row {
+  width: 12%;
+}
+
+.analytics-post-table tr th.table-impression.fb-new-row.youtube-video-comments {
+  width: 10%;
+}
+
+.fr .analytics-post-table tr th.table-impression.fb-new-row.youtube-video-comments {
+  width: 11%;
+}
+
+.pt .analytics-post-table tr th.table-impression.fb-new-row.youtube-video-comments {
+  width: 11%;
+}
+
+.analytics-post-table tr th.table-views.fb-new-row {
+  width: 12%;
+}
+
+.analytics-post-table tr th.table-reactions.fb-new-row {
+  width: 8%;
+}
+
+.analytics-post-table tr {
+  width: 10%;
+}
+
+.analytics-post-table tr th.table-reshare {
+  width: 12%;
+}
+
+.analytics-post-table tr th.table-stories-data {
+  width: 31%;
+}
+
+.analytics-post-table tr th.post-content {
+  width: 30%;
+}
+
+.analytics-post-table tr th.post-content.fb-new-table {
+  width: 28%;
+}
+
+.analytics-post-table tr th.post-content.fb-new-table.youtube-post-content {
+  width: 47%;
+}
+
+.analytics-post-table tr th.post-content-facebook {
+  width: 39%;
+}
+
+.analytics-post-table tr th.post-content-twitter {
+  width: 44%;
+}
+
+.analytics-post-table tr th.post-content-gmb {
+  width: 55%;
+}
+
+.analytics-post-table tr th.post-content-linkedin {
+  width: 50%;
+}
+
+.gmb-post-table tr th.table-views {
+  width: 8%;
+}
+
+.analytics-post-table tr th.table-back {
+  width: 7%;
+}
+
+.analytics-post-table tr th.table-exits {
+  width: 6%;
+}
+
+.analytics-post-table tr th.table-forwards {
+  width: 9%;
+}
+
+.analytics-post-table tr th.table-replies {
+  width: 7%;
+}
+
+.analytics-post-table tr td:last-child {
+  vertical-align: middle;
+}
+
+.analytics-post-table tr td:nth-last-child(2) {
+  vertical-align: middle !important;
+}
+
+.analytics-stories-table tr td:last-child {
+  vertical-align: top !important;
+}
+
+.analytics-post-table tr th.team-member-post-table-msg {
+  width: 31%;
+}
+
+.analytics-post-table tr th.instagram-reels-table-post {
+  width: 29%;
+}
+
+.analytics-post-table.instagram-post-table tr td:nth-child(9),
+.analytics-post-table.instagram-post-table tr td:nth-child(8),
+.analytics-post-table.instagram-post-table tr td:nth-child(7),
+.analytics-post-table.instagram-post-table tr td:nth-child(6),
+.analytics-post-table.instagram-post-table tr td:nth-child(5),
+.analytics-post-table.instagram-post-table tr td:nth-child(4) {
+  vertical-align: middle !important;
+}
+
+.analytics-post-table.twitter-post-table tr td:nth-child(6),
+.analytics-post-table.twitter-post-table tr td:nth-child(5),
+.analytics-post-table.twitter-post-table tr td:nth-child(4) {
+  vertical-align: middle !important;
+}
+
+.analytics-post-table.gmb-post-table tr td:nth-child(5),
+.analytics-post-table.gmb-post-table tr td:nth-child(4) {
+  vertical-align: middle !important;
+}
+
+.analytics-post-table.linkedin-post-table tr td:nth-child(6) {
+  vertical-align: middle !important;
+}
+
+.facebook-analytics-data tr td:nth-child(7),
+.facebook-analytics-data tr td:nth-child(6),
+.facebook-analytics-data tr td:nth-child(5),
+.facebook-analytics-data tr td:nth-child(4) {
+  vertical-align: middle !important;
+}
+
+.analytics-post-table tbody tr::after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  height: auto;
+  z-index: 0;
+  border-radius: 8px;
+}
+
+.heatmap-tooltip {
+  text-align: left !important;
+  padding: 10px !important;
+}
+
+.heatmap-tooltip.place-top {
+  margin-top: -6px !important;
+}
+
+.heat-map-review {
+  font-size: $smallTextFont !important;
+  font-size: var(--smallTextFont) !important;
+  font-weight: 500;
+
+  span.online-activity {
+    opacity: 0.4;
+  }
+}
+
+.linkedin-post-image img {
+  height: 50px !important;
+}
+
+.analytics-section {
+  float: right;
+}
+
+.es .analytics-post-table tr th.table-likes {
+  width: 9%;
+}
+
+.pt .analytics-post-table tr th.table-likes {
+  width: 10%;
+}
+
+.it .analytics-post-table tr th.table-likes {
+  width: 10%;
+}
+
+.de .analytics-post-table tr th.table-reach {
+  width: 10%;
+}
+
+.de .youtube-post-table.analytics-post-table tr th.table-reach {
+  width: 6%;
+}
+
+.fr .instagram-post-table tr th:nth-child(1) {
+  width: 9% !important;
+}
+
+.fr .instagram-post-table tr th:nth-child(2) {
+  width: 7% !important;
+}
+
+.it .instagram-post-table tr th.insta-post-table-likes {
+  width: 7% !important;
+}
+
+.timeline_hashcloud_parent {
+  a {
+    color: inherit !important;
+  }
+}
+
+.analytics-post-table.report-instagram-table tr th:first-child {
+  width: 9.7%;
+}
+
+.analytics-post-table.report-instagram-table tr th:nth-child(2) {
+  width: 35% !important;
+}
+
+.youtube-edit-reports .analytics-post-table tr th.post-content.fb-new-table.youtube-post-content {
+  width: 48% !important;
+}
+
+.analytics-post-table.analytics-stories-table.report-instagram-table tr th:nth-child(2) {
+  width: 45% !important;
+}
+
+.analytics-post-table.report-instagram-table tr td:nth-child(2) {
+  padding-left: 0;
+}
+
+.analytics-post-table.report-instagram-table tr td:nth-child(3),
+.analytics-post-table.analytics-stories-table.report-instagram-table tr td:nth-child(4),
+.analytics-post-table.analytics-stories-table.report-instagram-table tr td:nth-child(5),
+.analytics-post-table.analytics-stories-table.report-instagram-table tr td:nth-child(6),
+.analytics-post-table.analytics-stories-table.report-instagram-table tr td:nth-child(8) {
+  vertical-align: middle !important;
+}
+
+.analytics-post-table.report-linkedin-table tr td:nth-child(3) {
+  vertical-align: middle;
+}
+
+.analytics-post-table.report-instagram-table tr th.table-reshare {
+  width: 4%;
+}
+
+.analytics-post-table.report-linkedin-table tr th:first-child {
+  width: 9.7%;
+}
+
+.analytics-post-table.report-linkedin-table tr th.post-content-linkedin {
+  width: 54%;
+}
+
+.analytics-post-table.report-linkedin-table tr th.table-watch-time {
+  width: 13%;
+}
+
+.analytics-post-table.linkedin-post-table.report-linkedin-table tr th.table-comments {
+  width: 11.2%;
+}
+
+.analytics-post-table.report-linkedin-table tr th.table-likes {
+  width: 7.2%;
+}
+
+.analytics-hashtag-table.reports-hashtag-table tr th:nth-child(2) {
+  width: 14% !important;
+}
+
+.analytics-hashtag-table.reports-hashtag-table tr th:nth-child(3) {
+  width: 17% !important;
+}
+
+.analytics-hashtag-table.reports-hashtag-table tr th:nth-child(4) {
+  width: 22% !important;
+}
+
+.analytics-review-table.report-review-table tr th.table-likes.answered {
+  width: 11% !important;
+}
+
+.analytics-review-table.report-review-table tr th:nth-child(3) {
+  width: 16% !important;
+}
+
+.analytics-post-table.report-review-table tr th.post-content-gmb {
+  width: 50%;
+}
+
+.report-instagram-table.analytics-post-table tr th {
+  white-space: nowrap;
+}
+
+.analytics-post-table.report-twitter-table tr th.table-likes {
+  width: 7.5%;
+}
+
+.analytics-post-table.report-twitter-table tr th.table-comments {
+  width: 10%;
+}
+
+.analytics-post-table.report-twitter-table tr th:first-child {
+  width: 9.7%;
+}
+
+.analytics-post-table.report-twitter-table tr th.table-engagement {
+  width: 13%;
+}
+
+.analytics-post-table.report-twitter-table tr th.post-content-twitter {
+  width: 51%;
+}
+
+.analytics-post-table.report-twitter-table tr td:nth-child(3) {
+  vertical-align: middle;
+}
+
+.report-actions-total {
+  margin-right: 15px;
+}
+
+.es .youtube-post-table.analytics-post-table tr th.table-reach {
+  width: 9%;
+}
+
+.es .youtube-post-table.analytics-post-table tr th.table-impression.fb-new-row.youtube-video-comments {
+  width: 12%;
+}
+
+.es .analytics-post-table tr th.post-content.fb-new-table.youtube-post-content {
+  width: 44%;
+}
+
+.card-columns.chart-analytics-card-columns {
+  grid-template-columns: repeat(2, 1fr);
+
+  .card {
+    border-radius: 8px;
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .analytics_container .page-container {
+    margin: 0;
+  }
+
+  // .daterange-dropdown,
+  // .stat-title {
+  //   margin-top: 15px;
+  // }
+
+  .account_submit .btn {
+    padding: 8px;
+  }
+
+  .analytics-donwload {
+    margin-top: 25px !important;
+  }
+
+  .analytics_container .table td {
+    word-break: normal !important;
+  }
+
+  .analytics_post_table {
+    float: none;
+  }
+
+  .analytics_post_table ul li {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 1366px) and (min-width: 1280px) {
+  .analytics-post-table.report-instagram-table tr th:nth-child(2) {
+    width: 28% !important;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-likes {
+    width: 8.2%;
+  }
+
+  .analytics-post-table.linkedin-post-table.report-linkedin-table tr th.table-comments {
+    width: 13.2%;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-watch-time {
+    width: 14%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-comments {
+    width: 12%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-engagement {
+    width: 14%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-likes {
+    width: 8.5%;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 13% !important;
+  }
+
+  .analytics-post-table.report-review-table tr th.post-content-gmb {
+    width: 48%;
+  }
+
+  .report-actions-total {
+    margin-right: 16px;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(4) {
+    width: 23% !important;
+  }
+}
+
+@media only screen and (max-width: 1439px) and (min-width: 1024px) {
+  .container {
+    max-width: 846px;
+    margin: 0 auto;
+  }
+
+  .analytics_container img {
+    max-width: 100%;
+  }
+
+  .analytics_container table img {
+    max-width: inherit;
+  }
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 768px) {
+  .analytics-post-table tr th:first-child {
+    width: 17.7%;
+  }
+
+  .analytics-post-table.twitter-post-table.report-twitter-table tr th:first-child {
+    width: 11.7%;
+  }
+
+  .analytics-post-table tr th.post-content {
+    width: 24%;
+  }
+
+  .analytics-post-table tr th.table-likes {
+    width: 9%;
+  }
+
+  .analytics-post-table tr th.table-likes.answered {
+    width: 11% !important;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.table-likes {
+    width: 8.5%;
+  }
+
+  .es .analytics-post-table.linkedin-post-table tr th.table-likes {
+    width: 10%;
+  }
+
+  .analytics-post-table tr th.table-shares {
+    width: 10%;
+  }
+
+  .pt .analytics-post-table.youtube-post-table tr th.table-shares {
+    width: 10%;
+  }
+
+  .analytics-post-table tr th.table-reach {
+    width: 10%;
+  }
+
+  .analytics-post-table tr th.table-impression {
+    width: 15%;
+  }
+
+  .analytics-post-table tr th.table-impression.fb-new-row {
+    width: 4%;
+  }
+
+  .analytics-post-table tr th.table-views.fb-new-row {
+    width: 4%;
+  }
+
+  .analytics-post-table tr th.table-reactions.fb-new-row {
+    width: 12%;
+  }
+
+  .analytics-post-table.twitter-post-table tr th.table-comments {
+    width: 12%;
+  }
+
+  .analytics-post-table tr th.post-content-twitter {
+    width: 39%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.post-content-twitter {
+    width: 39%;
+  }
+
+  .analytics-post-table.twitter-post-table tr th.table-engagement {
+    width: 14%;
+  }
+
+  .analytics-post-table.gmb-post-table tr th.table-comments {
+    width: 12%;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.table-comments,
+  .es .analytics-post-table.linkedin-post-table tr th.table-comments {
+    width: 15.5%;
+  }
+
+  .pt .analytics-post-table.linkedin-post-table tr th.table-comments {
+    width: 14%;
+  }
+
+  .analytics-post-table tr th.post-content-linkedin {
+    width: 45%;
+  }
+
+  .fr .analytics-post-table tr th.post-content-linkedin,
+  .pt .analytics-post-table tr th.post-content-linkedin,
+  .es .analytics-post-table tr th.post-content-linkedin {
+    width: 40%;
+  }
+
+  .analytics-post-table tr th.table-watch-time {
+    width: 13%;
+  }
+
+  .fr .analytics-post-table tr th.table-watch-time,
+  .es .analytics-post-table tr th.table-watch-time {
+    width: 20%;
+  }
+
+  .pt .analytics-post-table tr th.table-watch-time {
+    width: 13%;
+  }
+
+  .gmb-post-table tr th.table-views {
+    width: 9%;
+  }
+
+  .analytics-post-table tr th.post-content-gmb {
+    width: 45%;
+  }
+
+  .edit-report-post-content {
+    width: 800px;
+    overflow: scroll;
+  }
+
+  .less-then-row-table {
+    overflow: auto;
+    width: 100%;
+  }
+
+  .analytics-post-table.report-instagram-table tr th:nth-child(2) {
+    width: 28% !important;
+  }
+
+  .analytics-post-table.report-instagram-table tr th.table-stories-data {
+    width: 35% !important;
+  }
+
+  .mb-ipad-16 {
+    margin-bottom: 16px;
+  }
+
+  .card-columns.analytics-card-columns.reports-like-comments-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-columns.chart-analytics-card-columns.report-column-engagement {
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 30px;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-likes {
+    width: 9%;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-likes {
+    width: 8.2% !important;
+  }
+
+  .analytics-post-table.linkedin-post-table.report-linkedin-table tr th.table-comments {
+    width: 13.2% !important;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-watch-time {
+    width: 14% !important;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(2) {
+    width: 23% !important;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(3) {
+    width: 29% !important;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(4) {
+    width: 33% !important;
+  }
+
+  .analytics-post-table.report-review-table tr th.post-content-gmb {
+    width: 43%;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 13% !important;
+  }
+
+  .no-data-table {
+    .edit-report-post-content {
+      width: auto !important;
+    }
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(3) {
+    width: 17% !important;
+  }
+
+  .analytics-post-table.report-review-table tr th.post-content-gmb {
+    width: 41%;
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(2) {
+    width: 12% !important;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 15% !important;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-device-width: 1100px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .fr .analytics-post-table tr th.table-shares {
+    width: 11%;
+  }
+
+  .fr .analytics-post-table tr th.table-reshare {
+    width: 15%;
+  }
+
+  .analytics-post-table tr th:first-child {
+    width: 15%;
+  }
+
+  .analytics-post-table tr th.table-likes {
+    width: 7.5%;
+  }
+
+  .analytics-post-table tr th.table-reach {
+    width: 8.3%;
+  }
+
+  .analytics-post-table tr th.table-impression {
+    width: 13%;
+  }
+
+  .analytics-post-table tr th.table-impression.fb-new-row {
+    width: 14%;
+  }
+
+  .analytics-post-table tr th.table-views.fb-new-row {
+    width: 14%;
+  }
+
+  .analytics-post-table tr th.table-reactions.fb-new-row {
+    width: 10%;
+  }
+
+  .edit-report-post-content {
+    width: 800px;
+    overflow: scroll;
+  }
+
+  .no-data-table {
+    .edit-report-post-content {
+      width: auto !important;
+    }
+  }
+
+  .less-then-row-table {
+    overflow: auto;
+    width: 100%;
+  }
+
+  .analytics-post-table.report-instagram-table tr th:nth-child(2) {
+    width: 28% !important;
+  }
+
+  .analytics-post-table.report-instagram-table tr th.table-stories-data {
+    width: 35% !important;
+  }
+
+  .mb-ipad-16 {
+    margin-bottom: 16px;
+  }
+
+  .card-columns.analytics-card-columns.reports-like-comments-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-columns.chart-analytics-card-columns.report-column-engagement {
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 15px;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-likes {
+    width: 9%;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(2) {
+    width: 23% !important;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(3) {
+    width: 29% !important;
+  }
+
+  .analytics-hashtag-table.reports-hashtag-table tr th:nth-child(4) {
+    width: 33% !important;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 13% !important;
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(3) {
+    width: 18% !important;
+  }
+
+  .analytics-post-table.report-review-table tr th.post-content-gmb {
+    width: 42%;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 19% !important;
+  }
+
+  .analytics-post-table.twitter-post-table tr th.table-comments {
+    width: 13%;
+  }
+
+  .analytics-post-table.twitter-post-table tr th.table-engagement {
+    width: 15%;
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(2) {
+    width: 11% !important;
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(2) {
+    width: 12% !important;
+  }
+}
+
+@media only screen and (max-width: 1366px) and (min-width: 1280px) {
+  .analytics-post-table tr th.instagram-reels-table-post {
+    width: 23%;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.post-content-linkedin,
+  .pt .analytics-post-table.linkedin-post-table tr th.post-content-linkedin,
+  .es .analytics-post-table.linkedin-post-table tr th.post-content-linkedin {
+    width: 48%;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.table-likes {
+    width: 7%;
+  }
+
+  .pt .analytics-post-table.linkedin-post-table tr th.table-likes {
+    width: 8%;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.table-comments,
+  .pt .analytics-post-table.linkedin-post-table tr th.table-comments,
+  .es .analytics-post-table.linkedin-post-table tr th.table-comments {
+    width: 12%;
+  }
+
+  .fr .analytics-post-table.linkedin-post-table tr th.watch-time,
+  .pt .analytics-post-table.linkedin-post-table tr th.watch-time,
+  .es .analytics-post-table.linkedin-post-table tr th.watch-time {
+    width: 11%;
+  }
+}
+
+@media only screen and (max-width: 2200px) and (min-width: 1920px) {
+  .analytics-post-table tr th.instagram-reels-table-post {
+    width: 24%;
+  }
+
+  .analytics-hashtag-table tr th:nth-child(2) {
+    width: 11% !important;
+  }
+
+  .analytics-post-table.report-instagram-table tr th:nth-child(2) {
+    width: 25% !important;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-watch-time {
+    width: 14%;
+  }
+
+  .analytics-post-table.linkedin-post-table.report-linkedin-table tr th.table-comments {
+    width: 13.2%;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th.table-likes {
+    width: 7.8%;
+  }
+
+  .analytics-post-table.report-linkedin-table tr th .gmb.table-comments {
+    width: 12.2%;
+  }
+
+  .analytics-review-table.report-review-table tr th.table-likes.answered {
+    width: 13% !important;
+  }
+
+  .analytics-post-table.report-review-table tr th.post-content-gmb {
+    width: 48%;
+  }
+
+  .analytics-review-table.report-review-table tr th:nth-child(2) {
+    width: 11% !important;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-engagement {
+    width: 14%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-comments {
+    width: 11%;
+  }
+
+  .analytics-post-table.report-twitter-table tr th.table-likes {
+    width: 8.5%;
+  }
+}

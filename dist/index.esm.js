@@ -1,14 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React, { PureComponent, useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
 
 function HelloWorld() {
-  return /*#__PURE__*/React.createElement("h1", null, "Hello World 1234");
+  return /*#__PURE__*/React.createElement("h1", {
+    className: "mfa-password-error"
+  }, "Hello World 1234");
 }
 
-// import generateMfaQrLink from 'services/cognito/generateMfaQrLink';
-// import Button from 'sharedComponents/pureComponent(stateless)/Buttons/Button';
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
+class Button extends PureComponent {
+  render() {
+    const {
+      bsClass,
+      children,
+      disabled,
+      onClick,
+      href,
+      type,
+      id,
+      form,
+      dataToggle,
+      dataDismiss,
+      ariaHidden,
+      style,
+      ariaHaspopup,
+      ariaExpanded,
+      name,
+      ariaLabel,
+      dataTest,
+      key,
+      dataSize,
+      onMouseEnter,
+      onMouseLeave,
+      variant,
+      isLoading,
+      autofocus,
+      innerRefBtn,
+      noTabIndex,
+      tabIdx
+    } = this.props;
+    if (href) {
+      let redirectLink = href;
+      if (this.isExtension()) {
+        const {
+          pathname,
+          search
+        } = window.location;
+        redirectLink = `${pathname}${search}`;
+      }
+      return /*#__PURE__*/React.createElement("div", {
+        to: redirectLink,
+        className: bsClass,
+        onClick: onClick,
+        disabled: disabled,
+        style: style
+      }, children);
+    }
+    return (
+      /*#__PURE__*/
+      // eslint-disable-next-line react/button-has-type
+      React.createElement("button", _extends({
+        type: type,
+        className: bsClass,
+        disabled: disabled || isLoading,
+        onClick: onClick,
+        id: id || null,
+        form: form || null,
+        "data-toggle": dataToggle,
+        "data-dismiss": dataDismiss,
+        "aria-hidden": ariaHidden,
+        style: style,
+        name: name,
+        "aria-label": ariaLabel,
+        "aria-haspopup": ariaHaspopup,
+        "aria-expanded": ariaExpanded,
+        "data-test": dataTest,
+        key: key,
+        "data-size": dataSize,
+        onMouseEnter: onMouseEnter,
+        onMouseLeave: onMouseLeave,
+        variant: variant
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        ,
+        autoFocus: autofocus,
+        ref: innerRefBtn
+      }, noTabIndex ? {
+        tabIndex: '-1'
+      } : {}, tabIdx ? {
+        tabIndex: tabIdx
+      } : {}), children)
+    );
+  }
+}
 
 function QRScreen(_ref) {
+  let {
+    next,
+    userEmail
+  } = _ref;
   const [qrLink, setQRLink] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -19,7 +117,7 @@ function QRScreen(_ref) {
       //     userEmail
       // );
       const qrLinkResponse = {
-        qrLink: 'otpauth://totp/socialPilot:DevPatel?secret=HYR2QAW…4JIY7OVGNT4RRHA7Z4SA5OUMRQU5WQ&issuer=socialPilot'
+        qrLink: 'https://www.geeksforgeeks.org/how-to-generate-qr-code-using-react-qr-code-in-reactjs/'
       };
       if (!qrLinkResponse.error) {
         const {
@@ -58,7 +156,12 @@ function QRScreen(_ref) {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col d-flex justify-content-end"
-  }, "Next"))));
+  }, /*#__PURE__*/React.createElement(Button, {
+    bsClass: `btn btn-primary btn-medium`,
+    disabled: false,
+    variant: "primary",
+    onClick: next
+  }, "Next")))));
 }
 
 export { HelloWorld, QRScreen };

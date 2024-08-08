@@ -1,0 +1,145 @@
+.fa,
+.far,
+.fas {
+  font-family: 'Font Awesome 5 Free';
+}
+.fa-vk-group:before {
+  content: '\f189';
+}
+
+.fa-calendar:before {
+  content: '\f073';
+}
+.fa-suitcase,
+.fa.briefcase_round,
+.fa-group {
+  font-family: 'Font Awesome 5 Free';
+}
+.fa-suitcase:before {
+  content: '\f0f2' !important;
+}
+.fa-group:before {
+  content: '\F0C0';
+}
+.fa-buffer:before {
+  content: '\f837';
+}
+//Social Account Icons//
+
+i.twitter_round {
+  background: #55acee;
+}
+i.linkedin_round {
+  background: #0076b2;
+}
+i.facebook-official_round,
+i.facebook_round,
+i.bullhorn_round {
+  background: #3a5a99;
+}
+i.instagram_round {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+}
+i.pinterest-p_round,
+i.fa-pinterest {
+  background: #bd081c;
+}
+
+i.suitcase_round {
+  background: #275595;
+}
+i.tumblr_round {
+  background: #314358;
+}
+i.vk-group_round,
+i.vk_round {
+  background: #4c75a3;
+}
+i.buffer_round {
+  background: #000;
+}
+i.users_round {
+  background: #487bb0;
+}
+i.twitter_round,
+i.facebook-official_round,
+i.facebook_round,
+i.bullhorn_round,
+i.instagram_round,
+i.linkedin_round,
+i.linkedin-pages_round,
+i.pinterest-p_round,
+i.fa-pinterest,
+i.briefcase_round,
+i.suitcase_round,
+i.tumblr_round,
+i.vk_round,
+i.fa-vk-group,
+i.buffer_round,
+i.vk-group_round,
+i.fa-buffer,
+i.users_round {
+  border-radius: 2px;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  height: 16px;
+  left: 20px;
+  line-height: 16px !important;
+  margin-right: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 16px !important;
+}
+
+.onlyicon i.twitter_round,
+.onlyicon i.facebook-official_round,
+.onlyicon i.facebook_round,
+.onlyicon i.bullhorn_round,
+.onlyicon i.instagram_round,
+.onlyicon i.linkedin_round,
+.onlyicon i.linkedin-pages_round,
+.onlyicon i.pinterest-p_round,
+.onlyicon i.fa-pinterest,
+.onlyicon i.briefcase_round,
+.onlyicon i.suitcase_round,
+.onlyicon i.tumblr_round,
+.onlyicon i.vk_round,
+.onlyicon i.fa-vk-group,
+.onlyicon i.buffer_round,
+.onlyicon i.vk-group_round,
+.onlyicon i.fa-buffer,
+.onlyicon i.users_round {
+  border-radius: 2px;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  height: 16px;
+  line-height: 16px !important;
+  margin-right: 8px !important;
+  text-align: center;
+  width: 16px !important;
+  position: relative;
+  left: auto;
+  top: -1px;
+}
+.onlyicon i.fa-tik-tok {
+  position: relative;
+  top: 3px;
+  left: 0;
+}
+.onlyicon i.fa-instagram-business {
+  position: relative;
+  top: 1px;
+  left: 0;
+}
+.accountv2-select .onlyicon i.fa-tik-tok,
+.accountv2-select .onlyicon i.fa-instagram-business {
+  top: 0;
+}

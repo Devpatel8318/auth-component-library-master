@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 // import generateMfaQrLink from 'services/cognito/generateMfaQrLink';
-// import Button from 'sharedComponents/pureComponent(stateless)/Buttons/Button';
+import Button from './deleteLater/Button';
+import './index.scss';
 
 function QRScreen({ next, userEmail }) {
     const [qrLink, setQRLink] = useState('');
@@ -15,7 +16,7 @@ function QRScreen({ next, userEmail }) {
             //     userEmail
             // );
             const qrLinkResponse = {
-                qrLink: 'otpauth://totp/socialPilot:DevPatel?secret=HYR2QAW…4JIY7OVGNT4RRHA7Z4SA5OUMRQU5WQ&issuer=socialPilot',
+                qrLink: 'https://www.geeksforgeeks.org/how-to-generate-qr-code-using-react-qr-code-in-reactjs/',
             };
             if (!qrLinkResponse.error) {
                 const { qrLink } = qrLinkResponse;
@@ -58,14 +59,14 @@ function QRScreen({ next, userEmail }) {
                 </div>
                 <div className="row">
                     <div className="col d-flex justify-content-end">
-                        {/* <Button
+                        <Button
                             bsClass={`btn btn-primary btn-medium`}
                             disabled={false}
                             variant="primary"
                             onClick={next}
-                        > */}
-                        Next
-                        {/* </Button> */}
+                        >
+                            Next
+                        </Button>
                     </div>
                 </div>
             </div>

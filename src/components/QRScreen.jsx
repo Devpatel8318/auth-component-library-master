@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
-// import generateMfaQrLink from 'services/cognito/generateMfaQrLink';
-import Button from './deleteLater/Button';
-import './index.scss';
 
-function QRScreen({ next, userEmail }) {
+function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
     const [qrLink, setQRLink] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const getQrLink = async () => {
             setIsLoading(true);
-            // const qrLinkResponse = await generateMfaQrLink(
-            //     'SocialPilot',
-            //     userEmail
-            // );
-            const qrLinkResponse = {
-                qrLink: 'https://www.geeksforgeeks.org/how-to-generate-qr-code-using-react-qr-code-in-reactjs/',
-            };
+            const qrLinkResponse = await generateMfaQrLink(
+                'SocialPilot',
+                userEmail
+            );
             if (!qrLinkResponse.error) {
                 const { qrLink } = qrLinkResponse;
                 setQRLink(qrLink);

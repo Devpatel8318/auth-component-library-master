@@ -113,3 +113,4 @@ docs/year_dropdown.md
 package-lock.json
 scripts/.DS_Store
 .DS_Store
+.npmrc

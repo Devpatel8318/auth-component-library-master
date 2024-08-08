@@ -4,7 +4,7 @@
         "./dist"
     ],
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://registry.npmjs.org/"
     },
     "repository": "git://github.com/Devpatel8318/auth-component-library-master",
     "version": "1.0.0",

@@ -10,7 +10,7 @@ const RecoveryEmail = ({
     FormControl,
     emailTester,
     DisplayText,
-    getLocalizeTest,
+    getLocalizeText,
 }) => {
     const [recoveryEmail, setRecoveryEmail] = useState('');
     const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -33,7 +33,7 @@ const RecoveryEmail = ({
             false,
             emailTester,
             DisplayText,
-            getLocalizeTest
+            getLocalizeText
         );
         if (error) {
             setRecoveryEmailError(error);

@@ -286,7 +286,7 @@ const RecoveryEmail = _ref => {
     FormControl,
     emailTester,
     DisplayText,
-    getLocalizeTest
+    getLocalizeText
   } = _ref;
   const [recoveryEmail, setRecoveryEmail] = React.useState('');
   const [recoveryEmailError, setRecoveryEmailError] = React.useState('');
@@ -300,7 +300,7 @@ const RecoveryEmail = _ref => {
   };
   React.useEffect(() => {
     if (!recoveryEmail) return setRecoveryEmailError('');
-    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeTest);
+    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeText);
     if (error) {
       setRecoveryEmailError(error);
     }

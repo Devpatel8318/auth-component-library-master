@@ -277,7 +277,7 @@ const RecoveryEmail = _ref => {
     FormControl,
     emailTester,
     DisplayText,
-    getLocalizeTest
+    getLocalizeText
   } = _ref;
   const [recoveryEmail, setRecoveryEmail] = useState('');
   const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -291,7 +291,7 @@ const RecoveryEmail = _ref => {
   };
   useEffect(() => {
     if (!recoveryEmail) return setRecoveryEmailError('');
-    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeTest);
+    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeText);
     if (error) {
       setRecoveryEmailError(error);
     }

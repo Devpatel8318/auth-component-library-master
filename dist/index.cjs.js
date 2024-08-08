@@ -293,9 +293,6 @@ const RecoveryEmail = _ref => {
   const recoveryEmailInputRef = React.useRef(null);
   const handleRecoveryEmailChange = e => {
     setRecoveryEmailError('');
-    if (!e.target.value) {
-      return;
-    }
     setRecoveryEmail(e.target.value.trim());
   };
   React.useEffect(() => {

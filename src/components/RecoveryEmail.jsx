@@ -18,9 +18,6 @@ const RecoveryEmail = ({
 
     const handleRecoveryEmailChange = (e) => {
         setRecoveryEmailError('');
-        if (!e.target.value) {
-            return;
-        }
         setRecoveryEmail(e.target.value.trim());
     };
 

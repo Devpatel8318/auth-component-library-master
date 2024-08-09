@@ -7,13 +7,14 @@
         "registry": "https://registry.npmjs.org/"
     },
     "repository": "git://github.com/Devpatel8318/auth-component-library-master",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "main": "dist/index.cjs.js",
     "module": "dist/index.esm.js",
     "source": "src/index.js",
     "dependencies": {
-        "react-scripts": "3.4.3",
-        "react-qr-code": "^2.0.15"
+        "react-intl": "6.0.4",
+        "react-qr-code": "^2.0.15",
+        "react-scripts": "3.4.3"
     },
     "scripts": {
         "build": "rollup -c",

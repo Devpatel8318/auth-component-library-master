@@ -48,7 +48,7 @@ function QRScreen(_ref) {
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "col-lg-12 text-center mt-2 mfa-qr-container p-0"
   }, isLoading ? /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "qr-code-loader"
+    className: "qr-code-loader mb-8"
   }) : /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mb-8"
   }, /*#__PURE__*/React__default["default"].createElement(QRCode__default["default"], {

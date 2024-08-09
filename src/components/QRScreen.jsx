@@ -28,7 +28,7 @@ function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
                 <div className="row justify-content-center">
                     <div className="col-lg-12 text-center mt-2 mfa-qr-container p-0">
                         {isLoading ? (
-                            <div className="qr-code-loader" />
+                            <div className="qr-code-loader mb-8" />
                         ) : (
                             <div className="mb-8">
                                 <QRCode size={200} value={qrLink} />

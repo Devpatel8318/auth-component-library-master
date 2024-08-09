@@ -705,8 +705,8 @@ const MfaModalHOCWrapper = _ref2 => {
 };
 
 exports.HelloWorld = HelloWorld;
+exports.MfaModal = MfaModalHOCWrapper;
 exports.OtpInput = OtpInput;
 exports.OtpVerification = OtpVerification;
 exports.QRScreen = QRScreen;
 exports.RecoveryEmail = RecoveryEmail;
-exports.mfaModal = MfaModalHOCWrapper;

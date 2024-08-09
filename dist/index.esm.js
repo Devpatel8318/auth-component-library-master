@@ -695,4 +695,4 @@ const MfaModalHOCWrapper = _ref2 => {
   return /*#__PURE__*/React.createElement(WrappedComponent, props);
 };
 
-export { HelloWorld, OtpInput, OtpVerification, QRScreen, RecoveryEmail, MfaModalHOCWrapper as mfaModal };
+export { HelloWorld, MfaModalHOCWrapper as MfaModal, OtpInput, OtpVerification, QRScreen, RecoveryEmail };

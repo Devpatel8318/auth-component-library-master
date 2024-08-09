@@ -523,7 +523,7 @@ const MfaModal = _ref => {
     }
   };
   const handleEmailVerifyOtp = async code => {
-    const newRecoveryEmail = onlyVerifyEmail ? recoveryEmail : recoveryEmailRef?.current;
+    const newRecoveryEmail = onlyVerifyEmail ? recoveryEmail : recoveryEmailRef && recoveryEmailRef.current;
     try {
       const response = await callAPI(`${API_AUTH_BASE_URL}/user/verify/otp`, 'POST', {
         recoveryEmail: newRecoveryEmail,
@@ -686,14 +686,13 @@ const MfaModal = _ref => {
     defaultMessage: getLocalizeText(GlobalDisplayTexts.DISCARD)
   }))), getModalContent());
 };
-const wrappedComponent = props => {
-  console.log(355, {
-    props
-  });
-  const {
-    HOCUnsavePrompt
-  } = props;
-  return HOCUnsavePrompt(MfaModal);
+const MfaModalHOCWrapper = _ref2 => {
+  let {
+    HOC,
+    ...props
+  } = _ref2;
+  const WrappedComponent = HOC(MfaModal);
+  return /*#__PURE__*/React.createElement(WrappedComponent, props);
 };
 
-export { HelloWorld, OtpInput, OtpVerification, QRScreen, RecoveryEmail, wrappedComponent as mfaModal };
+export { HelloWorld, OtpInput, OtpVerification, QRScreen, RecoveryEmail, MfaModalHOCWrapper as mfaModal };

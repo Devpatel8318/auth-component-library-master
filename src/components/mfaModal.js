@@ -188,7 +188,7 @@ const MfaModal = ({
     const handleEmailVerifyOtp = async (code) => {
         const newRecoveryEmail = onlyVerifyEmail
             ? recoveryEmail
-            : recoveryEmailRef?.current;
+            : recoveryEmailRef && recoveryEmailRef.current;
 
         try {
             const response = await callAPI(

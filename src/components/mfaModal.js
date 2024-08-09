@@ -389,10 +389,9 @@ const MfaModal = ({
     );
 };
 
-const wrappedComponent = (props) => {
-    console.log(355, { props });
-    const { HOCUnsavePrompt } = props;
-    return HOCUnsavePrompt(MfaModal);
+const MfaModalHOCWrapper = ({ HOC, ...props }) => {
+    const WrappedComponent = HOC(MfaModal);
+    return <WrappedComponent {...props} />;
 };
 
-export default wrappedComponent;
+export default MfaModalHOCWrapper;

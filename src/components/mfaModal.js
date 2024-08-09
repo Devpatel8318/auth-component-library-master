@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import RecoveryEmail from './RecoveryEmail';
-import QRScreen from './QRScreen';
-import OtpVerification from './OtpVerification';
+import RecoveryEmail from './RecoveryEmail.jsx';
+import QRScreen from './QRScreen.jsx';
+import OtpVerification from './OtpVerification.jsx';
 
 // as props
 const MfaModal = ({

@@ -695,4 +695,192 @@ const MfaModalHOCWrapper = _ref2 => {
   return /*#__PURE__*/React.createElement(WrappedComponent, props);
 };
 
-export { HelloWorld, MfaModalHOCWrapper as MfaModal, OtpInput, OtpVerification, QRScreen, RecoveryEmail };
+const ConfirmPasswordModal = _ref => {
+  let {
+    onCloseModal,
+    onPasswordConfirm,
+    userEmail,
+    primaryText,
+    SPModal,
+    Button,
+    cognitoSignIn,
+    SpinnerSmallLoader,
+    FormControl
+  } = _ref;
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const passwordInputRef = useRef(null);
+  useEffect(() => {
+    if (passwordInputRef.current) {
+      passwordInputRef.current.focus();
+    }
+  }, []);
+  const handlePasswordChange = e => {
+    setPasswordError('');
+    setPassword(e.target.value);
+  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    setPasswordError('');
+    const {
+      success,
+      error
+    } = await cognitoSignIn(userEmail, password, 1, true);
+    setIsLoading(false);
+    if (error) {
+      setPasswordError(error);
+    }
+    if (success) {
+      onPasswordConfirm();
+    }
+  };
+  return /*#__PURE__*/React.createElement(SPModal, {
+    showModal: true,
+    onCloseModal: onCloseModal,
+    closeOnOverlayClick: false,
+    closeIcon: true,
+    closeOnEsc: true,
+    title: "Confirm Password",
+    classNames: {
+      modal: 'popup-bg mfa-password-modal'
+    },
+    styles: {
+      modal: {
+        width: '442px'
+      }
+    }
+  }, /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleSubmit,
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-lg-12"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "row mb-40"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-lg-12 text-center"
+  }, /*#__PURE__*/React.createElement("h5", {
+    className: "mfa-password-text mb-8 text-grey mt-0"
+  }, primaryText), /*#__PURE__*/React.createElement("h3", {
+    className: "mfa-password-email mb-2 mt-0"
+  }, userEmail), /*#__PURE__*/React.createElement("div", {
+    className: "form-group mb-0 position-relative"
+  }, /*#__PURE__*/React.createElement(FormControl, {
+    type: "password",
+    id: "mfa-confirm-password",
+    ref: passwordInputRef,
+    hasError: passwordError,
+    labelText: 'password',
+    errorMessage: passwordError,
+    name: "confirmPassword",
+    value: password,
+    onChange: handlePasswordChange,
+    bsClass: `text-center mfa-password-input-box`
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `invalid-feedback ${passwordError ? 'd-block' : ''}`
+  }, passwordError), isLoading && /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 input-spinner-loader"
+  }, /*#__PURE__*/React.createElement(SpinnerSmallLoader, {
+    className: "circular-spinner mr-8"
+  }))))), /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col d-flex justify-content-end"
+  }, /*#__PURE__*/React.createElement(Button, {
+    bsClass: "btn btn-primary btn-medium",
+    disabled: isLoading,
+    variant: "primary",
+    type: "submit"
+  }, "Confirm"))))));
+};
+
+const MfaSetupFlow = _ref => {
+  let {
+    userEmail,
+    isMfaEnabled,
+    onCloseModal,
+    onMfaEnableStepComplete,
+    onRecoveryEmailEnableStepComplete,
+    isOwner,
+    onlyVerifyCode,
+    onlyVerifyCodeSuccess,
+    setupNewAuthenticator,
+    setupNewAuthenticatorSuccess,
+    recoveryEmail,
+    onlyVerifyEmail,
+    showResendOption,
+    // new props
+    SPModal,
+    Button,
+    HOCUnsavePrompt,
+    DiscardMessage,
+    DisplayText,
+    getLocalizeText,
+    GlobalDisplayTexts,
+    TOTPVerificationSignIn,
+    verifyTOTPSetupCode,
+    callAPI,
+    API_AUTH_BASE_URL,
+    emailTester,
+    SpinnerSmallLoader,
+    FormControl,
+    generateMfaQrLink,
+    MfaOtpLockIcon,
+    EmailOtpLock,
+    sharedDisplayText,
+    FormattedMessage,
+    cognitoSignIn
+  } = _ref;
+  const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(true);
+  const onPasswordConfirm = () => {
+    setIsPasswordConfirmed(true);
+  };
+  return /*#__PURE__*/React.createElement(React.Fragment, null, isPasswordConfirmed ? /*#__PURE__*/React.createElement(MfaModalHOCWrapper, {
+    HOC: HOCUnsavePrompt,
+    closeModal: onCloseModal,
+    userEmail: userEmail,
+    isMfaEnabled: isMfaEnabled,
+    onMfaEnableStepComplete: onMfaEnableStepComplete,
+    onRecoveryEmailEnableStepComplete: onRecoveryEmailEnableStepComplete,
+    isOwner: isOwner,
+    onlyVerifyCode: onlyVerifyCode,
+    onlyVerifyCodeSuccess: onlyVerifyCodeSuccess,
+    setupNewAuthenticator: setupNewAuthenticator,
+    recoveryEmail: recoveryEmail,
+    setupNewAuthenticatorSuccess: setupNewAuthenticatorSuccess,
+    onlyVerifyEmail: onlyVerifyEmail,
+    showResendOption: showResendOption,
+    sharedDisplayText: sharedDisplayText,
+    FormControl: FormControl,
+    generateMfaQrLink: generateMfaQrLink,
+    SPModal: SPModal,
+    Button: Button,
+    DiscardMessage: DiscardMessage,
+    DisplayText: DisplayText,
+    getLocalizeText: getLocalizeText,
+    GlobalDisplayTexts: GlobalDisplayTexts,
+    TOTPVerificationSignIn: TOTPVerificationSignIn,
+    verifyTOTPSetupCode: verifyTOTPSetupCode,
+    callAPI: callAPI,
+    SpinnerSmallLoader: SpinnerSmallLoader,
+    API_AUTH_BASE_URL: API_AUTH_BASE_URL,
+    emailTester: emailTester,
+    EmailOtpLock: EmailOtpLock,
+    MfaOtpLockIcon: MfaOtpLockIcon,
+    HOCUnsavePrompt: HOCUnsavePrompt,
+    FormattedMessage: FormattedMessage
+  }) : /*#__PURE__*/React.createElement(ConfirmPasswordModal, {
+    onCloseModal: onCloseModal,
+    onPasswordConfirm: onPasswordConfirm,
+    userEmail: userEmail,
+    primaryText: "Please confirm your password to enable 2FA",
+    SPModal: SPModal,
+    Button: Button,
+    cognitoSignIn: cognitoSignIn,
+    SpinnerSmallLoader: SpinnerSmallLoader,
+    FormControl: FormControl
+  }));
+};
+
+export { HelloWorld, MfaModalHOCWrapper as MfaModal, MfaSetupFlow, OtpInput, OtpVerification, QRScreen, RecoveryEmail };

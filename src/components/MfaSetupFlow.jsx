@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ConfirmPasswordModal from '../modals/confirmPasswordModal';
-import MfaModal from './MfaModal';
+import ConfirmPasswordModal from './ConfirmPasswordModal.jsx';
+import MfaModal from './MfaModal.jsx';
 
 const MfaSetupFlow = ({
     userEmail,

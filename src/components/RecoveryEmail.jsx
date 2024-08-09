@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mfaRecoveryEmailValidator from './functions/mfaRecoveryEmailValidator';
+import PropTypes from 'prop-types';
+import mfaRecoveryEmailValidator from '../utils/mfaRecoveryEmailValidator';
 
 const RecoveryEmail = ({
     userEmail,
@@ -9,8 +10,12 @@ const RecoveryEmail = ({
     Button,
     FormControl,
     emailTester,
-    DisplayText,
-    getLocalizeText,
+    ADD_RECOVERY_EMAIL,
+    LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
+    SKIP,
+    VERIFY,
+    RECOVERY_EMAIL_MANDATORY,
+    NOT_VALID_EMAIL,
 }) => {
     const [recoveryEmail, setRecoveryEmail] = useState('');
     const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -22,7 +27,6 @@ const RecoveryEmail = ({
     };
 
     useEffect(() => {
-        console.log('recoverEmail changed');
         if (!recoveryEmail) return setRecoveryEmailError('');
 
         const error = mfaRecoveryEmailValidator(
@@ -30,10 +34,9 @@ const RecoveryEmail = ({
             userEmail,
             false,
             emailTester,
-            DisplayText,
-            getLocalizeText
+            RECOVERY_EMAIL_MANDATORY,
+            NOT_VALID_EMAIL
         );
-        console.log({ error });
         if (error) {
             setRecoveryEmailError(error);
         }
@@ -53,11 +56,9 @@ const RecoveryEmail = ({
             <div className="col-lg-12 d-flex flex-column justify-content-between">
                 <div className="row justify-content-center">
                     <div className="col text-center mt-2 mfa-recovery-container p-0">
-                        <h3 className="mfa-qr-text">Add Recovery e-mail</h3>
+                        <h3 className="mfa-qr-text">{ADD_RECOVERY_EMAIL}</h3>
                         <h5 className="mfa-recovery-text-secondary mb-2">
-                            If you lose access to your authenticator you can use
-                            this e-mail as backup for login. Recovery e-mail and
-                            login e-mail cannot be the same.
+                            {LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP}
                         </h5>
                         <div className="form-group">
                             <FormControl
@@ -65,7 +66,6 @@ const RecoveryEmail = ({
                                 id="mfa-recovery-email"
                                 ref={recoveryEmailInputRef}
                                 hasError={recoveryEmailError}
-                                labelText={'recoveryEmail'}
                                 errorMessage={recoveryEmailError}
                                 name="recoveryEmail"
                                 value={recoveryEmail}
@@ -90,7 +90,7 @@ const RecoveryEmail = ({
                                 href="javascript:;"
                                 onClick={skip}
                             >
-                                Skip
+                                {SKIP}
                             </a>
                         )}
 
@@ -100,13 +100,29 @@ const RecoveryEmail = ({
                             variant="primary"
                             onClick={() => onComplete(recoveryEmail)}
                         >
-                            Verify
+                            {VERIFY}
                         </Button>
                     </div>
                 </div>
             </div>
         </div>
     );
+};
+
+RecoveryEmail.propTypes = {
+    userEmail: PropTypes.string.isRequired,
+    skip: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
+    isOwner: PropTypes.bool.isRequired,
+    Button: PropTypes.elementType.isRequired,
+    FormControl: PropTypes.elementType.isRequired,
+    emailTester: PropTypes.func.isRequired,
+    ADD_RECOVERY_EMAIL: PropTypes.string.isRequired,
+    LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: PropTypes.string.isRequired,
+    SKIP: PropTypes.string.isRequired,
+    VERIFY: PropTypes.string.isRequired,
+    RECOVERY_EMAIL_MANDATORY: PropTypes.string.isRequired,
+    NOT_VALID_EMAIL: PropTypes.string.isRequired,
 };
 
 export default RecoveryEmail;

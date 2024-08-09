@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import './index.scss';
 
 const OtpInput = ({
     length,
@@ -111,6 +113,16 @@ const OtpInput = ({
             ))}
         </div>
     );
+};
+
+OtpInput.propTypes = {
+    length: PropTypes.number.isRequired,
+    OTP: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setOTP: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string,
+    setErrorMessage: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
 };
 
 export default OtpInput;

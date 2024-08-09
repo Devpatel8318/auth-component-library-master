@@ -3,76 +3,14 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var React = require('react');
+var PropTypes = require('prop-types');
 var QRCode = require('react-qr-code');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 var QRCode__default = /*#__PURE__*/_interopDefaultLegacy(QRCode);
-
-function HelloWorld() {
-  return /*#__PURE__*/React__default["default"].createElement("h1", {
-    className: "mfa-password-error"
-  }, "Hello World 1234");
-}
-
-function QRScreen(_ref) {
-  let {
-    next,
-    userEmail,
-    Button,
-    generateMfaQrLink
-  } = _ref;
-  const [qrLink, setQRLink] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
-  React.useEffect(() => {
-    const getQrLink = async () => {
-      setIsLoading(true);
-      const qrLinkResponse = await generateMfaQrLink('SocialPilot', userEmail);
-      if (!qrLinkResponse.error) {
-        const {
-          qrLink
-        } = qrLinkResponse;
-        setQRLink(qrLink);
-      }
-      setIsLoading(false);
-    };
-    getQrLink();
-  }, []);
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row mfa-qr"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col-lg-12 d-flex flex-column justify-content-between"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row justify-content-center"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col-lg-12 text-center mt-2 mfa-qr-container p-0"
-  }, isLoading ? /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "qr-code-loader mb-8"
-  }) : /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "mb-8"
-  }, /*#__PURE__*/React__default["default"].createElement(QRCode__default["default"], {
-    size: 200,
-    value: qrLink
-  })), /*#__PURE__*/React__default["default"].createElement("h3", {
-    className: "mfa-qr-text mt-0 mb-8"
-  }, "Scan using authenticator to link SocialPilot"), /*#__PURE__*/React__default["default"].createElement("p", {
-    className: "mb-0 text-grey"
-  }, "Use Google authenticator, Microsoft authenticator, Authy or Duo mobile", /*#__PURE__*/React__default["default"].createElement("a", {
-    href: "https://help.socialpilot.co/article/438-why-am-i-being-asked-to-re-connect-my-accounts#Account-disconnection-due-to-Missing-Roles-andor-Permissions-on-Faceb-VNHYK",
-    target: "_blank",
-    rel: "noopener noreferrer"
-  }, ' ', "Learn more.")))), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col d-flex justify-content-end"
-  }, /*#__PURE__*/React__default["default"].createElement(Button, {
-    bsClass: `btn btn-primary btn-medium`,
-    disabled: false,
-    variant: "primary",
-    onClick: next
-  }, "Next")))));
-}
 
 const OtpInput = _ref => {
   let {
@@ -163,6 +101,314 @@ const OtpInput = _ref => {
     className: `mfa-otp-input ${errorMessage ? 'mfa-otp-input-invalid' : ''}`
   })));
 };
+OtpInput.propTypes = {
+  length: PropTypes__default["default"].number.isRequired,
+  OTP: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  setOTP: PropTypes__default["default"].func.isRequired,
+  isLoading: PropTypes__default["default"].bool.isRequired,
+  errorMessage: PropTypes__default["default"].string,
+  setErrorMessage: PropTypes__default["default"].func.isRequired,
+  handleSubmit: PropTypes__default["default"].func.isRequired
+};
+
+const ConfirmPasswordModal = _ref => {
+  let {
+    onCloseModal,
+    onPasswordConfirm,
+    userEmail,
+    SPModal,
+    Button,
+    cognitoSignIn,
+    SpinnerSmallLoader,
+    FormControl,
+    labels
+  } = _ref;
+  const [password, setPassword] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [passwordError, setPasswordError] = React.useState('');
+  const passwordInputRef = React.useRef(null);
+  React.useEffect(() => {
+    if (passwordInputRef.current) {
+      passwordInputRef.current.focus();
+    }
+  }, []);
+  const handlePasswordChange = e => {
+    setPasswordError('');
+    setPassword(e.target.value);
+  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    setPasswordError('');
+    const {
+      success,
+      error
+    } = await cognitoSignIn(userEmail, password, 1, true);
+    setIsLoading(false);
+    if (error) {
+      setPasswordError(error);
+    }
+    if (success) {
+      onPasswordConfirm();
+    }
+  };
+  const {
+    CONFIRM_PASSWORD,
+    CONFIRM,
+    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
+  } = labels;
+  return /*#__PURE__*/React__default["default"].createElement(SPModal, {
+    showModal: true,
+    onCloseModal: onCloseModal,
+    closeOnOverlayClick: false,
+    closeIcon: true,
+    closeOnEsc: true,
+    title: CONFIRM_PASSWORD,
+    classNames: {
+      modal: 'popup-bg mfa-password-modal'
+    },
+    styles: {
+      modal: {
+        width: '442px'
+      }
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("form", {
+    onSubmit: handleSubmit,
+    className: "row"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col-lg-12"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row mb-40"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col-lg-12 text-center"
+  }, /*#__PURE__*/React__default["default"].createElement("h5", {
+    className: "mfa-password-text mb-8 text-grey mt-0"
+  }, PLEASE_CONFIRM_PASSWORD_ENABLE_2FA), /*#__PURE__*/React__default["default"].createElement("h3", {
+    className: "mfa-password-email mb-2 mt-0"
+  }, userEmail), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "form-group mb-0 position-relative"
+  }, /*#__PURE__*/React__default["default"].createElement(FormControl, {
+    type: "password",
+    id: "mfa-confirm-password",
+    ref: passwordInputRef,
+    hasError: passwordError,
+    errorMessage: passwordError,
+    name: "confirmPassword",
+    value: password,
+    onChange: handlePasswordChange,
+    bsClass: `text-center mfa-password-input-box`
+  }), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: `invalid-feedback ${passwordError ? 'd-block' : ''}`
+  }, passwordError), isLoading && /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "mt-1 input-spinner-loader"
+  }, /*#__PURE__*/React__default["default"].createElement(SpinnerSmallLoader, {
+    className: "circular-spinner mr-8"
+  }))))), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col d-flex justify-content-end"
+  }, /*#__PURE__*/React__default["default"].createElement(Button, {
+    bsClass: "btn btn-primary btn-medium",
+    disabled: isLoading,
+    variant: "primary",
+    type: "submit"
+  }, CONFIRM))))));
+};
+ConfirmPasswordModal.propTypes = {
+  onCloseModal: PropTypes__default["default"].func.isRequired,
+  onPasswordConfirm: PropTypes__default["default"].func.isRequired,
+  userEmail: PropTypes__default["default"].string.isRequired,
+  SPModal: PropTypes__default["default"].elementType.isRequired,
+  Button: PropTypes__default["default"].elementType.isRequired,
+  cognitoSignIn: PropTypes__default["default"].func.isRequired,
+  SpinnerSmallLoader: PropTypes__default["default"].elementType.isRequired,
+  FormControl: PropTypes__default["default"].elementType.isRequired,
+  labels: PropTypes__default["default"].shape({
+    CONFIRM_PASSWORD: PropTypes__default["default"].string.isRequired,
+    CONFIRM: PropTypes__default["default"].string.isRequired,
+    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes__default["default"].string.isRequired
+  }).isRequired
+};
+
+const mfaRecoveryEmailValidator = function (email, loginEmail) {
+  let allowEmptyString = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let emailTester = arguments.length > 3 ? arguments[3] : undefined;
+  let RECOVERY_EMAIL_MANDATORY = arguments.length > 4 ? arguments[4] : undefined;
+  let NOT_VALID_EMAIL = arguments.length > 5 ? arguments[5] : undefined;
+  if (!email || !email.trim()) {
+    return allowEmptyString ? '' : RECOVERY_EMAIL_MANDATORY;
+  }
+  if (!emailTester(email)) return NOT_VALID_EMAIL;
+  if (email === loginEmail) {
+    return 'Recovery email cannot be same as login e-mail.';
+  }
+  return '';
+};
+
+const RecoveryEmail = _ref => {
+  let {
+    userEmail,
+    skip,
+    onComplete,
+    isOwner,
+    Button,
+    FormControl,
+    emailTester,
+    ADD_RECOVERY_EMAIL,
+    LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
+    SKIP,
+    VERIFY,
+    RECOVERY_EMAIL_MANDATORY,
+    NOT_VALID_EMAIL
+  } = _ref;
+  const [recoveryEmail, setRecoveryEmail] = React.useState('');
+  const [recoveryEmailError, setRecoveryEmailError] = React.useState('');
+  const recoveryEmailInputRef = React.useRef(null);
+  const handleRecoveryEmailChange = e => {
+    setRecoveryEmailError('');
+    setRecoveryEmail(e.target.value.trim());
+  };
+  React.useEffect(() => {
+    if (!recoveryEmail) return setRecoveryEmailError('');
+    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, RECOVERY_EMAIL_MANDATORY, NOT_VALID_EMAIL);
+    if (error) {
+      setRecoveryEmailError(error);
+    }
+  }, [recoveryEmail]);
+  React.useEffect(() => {
+    if (recoveryEmailInputRef.current) {
+      recoveryEmailInputRef.current.focus();
+    }
+  }, []);
+  const isBtnDisabled = !recoveryEmail.length || recoveryEmail.length && recoveryEmailError;
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row mfa-qr"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col-lg-12 d-flex flex-column justify-content-between"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row justify-content-center"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col text-center mt-2 mfa-recovery-container p-0"
+  }, /*#__PURE__*/React__default["default"].createElement("h3", {
+    className: "mfa-qr-text"
+  }, ADD_RECOVERY_EMAIL), /*#__PURE__*/React__default["default"].createElement("h5", {
+    className: "mfa-recovery-text-secondary mb-2"
+  }, LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React__default["default"].createElement(FormControl, {
+    type: "email",
+    id: "mfa-recovery-email",
+    ref: recoveryEmailInputRef,
+    hasError: recoveryEmailError,
+    errorMessage: recoveryEmailError,
+    name: "recoveryEmail",
+    value: recoveryEmail,
+    onChange: handleRecoveryEmailChange,
+    bsClass: `text-center mfa-password-input-box`
+  }), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: `invalid-feedback ${recoveryEmailError ? 'd-block' : ''}`
+  }, recoveryEmailError)))), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col d-flex justify-content-end"
+  }, !isOwner && /*#__PURE__*/React__default["default"].createElement("a", {
+    className: "delete-group btn-medium",
+    href: "javascript:;",
+    onClick: skip
+  }, SKIP), /*#__PURE__*/React__default["default"].createElement(Button, {
+    bsClass: "btn btn-primary btn-medium",
+    disabled: !!isBtnDisabled,
+    variant: "primary",
+    onClick: () => onComplete(recoveryEmail)
+  }, VERIFY)))));
+};
+RecoveryEmail.propTypes = {
+  userEmail: PropTypes__default["default"].string.isRequired,
+  skip: PropTypes__default["default"].func.isRequired,
+  onComplete: PropTypes__default["default"].func.isRequired,
+  isOwner: PropTypes__default["default"].bool.isRequired,
+  Button: PropTypes__default["default"].elementType.isRequired,
+  FormControl: PropTypes__default["default"].elementType.isRequired,
+  emailTester: PropTypes__default["default"].func.isRequired,
+  ADD_RECOVERY_EMAIL: PropTypes__default["default"].string.isRequired,
+  LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: PropTypes__default["default"].string.isRequired,
+  SKIP: PropTypes__default["default"].string.isRequired,
+  VERIFY: PropTypes__default["default"].string.isRequired,
+  RECOVERY_EMAIL_MANDATORY: PropTypes__default["default"].string.isRequired,
+  NOT_VALID_EMAIL: PropTypes__default["default"].string.isRequired
+};
+
+function QRScreen(_ref) {
+  let {
+    next,
+    userEmail,
+    Button,
+    generateMfaQrLink,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+    USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
+    LEARN_MORE,
+    NEXT
+  } = _ref;
+  const [qrLink, setQRLink] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  React.useEffect(() => {
+    const getQrLink = async () => {
+      setIsLoading(true);
+      const qrLinkResponse = await generateMfaQrLink('SocialPilot', userEmail);
+      if (!qrLinkResponse.error) {
+        const {
+          qrLink
+        } = qrLinkResponse;
+        setQRLink(qrLink);
+      }
+      setIsLoading(false);
+    };
+    getQrLink();
+  }, [userEmail, generateMfaQrLink]);
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row mfa-qr"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col-lg-12 d-flex flex-column justify-content-between"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row justify-content-center"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col-lg-12 text-center mt-2 mfa-qr-container p-0"
+  }, isLoading ? /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "qr-code-loader mb-8"
+  }) : /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "mb-8"
+  }, /*#__PURE__*/React__default["default"].createElement(QRCode__default["default"], {
+    size: 200,
+    value: qrLink
+  })), /*#__PURE__*/React__default["default"].createElement("h3", {
+    className: "mfa-qr-text mt-0 mb-8"
+  }, SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP), /*#__PURE__*/React__default["default"].createElement("p", {
+    className: "mb-0 text-grey"
+  }, USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR, /*#__PURE__*/React__default["default"].createElement("a", {
+    href: "https://help.socialpilot.co/article/438-why-am-i-being-asked-to-re-connect-my-accounts#Account-disconnection-due-to-Missing-Roles-andor-Permissions-on-Faceb-VNHYK",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, ' ', LEARN_MORE)))), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "col d-flex justify-content-end"
+  }, /*#__PURE__*/React__default["default"].createElement(Button, {
+    bsClass: `btn btn-primary btn-medium`,
+    disabled: false,
+    variant: "primary",
+    onClick: next
+  }, NEXT)))));
+}
+QRScreen.propTypes = {
+  next: PropTypes__default["default"].func.isRequired,
+  userEmail: PropTypes__default["default"].string.isRequired,
+  Button: PropTypes__default["default"].elementType.isRequired,
+  generateMfaQrLink: PropTypes__default["default"].func.isRequired,
+  SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: PropTypes__default["default"].string.isRequired,
+  USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: PropTypes__default["default"].string.isRequired,
+  LEARN_MORE: PropTypes__default["default"].string.isRequired,
+  NEXT: PropTypes__default["default"].string.isRequired
+};
 
 const OtpVerification = _ref => {
   let {
@@ -182,7 +428,8 @@ const OtpVerification = _ref => {
     showResendOption,
     resendOtp,
     Button,
-    SpinnerSmallLoader
+    SpinnerSmallLoader,
+    RESEND_CODE
   } = _ref;
   const [OTP, setOTP] = React.useState(Array(length).fill(''));
   const [isLoading, setIsLoading] = React.useState(false);
@@ -241,7 +488,7 @@ const OtpVerification = _ref => {
     className: "delete-group",
     href: "javascript:;",
     onClick: resendOtp
-  }, "Resend code") : ''), !isLoading && !errorMessage && OTP.every(digit => digit !== '') && /*#__PURE__*/React__default["default"].createElement("div", {
+  }, RESEND_CODE) : ''), !isLoading && !errorMessage && OTP.every(digit => digit !== '') && /*#__PURE__*/React__default["default"].createElement("div", {
     className: "text-success mfa-otp-message-text"
   }, successMessage))))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "row"
@@ -260,113 +507,27 @@ const OtpVerification = _ref => {
     onClick: onComplete
   }, primaryButtonText))))));
 };
-
-const mfaRecoveryEmailValidator = function (email, loginEmail) {
-  let allowEmptyString = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  let emailTester = arguments.length > 3 ? arguments[3] : undefined;
-  let DisplayText = arguments.length > 4 ? arguments[4] : undefined;
-  let getLocalizeText = arguments.length > 5 ? arguments[5] : undefined;
-  console.log({
-    email,
-    loginEmail,
-    allowEmptyString,
-    emailTester,
-    DisplayText,
-    getLocalizeText
-  });
-  if (!email || !email.trim()) {
-    return allowEmptyString ? '' : getLocalizeText(DisplayText.RECOVERY_EMAIL_MANDATORY);
-  }
-  console.log('22');
-  if (!emailTester(email)) return getLocalizeText(DisplayText.NOT_VALID_EMAIL);
-  console.log('26');
-  if (email === loginEmail) {
-    return 'Recovery email cannot be same as login e-mail.';
-  }
-  console.log('33');
-  return '';
+OtpVerification.propTypes = {
+  length: PropTypes__default["default"].number,
+  primaryText: PropTypes__default["default"].string.isRequired,
+  secondaryText: PropTypes__default["default"].string.isRequired,
+  Icon: PropTypes__default["default"].node,
+  secondaryButtonText: PropTypes__default["default"].string.isRequired,
+  goBack: PropTypes__default["default"].func.isRequired,
+  primaryButtonText: PropTypes__default["default"].string.isRequired,
+  verifyOtp: PropTypes__default["default"].func.isRequired,
+  successMessage: PropTypes__default["default"].string.isRequired,
+  codeInvalidMessage: PropTypes__default["default"].string.isRequired,
+  onComplete: PropTypes__default["default"].func.isRequired,
+  isOtpVerified: PropTypes__default["default"].bool.isRequired,
+  setIsOtpVerified: PropTypes__default["default"].func.isRequired,
+  showResendOption: PropTypes__default["default"].bool.isRequired,
+  resendOtp: PropTypes__default["default"].func.isRequired,
+  Button: PropTypes__default["default"].elementType.isRequired,
+  SpinnerSmallLoader: PropTypes__default["default"].elementType.isRequired,
+  RESEND_CODE: PropTypes__default["default"].string.isRequired
 };
 
-const RecoveryEmail = _ref => {
-  let {
-    userEmail,
-    skip,
-    onComplete,
-    isOwner,
-    Button,
-    FormControl,
-    emailTester,
-    DisplayText,
-    getLocalizeText
-  } = _ref;
-  const [recoveryEmail, setRecoveryEmail] = React.useState('');
-  const [recoveryEmailError, setRecoveryEmailError] = React.useState('');
-  const recoveryEmailInputRef = React.useRef(null);
-  const handleRecoveryEmailChange = e => {
-    setRecoveryEmailError('');
-    setRecoveryEmail(e.target.value.trim());
-  };
-  React.useEffect(() => {
-    console.log('recoverEmail changed');
-    if (!recoveryEmail) return setRecoveryEmailError('');
-    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, DisplayText, getLocalizeText);
-    console.log({
-      error
-    });
-    if (error) {
-      setRecoveryEmailError(error);
-    }
-  }, [recoveryEmail]);
-  React.useEffect(() => {
-    if (recoveryEmailInputRef.current) {
-      recoveryEmailInputRef.current.focus();
-    }
-  }, []);
-  const isBtnDisabled = !recoveryEmail.length || recoveryEmail.length && recoveryEmailError;
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row mfa-qr"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col-lg-12 d-flex flex-column justify-content-between"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row justify-content-center"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col text-center mt-2 mfa-recovery-container p-0"
-  }, /*#__PURE__*/React__default["default"].createElement("h3", {
-    className: "mfa-qr-text"
-  }, "Add Recovery e-mail"), /*#__PURE__*/React__default["default"].createElement("h5", {
-    className: "mfa-recovery-text-secondary mb-2"
-  }, "If you lose access to your authenticator you can use this e-mail as backup for login. Recovery e-mail and login e-mail cannot be the same."), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React__default["default"].createElement(FormControl, {
-    type: "email",
-    id: "mfa-recovery-email",
-    ref: recoveryEmailInputRef,
-    hasError: recoveryEmailError,
-    labelText: 'recoveryEmail',
-    errorMessage: recoveryEmailError,
-    name: "recoveryEmail",
-    value: recoveryEmail,
-    onChange: handleRecoveryEmailChange,
-    bsClass: `text-center mfa-password-input-box`
-  }), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: `invalid-feedback ${recoveryEmailError ? 'd-block' : ''}`
-  }, recoveryEmailError)))), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col d-flex justify-content-end"
-  }, !isOwner && /*#__PURE__*/React__default["default"].createElement("a", {
-    className: "delete-group btn-medium",
-    href: "javascript:;",
-    onClick: skip
-  }, "Skip"), /*#__PURE__*/React__default["default"].createElement(Button, {
-    bsClass: "btn btn-primary btn-medium",
-    disabled: !!isBtnDisabled,
-    variant: "primary",
-    onClick: () => onComplete(recoveryEmail)
-  }, "Verify")))));
-};
-
-// as props
 const MfaModal = _ref => {
   let {
     closeModal,
@@ -388,15 +549,11 @@ const MfaModal = _ref => {
     recoveryEmail,
     onlyVerifyEmail,
     showResendOption,
-    sharedDisplayText,
     FormControl,
     generateMfaQrLink,
     SPModal,
     Button,
     DiscardMessage,
-    DisplayText,
-    getLocalizeText,
-    GlobalDisplayTexts,
     TOTPVerificationSignIn,
     verifyTOTPSetupCode,
     callAPI,
@@ -405,46 +562,10 @@ const MfaModal = _ref => {
     emailTester,
     EmailOtpLock,
     MfaOtpLockIcon,
-    FormattedMessage
+    FormattedMessage,
+    recoveryEmailOtplength,
+    labels
   } = _ref;
-  console.log('47', {
-    closeModal,
-    userEmail,
-    isMfaEnabled,
-    initialStep,
-    onMfaEnableStepComplete,
-    onRecoveryEmailEnableStepComplete,
-    successRedirect,
-    showDialog,
-    setShowDialog,
-    cancelNavigation,
-    confirmNavigation,
-    isOwner,
-    onlyVerifyCode,
-    onlyVerifyCodeSuccess,
-    setupNewAuthenticator,
-    setupNewAuthenticatorSuccess,
-    recoveryEmail,
-    onlyVerifyEmail,
-    showResendOption,
-    sharedDisplayText,
-    FormControl,
-    generateMfaQrLink,
-    SPModal,
-    Button,
-    DiscardMessage,
-    DisplayText,
-    getLocalizeText,
-    GlobalDisplayTexts,
-    TOTPVerificationSignIn,
-    verifyTOTPSetupCode,
-    callAPI,
-    SpinnerSmallLoader,
-    API_AUTH_BASE_URL,
-    emailTester,
-    EmailOtpLock,
-    MfaOtpLockIcon
-  });
   let startingStep = initialStep;
   if (onlyVerifyCode) {
     startingStep = 'OTP_VERIFICATION';
@@ -576,6 +697,34 @@ const MfaModal = _ref => {
   const onDismiss = () => {
     cancelNavigation();
   };
+  const {
+    TWO_FACTOR_AUTHENTICATOR_2FA,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+    USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
+    LEARN_MORE,
+    NEXT,
+    ADD_RECOVERY_EMAIL,
+    LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
+    SKIP,
+    VERIFY,
+    RESEND_CODE,
+    ENTER_VERIFICATION_CODE,
+    ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR,
+    BACK,
+    FINISH,
+    CODE_IS_VERIFIED,
+    CODE_IS_INVALID,
+    ENTER_VERIFICATION_CODE_SENT_EMAIL,
+    ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL,
+    RECOVERY_EMAIL_HAS_BEEN_VERIFIED,
+    CODE_HAS_EXPIRED,
+    DISCARD,
+    SAVE,
+    DISCARD_INVITE,
+    DISCARD_INVITE_CONFIRMATION,
+    RECOVERY_EMAIL_MANDATORY,
+    NOT_VALID_EMAIL
+  } = labels;
   const getModalContent = () => {
     switch (modalStep) {
       case 'QR_SCREEN':
@@ -583,26 +732,31 @@ const MfaModal = _ref => {
           next: () => setModalPage('OTP_VERIFICATION'),
           userEmail: userEmail,
           Button: Button,
-          generateMfaQrLink: generateMfaQrLink
+          generateMfaQrLink: generateMfaQrLink,
+          SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+          USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
+          LEARN_MORE: LEARN_MORE,
+          NEXT: NEXT
         });
       case 'OTP_VERIFICATION':
         return /*#__PURE__*/React__default["default"].createElement(OtpVerification, {
           length: 6,
           isMfaEnabled: isMfaEnabled,
-          primaryText: "Enter Verification Code",
-          secondaryText: "Enter the 6 Digit code from authenticator.",
+          primaryText: ENTER_VERIFICATION_CODE,
+          secondaryText: ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR,
           Icon: /*#__PURE__*/React__default["default"].createElement(MfaOtpLockIcon, null),
-          secondaryButtonText: "Back",
+          secondaryButtonText: BACK,
           goBack: () => setModalPage('QR_SCREEN'),
-          primaryButtonText: onlyVerifyCode ? 'Finish' : 'Next',
+          primaryButtonText: onlyVerifyCode ? FINISH : NEXT,
           verifyOtp: handleVerifyOtp,
-          successMessage: "Code is verified",
-          codeInvalidMessage: "Code is Invalid",
+          successMessage: CODE_IS_VERIFIED,
+          codeInvalidMessage: CODE_IS_INVALID,
           onComplete: handleOtpVerificationSubmit,
           isOtpVerified: isAuthenticatorOtpVerified,
           setIsOtpVerified: setIsAuthenticatorOtpVerified,
           Button: Button,
-          SpinnerSmallLoader: SpinnerSmallLoader
+          SpinnerSmallLoader: SpinnerSmallLoader,
+          RESEND_CODE: RESEND_CODE
         });
       case 'RECOVERY_EMAIL':
         return /*#__PURE__*/React__default["default"].createElement(RecoveryEmail, {
@@ -617,17 +771,21 @@ const MfaModal = _ref => {
           Button: Button,
           FormControl: FormControl,
           emailTester: emailTester,
-          DisplayText: sharedDisplayText,
-          getLocalizeText: getLocalizeText
+          ADD_RECOVERY_EMAIL: ADD_RECOVERY_EMAIL,
+          LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
+          SKIP: SKIP,
+          VERIFY: VERIFY,
+          RECOVERY_EMAIL_MANDATORY: RECOVERY_EMAIL_MANDATORY,
+          NOT_VALID_EMAIL: NOT_VALID_EMAIL
         });
       case 'RECOVERY_EMAIL_OTP_VERIFICATION':
         return /*#__PURE__*/React__default["default"].createElement(OtpVerification, {
-          length: 6,
+          length: recoveryEmailOtplength,
           isMfaEnabled: isMfaEnabled,
-          primaryText: "Enter Verification Code Sent to e-mail",
-          secondaryText: "Enter the 6 Digit code sent to your recovery e-mail.",
+          primaryText: ENTER_VERIFICATION_CODE_SENT_EMAIL,
+          secondaryText: ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL,
           Icon: /*#__PURE__*/React__default["default"].createElement(EmailOtpLock, null),
-          secondaryButtonText: "Back",
+          secondaryButtonText: BACK,
           goBack: () => {
             if (onlyVerifyEmail) {
               closeModal();
@@ -635,19 +793,18 @@ const MfaModal = _ref => {
             }
             setModalPage('RECOVERY_EMAIL');
           },
-          primaryButtonText: "Finish",
+          primaryButtonText: FINISH,
           verifyOtp: handleEmailVerifyOtp,
-          successMessage: "Recovery email has been verified successfully."
-          // TODO: handle this message
-          ,
-          codeInvalidMessage: "Code has expired.",
+          successMessage: RECOVERY_EMAIL_HAS_BEEN_VERIFIED,
+          codeInvalidMessage: CODE_HAS_EXPIRED,
           onComplete: handleEmailOtpVerificationSubmit,
           isOtpVerified: isMailOtpVerified,
           setIsOtpVerified: setIsMailOtpVerified,
           showResendOption: showResendOption,
           resendOtp: generateOtp,
           Button: Button,
-          SpinnerSmallLoader: SpinnerSmallLoader
+          SpinnerSmallLoader: SpinnerSmallLoader,
+          RESEND_CODE: RESEND_CODE
         });
       default:
         return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null);
@@ -659,7 +816,7 @@ const MfaModal = _ref => {
     closeOnOverlayClick: false,
     closeIcon: true,
     closeOnEsc: true,
-    title: 'Two Factor Authentication (2FA)',
+    title: TWO_FACTOR_AUTHENTICATOR_2FA,
     classNames: {
       modal: 'popup-bg mfa-main-modal'
     },
@@ -670,10 +827,8 @@ const MfaModal = _ref => {
       }
     }
   }, showDialog && /*#__PURE__*/React__default["default"].createElement(DiscardMessage, {
-    HeadTitle: DisplayText.DISCARD_INVITE,
-    SubHeadTitle: DisplayText.DISCARD_INVITE_CONFIRMATION
-    // onClickClose={this.handleClosePopup}
-    ,
+    HeadTitle: DISCARD_INVITE,
+    SubHeadTitle: DISCARD_INVITE_CONFIRMATION,
     isOpen: true,
     hasDiscardBtns: false,
     onDismiss: onDismiss
@@ -683,16 +838,16 @@ const MfaModal = _ref => {
     onClick: () => setShowDialog(false),
     disabled: false
   }, /*#__PURE__*/React__default["default"].createElement(FormattedMessage, {
-    id: getLocalizeText(GlobalDisplayTexts.SAVE),
-    defaultMessage: getLocalizeText(GlobalDisplayTexts.SAVE)
+    id: SAVE,
+    defaultMessage: SAVE
   })), /*#__PURE__*/React__default["default"].createElement(Button, {
     type: "submit",
     bsClass: "btn btn-danger btn-medium ml-2",
     onClick: () => handleDiscardPopup(),
     disabled: false
   }, /*#__PURE__*/React__default["default"].createElement(FormattedMessage, {
-    id: getLocalizeText(GlobalDisplayTexts.DISCARD),
-    defaultMessage: getLocalizeText(GlobalDisplayTexts.DISCARD)
+    id: DISCARD,
+    defaultMessage: DISCARD
   }))), getModalContent());
 };
 const MfaModalHOCWrapper = _ref2 => {
@@ -702,106 +857,6 @@ const MfaModalHOCWrapper = _ref2 => {
   } = _ref2;
   const WrappedComponent = HOC(MfaModal);
   return /*#__PURE__*/React__default["default"].createElement(WrappedComponent, props);
-};
-
-const ConfirmPasswordModal = _ref => {
-  let {
-    onCloseModal,
-    onPasswordConfirm,
-    userEmail,
-    primaryText,
-    SPModal,
-    Button,
-    cognitoSignIn,
-    SpinnerSmallLoader,
-    FormControl
-  } = _ref;
-  const [password, setPassword] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState('');
-  const passwordInputRef = React.useRef(null);
-  React.useEffect(() => {
-    if (passwordInputRef.current) {
-      passwordInputRef.current.focus();
-    }
-  }, []);
-  const handlePasswordChange = e => {
-    setPasswordError('');
-    setPassword(e.target.value);
-  };
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setIsLoading(true);
-    setPasswordError('');
-    const {
-      success,
-      error
-    } = await cognitoSignIn(userEmail, password, 1, true);
-    setIsLoading(false);
-    if (error) {
-      setPasswordError(error);
-    }
-    if (success) {
-      onPasswordConfirm();
-    }
-  };
-  return /*#__PURE__*/React__default["default"].createElement(SPModal, {
-    showModal: true,
-    onCloseModal: onCloseModal,
-    closeOnOverlayClick: false,
-    closeIcon: true,
-    closeOnEsc: true,
-    title: "Confirm Password",
-    classNames: {
-      modal: 'popup-bg mfa-password-modal'
-    },
-    styles: {
-      modal: {
-        width: '442px'
-      }
-    }
-  }, /*#__PURE__*/React__default["default"].createElement("form", {
-    onSubmit: handleSubmit,
-    className: "row"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col-lg-12"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row mb-40"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col-lg-12 text-center"
-  }, /*#__PURE__*/React__default["default"].createElement("h5", {
-    className: "mfa-password-text mb-8 text-grey mt-0"
-  }, primaryText), /*#__PURE__*/React__default["default"].createElement("h3", {
-    className: "mfa-password-email mb-2 mt-0"
-  }, userEmail), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "form-group mb-0 position-relative"
-  }, /*#__PURE__*/React__default["default"].createElement(FormControl, {
-    type: "password",
-    id: "mfa-confirm-password",
-    ref: passwordInputRef,
-    hasError: passwordError,
-    labelText: 'password',
-    errorMessage: passwordError,
-    name: "confirmPassword",
-    value: password,
-    onChange: handlePasswordChange,
-    bsClass: `text-center mfa-password-input-box`
-  }), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: `invalid-feedback ${passwordError ? 'd-block' : ''}`
-  }, passwordError), isLoading && /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "mt-1 input-spinner-loader"
-  }, /*#__PURE__*/React__default["default"].createElement(SpinnerSmallLoader, {
-    className: "circular-spinner mr-8"
-  }))))), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "col d-flex justify-content-end"
-  }, /*#__PURE__*/React__default["default"].createElement(Button, {
-    bsClass: "btn btn-primary btn-medium",
-    disabled: isLoading,
-    variant: "primary",
-    type: "submit"
-  }, "Confirm"))))));
 };
 
 const MfaSetupFlow = _ref => {
@@ -819,14 +874,10 @@ const MfaSetupFlow = _ref => {
     recoveryEmail,
     onlyVerifyEmail,
     showResendOption,
-    // new props
     SPModal,
     Button,
     HOCUnsavePrompt,
     DiscardMessage,
-    DisplayText,
-    getLocalizeText,
-    GlobalDisplayTexts,
     TOTPVerificationSignIn,
     verifyTOTPSetupCode,
     callAPI,
@@ -837,9 +888,10 @@ const MfaSetupFlow = _ref => {
     generateMfaQrLink,
     MfaOtpLockIcon,
     EmailOtpLock,
-    sharedDisplayText,
     FormattedMessage,
-    cognitoSignIn
+    cognitoSignIn,
+    recoveryEmailOtplength,
+    labels
   } = _ref;
   const [isPasswordConfirmed, setIsPasswordConfirmed] = React.useState(onlyVerifyEmail);
   const onPasswordConfirm = () => {
@@ -860,15 +912,11 @@ const MfaSetupFlow = _ref => {
     setupNewAuthenticatorSuccess: setupNewAuthenticatorSuccess,
     onlyVerifyEmail: onlyVerifyEmail,
     showResendOption: showResendOption,
-    sharedDisplayText: sharedDisplayText,
     FormControl: FormControl,
     generateMfaQrLink: generateMfaQrLink,
     SPModal: SPModal,
     Button: Button,
     DiscardMessage: DiscardMessage,
-    DisplayText: DisplayText,
-    getLocalizeText: getLocalizeText,
-    GlobalDisplayTexts: GlobalDisplayTexts,
     TOTPVerificationSignIn: TOTPVerificationSignIn,
     verifyTOTPSetupCode: verifyTOTPSetupCode,
     callAPI: callAPI,
@@ -878,24 +926,84 @@ const MfaSetupFlow = _ref => {
     EmailOtpLock: EmailOtpLock,
     MfaOtpLockIcon: MfaOtpLockIcon,
     HOCUnsavePrompt: HOCUnsavePrompt,
-    FormattedMessage: FormattedMessage
+    FormattedMessage: FormattedMessage,
+    recoveryEmailOtplength: recoveryEmailOtplength,
+    labels: labels
   }) : /*#__PURE__*/React__default["default"].createElement(ConfirmPasswordModal, {
     onCloseModal: onCloseModal,
     onPasswordConfirm: onPasswordConfirm,
     userEmail: userEmail,
-    primaryText: "Please confirm your password to enable 2FA",
     SPModal: SPModal,
     Button: Button,
     cognitoSignIn: cognitoSignIn,
     SpinnerSmallLoader: SpinnerSmallLoader,
-    FormControl: FormControl
+    FormControl: FormControl,
+    labels: labels
   }));
 };
+MfaSetupFlow.propTypes = {
+  userEmail: PropTypes__default["default"].string.isRequired,
+  isMfaEnabled: PropTypes__default["default"].bool.isRequired,
+  onCloseModal: PropTypes__default["default"].func.isRequired,
+  onMfaEnableStepComplete: PropTypes__default["default"].func.isRequired,
+  onRecoveryEmailEnableStepComplete: PropTypes__default["default"].func.isRequired,
+  isOwner: PropTypes__default["default"].bool.isRequired,
+  onlyVerifyCode: PropTypes__default["default"].bool.isRequired,
+  onlyVerifyCodeSuccess: PropTypes__default["default"].bool.isRequired,
+  setupNewAuthenticator: PropTypes__default["default"].bool.isRequired,
+  setupNewAuthenticatorSuccess: PropTypes__default["default"].bool.isRequired,
+  recoveryEmail: PropTypes__default["default"].string.isRequired,
+  onlyVerifyEmail: PropTypes__default["default"].bool.isRequired,
+  showResendOption: PropTypes__default["default"].bool.isRequired,
+  SPModal: PropTypes__default["default"].elementType.isRequired,
+  Button: PropTypes__default["default"].elementType.isRequired,
+  HOCUnsavePrompt: PropTypes__default["default"].elementType.isRequired,
+  DiscardMessage: PropTypes__default["default"].elementType.isRequired,
+  TOTPVerificationSignIn: PropTypes__default["default"].func.isRequired,
+  verifyTOTPSetupCode: PropTypes__default["default"].func.isRequired,
+  callAPI: PropTypes__default["default"].func.isRequired,
+  API_AUTH_BASE_URL: PropTypes__default["default"].string.isRequired,
+  emailTester: PropTypes__default["default"].func.isRequired,
+  SpinnerSmallLoader: PropTypes__default["default"].elementType.isRequired,
+  FormControl: PropTypes__default["default"].elementType.isRequired,
+  generateMfaQrLink: PropTypes__default["default"].func.isRequired,
+  MfaOtpLockIcon: PropTypes__default["default"].node.isRequired,
+  EmailOtpLock: PropTypes__default["default"].node.isRequired,
+  FormattedMessage: PropTypes__default["default"].elementType.isRequired,
+  cognitoSignIn: PropTypes__default["default"].func.isRequired,
+  recoveryEmailOtplength: PropTypes__default["default"].number.isRequired,
+  labels: PropTypes__default["default"].shape({
+    CONFIRM_PASSWORD: PropTypes__default["default"].string.isRequired,
+    CONFIRM: PropTypes__default["default"].string.isRequired,
+    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes__default["default"].string.isRequired,
+    TWO_FACTOR_AUTHENTICATOR_2FA: PropTypes__default["default"].string.isRequired,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: PropTypes__default["default"].string.isRequired,
+    USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: PropTypes__default["default"].string.isRequired,
+    LEARN_MORE: PropTypes__default["default"].string.isRequired,
+    NEXT: PropTypes__default["default"].string.isRequired,
+    ADD_RECOVERY_EMAIL: PropTypes__default["default"].string.isRequired,
+    LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: PropTypes__default["default"].string.isRequired,
+    SKIP: PropTypes__default["default"].string.isRequired,
+    VERIFY: PropTypes__default["default"].string.isRequired,
+    RESEND_CODE: PropTypes__default["default"].string.isRequired,
+    ENTER_VERIFICATION_CODE: PropTypes__default["default"].string.isRequired,
+    ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR: PropTypes__default["default"].string.isRequired,
+    BACK: PropTypes__default["default"].string.isRequired,
+    FINISH: PropTypes__default["default"].string.isRequired,
+    CODE_IS_VERIFIED: PropTypes__default["default"].string.isRequired,
+    CODE_IS_INVALID: PropTypes__default["default"].string.isRequired,
+    ENTER_VERIFICATION_CODE_SENT_EMAIL: PropTypes__default["default"].string.isRequired,
+    ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL: PropTypes__default["default"].string.isRequired,
+    RECOVERY_EMAIL_HAS_BEEN_VERIFIED: PropTypes__default["default"].string.isRequired,
+    CODE_HAS_EXPIRED: PropTypes__default["default"].string.isRequired,
+    DISCARD: PropTypes__default["default"].string.isRequired,
+    SAVE: PropTypes__default["default"].string.isRequired,
+    DISCARD_INVITE: PropTypes__default["default"].string.isRequired,
+    DISCARD_INVITE_CONFIRMATION: PropTypes__default["default"].string.isRequired,
+    RECOVERY_EMAIL_MANDATORY: PropTypes__default["default"].string.isRequired,
+    NOT_VALID_EMAIL: PropTypes__default["default"].string.isRequired
+  }).isRequired
+};
 
-exports.HelloWorld = HelloWorld;
-exports.MfaModal = MfaModalHOCWrapper;
 exports.MfaSetupFlow = MfaSetupFlow;
 exports.OtpInput = OtpInput;
-exports.OtpVerification = OtpVerification;
-exports.QRScreen = QRScreen;
-exports.RecoveryEmail = RecoveryEmail;

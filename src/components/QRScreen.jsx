@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import QRCode from 'react-qr-code';
 
-function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
+function QRScreen({
+    next,
+    userEmail,
+    Button,
+    generateMfaQrLink,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+    USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
+    LEARN_MORE,
+    NEXT,
+}) {
     const [qrLink, setQRLink] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +30,7 @@ function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
         };
 
         getQrLink();
-    }, []);
+    }, [userEmail, generateMfaQrLink]);
 
     return (
         <div className="row mfa-qr">
@@ -35,18 +45,17 @@ function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
                             </div>
                         )}
                         <h3 className="mfa-qr-text mt-0 mb-8">
-                            Scan using authenticator to link SocialPilot
+                            {SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP}
                         </h3>
                         <p className="mb-0 text-grey">
-                            Use Google authenticator, Microsoft authenticator,
-                            Authy or Duo mobile
+                            {USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR}
                             <a
                                 href="https://help.socialpilot.co/article/438-why-am-i-being-asked-to-re-connect-my-accounts#Account-disconnection-due-to-Missing-Roles-andor-Permissions-on-Faceb-VNHYK"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 {' '}
-                                Learn more.
+                                {LEARN_MORE}
                             </a>
                         </p>
                     </div>
@@ -59,7 +68,7 @@ function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
                             variant="primary"
                             onClick={next}
                         >
-                            Next
+                            {NEXT}
                         </Button>
                     </div>
                 </div>
@@ -67,5 +76,16 @@ function QRScreen({ next, userEmail, Button, generateMfaQrLink }) {
         </div>
     );
 }
+
+QRScreen.propTypes = {
+    next: PropTypes.func.isRequired,
+    userEmail: PropTypes.string.isRequired,
+    Button: PropTypes.elementType.isRequired,
+    generateMfaQrLink: PropTypes.func.isRequired,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: PropTypes.string.isRequired,
+    USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: PropTypes.string.isRequired,
+    LEARN_MORE: PropTypes.string.isRequired,
+    NEXT: PropTypes.string.isRequired,
+};
 
 export default QRScreen;

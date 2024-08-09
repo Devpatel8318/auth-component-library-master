@@ -4,7 +4,6 @@ import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
 import OtpVerification from './OtpVerification.jsx';
 
-// as props
 const MfaModal = ({
     closeModal,
     userEmail,
@@ -25,15 +24,11 @@ const MfaModal = ({
     recoveryEmail,
     onlyVerifyEmail,
     showResendOption,
-    sharedDisplayText,
     FormControl,
     generateMfaQrLink,
     SPModal,
     Button,
     DiscardMessage,
-    DisplayText,
-    getLocalizeText,
-    GlobalDisplayTexts,
     TOTPVerificationSignIn,
     verifyTOTPSetupCode,
     callAPI,
@@ -43,45 +38,9 @@ const MfaModal = ({
     EmailOtpLock,
     MfaOtpLockIcon,
     FormattedMessage,
+    recoveryEmailOtplength,
+    labels,
 }) => {
-    console.log('47', {
-        closeModal,
-        userEmail,
-        isMfaEnabled,
-        initialStep,
-        onMfaEnableStepComplete,
-        onRecoveryEmailEnableStepComplete,
-        successRedirect,
-        showDialog,
-        setShowDialog,
-        cancelNavigation,
-        confirmNavigation,
-        isOwner,
-        onlyVerifyCode,
-        onlyVerifyCodeSuccess,
-        setupNewAuthenticator,
-        setupNewAuthenticatorSuccess,
-        recoveryEmail,
-        onlyVerifyEmail,
-        showResendOption,
-        sharedDisplayText,
-        FormControl,
-        generateMfaQrLink,
-        SPModal,
-        Button,
-        DiscardMessage,
-        DisplayText,
-        getLocalizeText,
-        GlobalDisplayTexts,
-        TOTPVerificationSignIn,
-        verifyTOTPSetupCode,
-        callAPI,
-        SpinnerSmallLoader,
-        API_AUTH_BASE_URL,
-        emailTester,
-        EmailOtpLock,
-        MfaOtpLockIcon,
-    });
     let startingStep = initialStep;
 
     if (onlyVerifyCode) {
@@ -241,6 +200,35 @@ const MfaModal = ({
         cancelNavigation();
     };
 
+    const {
+        TWO_FACTOR_AUTHENTICATOR_2FA,
+        SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+        USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
+        LEARN_MORE,
+        NEXT,
+        ADD_RECOVERY_EMAIL,
+        LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
+        SKIP,
+        VERIFY,
+        RESEND_CODE,
+        ENTER_VERIFICATION_CODE,
+        ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR,
+        BACK,
+        FINISH,
+        CODE_IS_VERIFIED,
+        CODE_IS_INVALID,
+        ENTER_VERIFICATION_CODE_SENT_EMAIL,
+        ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL,
+        RECOVERY_EMAIL_HAS_BEEN_VERIFIED,
+        CODE_HAS_EXPIRED,
+        DISCARD,
+        SAVE,
+        DISCARD_INVITE,
+        DISCARD_INVITE_CONFIRMATION,
+        RECOVERY_EMAIL_MANDATORY,
+        NOT_VALID_EMAIL,
+    } = labels;
+
     const getModalContent = () => {
         switch (modalStep) {
             case 'QR_SCREEN':
@@ -250,6 +238,14 @@ const MfaModal = ({
                         userEmail={userEmail}
                         Button={Button}
                         generateMfaQrLink={generateMfaQrLink}
+                        SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP={
+                            SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP
+                        }
+                        USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR={
+                            USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR
+                        }
+                        LEARN_MORE={LEARN_MORE}
+                        NEXT={NEXT}
                     />
                 );
 
@@ -258,20 +254,21 @@ const MfaModal = ({
                     <OtpVerification
                         length={6}
                         isMfaEnabled={isMfaEnabled}
-                        primaryText="Enter Verification Code"
-                        secondaryText="Enter the 6 Digit code from authenticator."
+                        primaryText={ENTER_VERIFICATION_CODE}
+                        secondaryText={ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR}
                         Icon={<MfaOtpLockIcon />}
-                        secondaryButtonText="Back"
+                        secondaryButtonText={BACK}
                         goBack={() => setModalPage('QR_SCREEN')}
-                        primaryButtonText={onlyVerifyCode ? 'Finish' : 'Next'}
+                        primaryButtonText={onlyVerifyCode ? FINISH : NEXT}
                         verifyOtp={handleVerifyOtp}
-                        successMessage="Code is verified"
-                        codeInvalidMessage="Code is Invalid"
+                        successMessage={CODE_IS_VERIFIED}
+                        codeInvalidMessage={CODE_IS_INVALID}
                         onComplete={handleOtpVerificationSubmit}
                         isOtpVerified={isAuthenticatorOtpVerified}
                         setIsOtpVerified={setIsAuthenticatorOtpVerified}
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
+                        RESEND_CODE={RESEND_CODE}
                     />
                 );
 
@@ -289,20 +286,26 @@ const MfaModal = ({
                         Button={Button}
                         FormControl={FormControl}
                         emailTester={emailTester}
-                        DisplayText={sharedDisplayText}
-                        getLocalizeText={getLocalizeText}
+                        ADD_RECOVERY_EMAIL={ADD_RECOVERY_EMAIL}
+                        LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP={
+                            LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP
+                        }
+                        SKIP={SKIP}
+                        VERIFY={VERIFY}
+                        RECOVERY_EMAIL_MANDATORY={RECOVERY_EMAIL_MANDATORY}
+                        NOT_VALID_EMAIL={NOT_VALID_EMAIL}
                     />
                 );
 
             case 'RECOVERY_EMAIL_OTP_VERIFICATION':
                 return (
                     <OtpVerification
-                        length={6}
+                        length={recoveryEmailOtplength}
                         isMfaEnabled={isMfaEnabled}
-                        primaryText="Enter Verification Code Sent to e-mail"
-                        secondaryText="Enter the 6 Digit code sent to your recovery e-mail."
+                        primaryText={ENTER_VERIFICATION_CODE_SENT_EMAIL}
+                        secondaryText={ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL}
                         Icon={<EmailOtpLock />}
-                        secondaryButtonText="Back"
+                        secondaryButtonText={BACK}
                         goBack={() => {
                             if (onlyVerifyEmail) {
                                 closeModal();
@@ -310,11 +313,10 @@ const MfaModal = ({
                             }
                             setModalPage('RECOVERY_EMAIL');
                         }}
-                        primaryButtonText="Finish"
+                        primaryButtonText={FINISH}
                         verifyOtp={handleEmailVerifyOtp}
-                        successMessage="Recovery email has been verified successfully."
-                        // TODO: handle this message
-                        codeInvalidMessage="Code has expired."
+                        successMessage={RECOVERY_EMAIL_HAS_BEEN_VERIFIED}
+                        codeInvalidMessage={CODE_HAS_EXPIRED}
                         onComplete={handleEmailOtpVerificationSubmit}
                         isOtpVerified={isMailOtpVerified}
                         setIsOtpVerified={setIsMailOtpVerified}
@@ -322,6 +324,7 @@ const MfaModal = ({
                         resendOtp={generateOtp}
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
+                        RESEND_CODE={RESEND_CODE}
                     />
                 );
             default:
@@ -336,7 +339,7 @@ const MfaModal = ({
             closeOnOverlayClick={false}
             closeIcon
             closeOnEsc
-            title={'Two Factor Authentication (2FA)'}
+            title={TWO_FACTOR_AUTHENTICATOR_2FA}
             classNames={{
                 modal: 'popup-bg mfa-main-modal',
             }}
@@ -349,9 +352,8 @@ const MfaModal = ({
         >
             {showDialog && (
                 <DiscardMessage
-                    HeadTitle={DisplayText.DISCARD_INVITE}
-                    SubHeadTitle={DisplayText.DISCARD_INVITE_CONFIRMATION}
-                    // onClickClose={this.handleClosePopup}
+                    HeadTitle={DISCARD_INVITE}
+                    SubHeadTitle={DISCARD_INVITE_CONFIRMATION}
                     isOpen
                     hasDiscardBtns={false}
                     onDismiss={onDismiss}
@@ -362,12 +364,7 @@ const MfaModal = ({
                         onClick={() => setShowDialog(false)}
                         disabled={false}
                     >
-                        <FormattedMessage
-                            id={getLocalizeText(GlobalDisplayTexts.SAVE)}
-                            defaultMessage={getLocalizeText(
-                                GlobalDisplayTexts.SAVE
-                            )}
-                        />
+                        <FormattedMessage id={SAVE} defaultMessage={SAVE} />
                     </Button>
                     <Button
                         type="submit"
@@ -376,10 +373,8 @@ const MfaModal = ({
                         disabled={false}
                     >
                         <FormattedMessage
-                            id={getLocalizeText(GlobalDisplayTexts.DISCARD)}
-                            defaultMessage={getLocalizeText(
-                                GlobalDisplayTexts.DISCARD
-                            )}
+                            id={DISCARD}
+                            defaultMessage={DISCARD}
                         />
                     </Button>
                 </DiscardMessage>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import OtpInput from './OtpInput.jsx';
 
 const OtpVerification = ({
@@ -19,6 +20,7 @@ const OtpVerification = ({
     resendOtp,
     Button,
     SpinnerSmallLoader,
+    RESEND_CODE,
 }) => {
     const [OTP, setOTP] = useState(Array(length).fill(''));
     const [isLoading, setIsLoading] = useState(false);
@@ -83,7 +85,7 @@ const OtpVerification = ({
                                                 href="javascript:;"
                                                 onClick={resendOtp}
                                             >
-                                                Resend code
+                                                {RESEND_CODE}
                                             </a>
                                         ) : (
                                             ''
@@ -126,6 +128,27 @@ const OtpVerification = ({
             </div>
         </div>
     );
+};
+
+OtpVerification.propTypes = {
+    length: PropTypes.number,
+    primaryText: PropTypes.string.isRequired,
+    secondaryText: PropTypes.string.isRequired,
+    Icon: PropTypes.node,
+    secondaryButtonText: PropTypes.string.isRequired,
+    goBack: PropTypes.func.isRequired,
+    primaryButtonText: PropTypes.string.isRequired,
+    verifyOtp: PropTypes.func.isRequired,
+    successMessage: PropTypes.string.isRequired,
+    codeInvalidMessage: PropTypes.string.isRequired,
+    onComplete: PropTypes.func.isRequired,
+    isOtpVerified: PropTypes.bool.isRequired,
+    setIsOtpVerified: PropTypes.func.isRequired,
+    showResendOption: PropTypes.bool.isRequired,
+    resendOtp: PropTypes.func.isRequired,
+    Button: PropTypes.elementType.isRequired,
+    SpinnerSmallLoader: PropTypes.elementType.isRequired,
+    RESEND_CODE: PropTypes.string.isRequired,
 };
 
 export default OtpVerification;

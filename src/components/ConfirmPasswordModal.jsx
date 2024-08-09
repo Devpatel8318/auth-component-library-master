@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const ConfirmPasswordModal = ({
     onCloseModal,
     onPasswordConfirm,
     userEmail,
-    primaryText,
     SPModal,
     Button,
     cognitoSignIn,
     SpinnerSmallLoader,
     FormControl,
+    labels,
 }) => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +50,9 @@ const ConfirmPasswordModal = ({
         }
     };
 
+    const { CONFIRM_PASSWORD, CONFIRM, PLEASE_CONFIRM_PASSWORD_ENABLE_2FA } =
+        labels;
+
     return (
         <SPModal
             showModal
@@ -56,7 +60,7 @@ const ConfirmPasswordModal = ({
             closeOnOverlayClick={false}
             closeIcon
             closeOnEsc
-            title="Confirm Password"
+            title={CONFIRM_PASSWORD}
             classNames={{ modal: 'popup-bg mfa-password-modal' }}
             styles={{ modal: { width: '442px' } }}
         >
@@ -65,7 +69,7 @@ const ConfirmPasswordModal = ({
                     <div className="row mb-40">
                         <div className="col-lg-12 text-center">
                             <h5 className="mfa-password-text mb-8 text-grey mt-0">
-                                {primaryText}
+                                {PLEASE_CONFIRM_PASSWORD_ENABLE_2FA}
                             </h5>
                             <h3 className="mfa-password-email mb-2 mt-0">
                                 {userEmail}
@@ -76,7 +80,6 @@ const ConfirmPasswordModal = ({
                                     id="mfa-confirm-password"
                                     ref={passwordInputRef}
                                     hasError={passwordError}
-                                    labelText={'password'}
                                     errorMessage={passwordError}
                                     name="confirmPassword"
                                     value={password}
@@ -106,7 +109,7 @@ const ConfirmPasswordModal = ({
                                 variant="primary"
                                 type="submit"
                             >
-                                Confirm
+                                {CONFIRM}
                             </Button>
                         </div>
                     </div>
@@ -114,6 +117,22 @@ const ConfirmPasswordModal = ({
             </form>
         </SPModal>
     );
+};
+
+ConfirmPasswordModal.propTypes = {
+    onCloseModal: PropTypes.func.isRequired,
+    onPasswordConfirm: PropTypes.func.isRequired,
+    userEmail: PropTypes.string.isRequired,
+    SPModal: PropTypes.elementType.isRequired,
+    Button: PropTypes.elementType.isRequired,
+    cognitoSignIn: PropTypes.func.isRequired,
+    SpinnerSmallLoader: PropTypes.elementType.isRequired,
+    FormControl: PropTypes.elementType.isRequired,
+    labels: PropTypes.shape({
+        CONFIRM_PASSWORD: PropTypes.string.isRequired,
+        CONFIRM: PropTypes.string.isRequired,
+        PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default ConfirmPasswordModal;

@@ -38,7 +38,8 @@ const MfaSetupFlow = ({
     FormattedMessage,
     cognitoSignIn,
 }) => {
-    const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(true);
+    const [isPasswordConfirmed, setIsPasswordConfirmed] =
+        useState(onlyVerifyEmail);
     const onPasswordConfirm = () => {
         setIsPasswordConfirmed(true);
     };

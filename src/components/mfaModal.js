@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
@@ -43,6 +42,7 @@ const MfaModal = ({
     emailTester,
     EmailOtpLock,
     MfaOtpLockIcon,
+    FormattedMessage,
 }) => {
     console.log('47', {
         closeModal,

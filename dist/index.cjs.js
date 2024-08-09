@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var React = require('react');
 var QRCode = require('react-qr-code');
-var reactIntl = require('react-intl');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -405,7 +404,8 @@ const MfaModal = _ref => {
     API_AUTH_BASE_URL,
     emailTester,
     EmailOtpLock,
-    MfaOtpLockIcon
+    MfaOtpLockIcon,
+    FormattedMessage
   } = _ref;
   console.log('47', {
     closeModal,
@@ -682,7 +682,7 @@ const MfaModal = _ref => {
     bsClass: "btn btn-secondary btn-medium ml-2",
     onClick: () => setShowDialog(false),
     disabled: false
-  }, /*#__PURE__*/React__default["default"].createElement(reactIntl.FormattedMessage, {
+  }, /*#__PURE__*/React__default["default"].createElement(FormattedMessage, {
     id: getLocalizeText(GlobalDisplayTexts.SAVE),
     defaultMessage: getLocalizeText(GlobalDisplayTexts.SAVE)
   })), /*#__PURE__*/React__default["default"].createElement(Button, {
@@ -690,7 +690,7 @@ const MfaModal = _ref => {
     bsClass: "btn btn-danger btn-medium ml-2",
     onClick: () => handleDiscardPopup(),
     disabled: false
-  }, /*#__PURE__*/React__default["default"].createElement(reactIntl.FormattedMessage, {
+  }, /*#__PURE__*/React__default["default"].createElement(FormattedMessage, {
     id: getLocalizeText(GlobalDisplayTexts.DISCARD),
     defaultMessage: getLocalizeText(GlobalDisplayTexts.DISCARD)
   }))), getModalContent());

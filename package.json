@@ -12,7 +12,6 @@
     "module": "dist/index.esm.js",
     "source": "src/index.js",
     "dependencies": {
-        "react-intl": "6.0.4",
         "react-qr-code": "^2.0.15",
         "react-scripts": "3.4.3"
     },

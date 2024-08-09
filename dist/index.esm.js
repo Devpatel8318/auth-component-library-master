@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import QRCode from 'react-qr-code';
-import { FormattedMessage } from 'react-intl';
 
 function HelloWorld() {
   return /*#__PURE__*/React.createElement("h1", {
@@ -396,7 +395,8 @@ const MfaModal = _ref => {
     API_AUTH_BASE_URL,
     emailTester,
     EmailOtpLock,
-    MfaOtpLockIcon
+    MfaOtpLockIcon,
+    FormattedMessage
   } = _ref;
   console.log('47', {
     closeModal,

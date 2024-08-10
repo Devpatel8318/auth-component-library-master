@@ -7,15 +7,7 @@ mfa flow
 All exported components are listed in src/index.js
 
 ```jsx
-import React from 'react';
-
-import { MfaSetupFlow } from 'dev-test-mfa';
-
-const App = () => {
-    return <MfaSetupFlow />;
-};
-
-export default App;
+import {MfaSetupFlow, OtpInput} from 'dev-test-mfa
 ```
 
 ## License

@@ -720,8 +720,8 @@ const MfaModal = _ref => {
     CODE_HAS_EXPIRED,
     DISCARD,
     SAVE,
-    DISCARD_INVITE,
-    DISCARD_INVITE_CONFIRMATION,
+    DISCARD_UNSAVED_CHANGES,
+    LOSE_EDIT_CHANGES_MSG,
     RECOVERY_EMAIL_MANDATORY,
     NOT_VALID_EMAIL
   } = labels;
@@ -827,8 +827,8 @@ const MfaModal = _ref => {
       }
     }
   }, showDialog && /*#__PURE__*/React__default["default"].createElement(DiscardMessage, {
-    HeadTitle: DISCARD_INVITE,
-    SubHeadTitle: DISCARD_INVITE_CONFIRMATION,
+    HeadTitle: DISCARD_UNSAVED_CHANGES,
+    SubHeadTitle: LOSE_EDIT_CHANGES_MSG,
     isOpen: true,
     hasDiscardBtns: false,
     onDismiss: onDismiss
@@ -1002,8 +1002,8 @@ MfaSetupFlow.propTypes = {
     CODE_HAS_EXPIRED: PropTypes__default["default"].string.isRequired,
     DISCARD: PropTypes__default["default"].string.isRequired,
     SAVE: PropTypes__default["default"].string.isRequired,
-    DISCARD_INVITE: PropTypes__default["default"].string.isRequired,
-    DISCARD_INVITE_CONFIRMATION: PropTypes__default["default"].string.isRequired,
+    DISCARD_UNSAVED_CHANGES: PropTypes__default["default"].string.isRequired,
+    LOSE_EDIT_CHANGES_MSG: PropTypes__default["default"].string.isRequired,
     RECOVERY_EMAIL_MANDATORY: PropTypes__default["default"].string.isRequired,
     NOT_VALID_EMAIL: PropTypes__default["default"].string.isRequired
   }).isRequired

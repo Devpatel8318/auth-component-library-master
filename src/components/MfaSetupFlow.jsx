@@ -26,13 +26,13 @@ const MfaSetupFlow = ({
     DiscardMessage,
     TotpVerificationSignIn,
     verifyTotpSetupCode,
-    callAPI,
-    API_AUTH_BASE_URL,
     SpinnerSmallLoader,
     FormControl,
     generateMfaQrLink,
     cognitoSignIn,
     labels,
+    verifyEmailOtp,
+    generateEmailOtp,
 }) => {
     const [isPasswordConfirmed, setIsPasswordConfirmed] =
         useState(onlyVerifyEmail);
@@ -68,10 +68,10 @@ const MfaSetupFlow = ({
                     DiscardMessage={DiscardMessage}
                     TotpVerificationSignIn={TotpVerificationSignIn}
                     verifyTotpSetupCode={verifyTotpSetupCode}
-                    callAPI={callAPI}
                     SpinnerSmallLoader={SpinnerSmallLoader}
-                    API_AUTH_BASE_URL={API_AUTH_BASE_URL}
                     labels={labels}
+                    verifyEmailOtp={verifyEmailOtp}
+                    generateEmailOtp={generateEmailOtp}
                 />
             ) : (
                 <ConfirmPasswordModal
@@ -110,7 +110,6 @@ MfaSetupFlow.propTypes = {
     setupNewAuthenticatorSuccess: PropTypes.func,
 
     // api
-    API_AUTH_BASE_URL: PropTypes.string.isRequired,
     TotpVerificationSignIn: PropTypes.func.isRequired,
     verifyTotpSetupCode: PropTypes.func.isRequired,
     cognitoSignIn: PropTypes.func.isRequired,
@@ -124,7 +123,6 @@ MfaSetupFlow.propTypes = {
     HOCUnsavePrompt: PropTypes.elementType.isRequired,
     // inside
     DiscardMessage: PropTypes.elementType.isRequired,
-    callAPI: PropTypes.func.isRequired,
 
     SpinnerSmallLoader: PropTypes.elementType,
     FormControl: PropTypes.elementType,

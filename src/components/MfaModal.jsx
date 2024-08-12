@@ -32,10 +32,10 @@ const MfaModal = ({
     DiscardMessage,
     TotpVerificationSignIn,
     verifyTotpSetupCode,
-    callAPI,
     SpinnerSmallLoader,
-    API_AUTH_BASE_URL,
     labels,
+    verifyEmailOtp,
+    generateEmailOtp,
 }) => {
     let startingStep = initialStep;
 
@@ -47,7 +47,6 @@ const MfaModal = ({
     }
 
     const [modalStep, setModalPage] = useState(startingStep);
-    const [didUserWannaLeave, setDidUserWannaLeave] = useState(true);
     const [isAuthenticatorOtpVerified, setIsAuthenticatorOtpVerified] =
         useState(false);
     const [isMailOtpVerified, setIsMailOtpVerified] = useState(false);
@@ -81,14 +80,12 @@ const MfaModal = ({
     const handleCloseModal = () => {
         if (modalStep === 'OTP_VERIFICATION') {
             setShowDialog(true, true);
-            setDidUserWannaLeave(true);
             return;
         }
 
         if (modalStep === 'RECOVERY_EMAIL') {
             if (isRecoveryEmailMandatory) {
                 setShowDialog(true, true);
-                setDidUserWannaLeave(true);
                 return;
             }
 
@@ -105,7 +102,6 @@ const MfaModal = ({
 
         if (modalStep === 'RECOVERY_EMAIL_OTP_VERIFICATION') {
             setShowDialog(true, true);
-            setDidUserWannaLeave(true);
             return;
         }
         closeModal();
@@ -140,54 +136,21 @@ const MfaModal = ({
         }
     };
 
-    const handleEmailVerifyOtp = async (code) => {
+    const handleVerifyEmailOtp = (code) => {
         const newRecoveryEmail = onlyVerifyEmail
             ? recoveryEmail
             : recoveryEmailRef && recoveryEmailRef.current;
 
-        try {
-            const response = await callAPI(
-                `${API_AUTH_BASE_URL}/user/verify/otp`,
-                'POST',
-                {
-                    recoveryEmail: newRecoveryEmail,
-                    otp: code,
-                }
-            );
-            if (response && response.data && response.data.success) {
-                return {
-                    success: response.data.success,
-                };
-            }
-            return {
-                error: true,
-            };
-        } catch (error) {
-            return {
-                error: true,
-            };
-        }
+        return verifyEmailOtp(code, newRecoveryEmail);
     };
 
-    const generateOtp = async () => {
-        try {
-            await callAPI(`${API_AUTH_BASE_URL}/user/generate/otp`, 'POST', {
-                recoveryEmail: recoveryEmailRef.current,
-            });
-            return {
-                success: true,
-            };
-        } catch (error) {
-            return {
-                error: true,
-            };
+    const handleGenerateEmailOtp = () => {
+        if (recoveryEmailRef && recoveryEmailRef.current) {
+            generateEmailOtp(recoveryEmailRef.current);
         }
     };
 
     const handleEmailOtpVerificationSubmit = () => {
-        // if (!isRecoveryEmailMandatory) {
-        //   onMfaEnableStepComplete();
-        // }
         onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
         closeModal();
     };
@@ -276,7 +239,7 @@ const MfaModal = ({
                         onComplete={(recoveryEmail) => {
                             recoveryEmailRef.current = recoveryEmail;
                             setModalPage('RECOVERY_EMAIL_OTP_VERIFICATION');
-                            generateOtp();
+                            handleGenerateEmailOtp();
                         }}
                         isRecoveryEmailMandatory={isRecoveryEmailMandatory}
                         Button={Button}
@@ -309,14 +272,14 @@ const MfaModal = ({
                             setModalPage('RECOVERY_EMAIL');
                         }}
                         primaryButtonText={FINISH}
-                        verifyOtp={handleEmailVerifyOtp}
+                        verifyOtp={handleVerifyEmailOtp}
                         successMessage={RECOVERY_EMAIL_HAS_BEEN_VERIFIED}
                         codeInvalidMessage={CODE_HAS_EXPIRED}
                         onComplete={handleEmailOtpVerificationSubmit}
                         isOtpVerified={isMailOtpVerified}
                         setIsOtpVerified={setIsMailOtpVerified}
                         showResendOption
-                        resendOtp={generateOtp}
+                        resendOtp={handleGenerateEmailOtp}
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
                         RESEND_CODE={RESEND_CODE}

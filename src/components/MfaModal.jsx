@@ -223,8 +223,8 @@ const MfaModal = ({
         CODE_HAS_EXPIRED,
         DISCARD,
         SAVE,
-        DISCARD_INVITE,
-        DISCARD_INVITE_CONFIRMATION,
+        DISCARD_UNSAVED_CHANGES,
+        LOSE_EDIT_CHANGES_MSG,
         RECOVERY_EMAIL_MANDATORY,
         NOT_VALID_EMAIL,
     } = labels;
@@ -352,8 +352,8 @@ const MfaModal = ({
         >
             {showDialog && (
                 <DiscardMessage
-                    HeadTitle={DISCARD_INVITE}
-                    SubHeadTitle={DISCARD_INVITE_CONFIRMATION}
+                    HeadTitle={DISCARD_UNSAVED_CHANGES}
+                    SubHeadTitle={LOSE_EDIT_CHANGES_MSG}
                     isOpen
                     hasDiscardBtns={false}
                     onDismiss={onDismiss}

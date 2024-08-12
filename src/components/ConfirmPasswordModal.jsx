@@ -86,6 +86,7 @@ const ConfirmPasswordModal = ({
                                     value={password}
                                     onChange={handlePasswordChange}
                                     bsClass={`text-center mfa-password-input-box`}
+                                    autoFocus
                                 />
                                 <div
                                     className={`invalid-feedback ${

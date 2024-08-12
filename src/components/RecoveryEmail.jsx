@@ -69,6 +69,7 @@ const RecoveryEmail = ({
                                 value={recoveryEmail}
                                 onChange={handleRecoveryEmailChange}
                                 bsClass={`text-center mfa-password-input-box`}
+                                autoFocus
                             />
                             <div
                                 className={`invalid-feedback ${

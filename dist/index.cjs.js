@@ -121,7 +121,8 @@ const ConfirmPasswordModal = _ref => {
     cognitoSignIn,
     SpinnerSmallLoader,
     FormControl,
-    labels
+    labels,
+    primaryText
   } = _ref;
   const [password, setPassword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -154,8 +155,7 @@ const ConfirmPasswordModal = _ref => {
   };
   const {
     CONFIRM_PASSWORD,
-    CONFIRM,
-    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
+    CONFIRM
   } = labels;
   return /*#__PURE__*/React__default["default"].createElement(SPModal, {
     showModal: true,
@@ -183,7 +183,7 @@ const ConfirmPasswordModal = _ref => {
     className: "col-lg-12 text-center"
   }, /*#__PURE__*/React__default["default"].createElement("h5", {
     className: "mfa-password-text mb-8 text-grey mt-0"
-  }, PLEASE_CONFIRM_PASSWORD_ENABLE_2FA), /*#__PURE__*/React__default["default"].createElement("h3", {
+  }, primaryText), /*#__PURE__*/React__default["default"].createElement("h3", {
     className: "mfa-password-email mb-2 mt-0"
   }, userEmail), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "form-group mb-0 position-relative"
@@ -897,6 +897,9 @@ const MfaSetupFlow = _ref => {
   const onPasswordConfirm = () => {
     setIsPasswordConfirmed(true);
   };
+  const {
+    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
+  } = labels;
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, isPasswordConfirmed ? /*#__PURE__*/React__default["default"].createElement(MfaModalHOCWrapper, {
     HOC: HOCUnsavePrompt,
     closeModal: onCloseModal,
@@ -938,7 +941,8 @@ const MfaSetupFlow = _ref => {
     cognitoSignIn: cognitoSignIn,
     SpinnerSmallLoader: SpinnerSmallLoader,
     FormControl: FormControl,
-    labels: labels
+    labels: labels,
+    primaryText: PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
   }));
 };
 MfaSetupFlow.propTypes = {
@@ -1005,5 +1009,6 @@ MfaSetupFlow.propTypes = {
   }).isRequired
 };
 
+exports.ConfirmPasswordModal = ConfirmPasswordModal;
 exports.MfaSetupFlow = MfaSetupFlow;
 exports.OtpInput = OtpInput;

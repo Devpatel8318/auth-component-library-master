@@ -111,7 +111,8 @@ const ConfirmPasswordModal = _ref => {
     cognitoSignIn,
     SpinnerSmallLoader,
     FormControl,
-    labels
+    labels,
+    primaryText
   } = _ref;
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -144,8 +145,7 @@ const ConfirmPasswordModal = _ref => {
   };
   const {
     CONFIRM_PASSWORD,
-    CONFIRM,
-    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
+    CONFIRM
   } = labels;
   return /*#__PURE__*/React.createElement(SPModal, {
     showModal: true,
@@ -173,7 +173,7 @@ const ConfirmPasswordModal = _ref => {
     className: "col-lg-12 text-center"
   }, /*#__PURE__*/React.createElement("h5", {
     className: "mfa-password-text mb-8 text-grey mt-0"
-  }, PLEASE_CONFIRM_PASSWORD_ENABLE_2FA), /*#__PURE__*/React.createElement("h3", {
+  }, primaryText), /*#__PURE__*/React.createElement("h3", {
     className: "mfa-password-email mb-2 mt-0"
   }, userEmail), /*#__PURE__*/React.createElement("div", {
     className: "form-group mb-0 position-relative"
@@ -887,6 +887,9 @@ const MfaSetupFlow = _ref => {
   const onPasswordConfirm = () => {
     setIsPasswordConfirmed(true);
   };
+  const {
+    PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
+  } = labels;
   return /*#__PURE__*/React.createElement(React.Fragment, null, isPasswordConfirmed ? /*#__PURE__*/React.createElement(MfaModalHOCWrapper, {
     HOC: HOCUnsavePrompt,
     closeModal: onCloseModal,
@@ -928,7 +931,8 @@ const MfaSetupFlow = _ref => {
     cognitoSignIn: cognitoSignIn,
     SpinnerSmallLoader: SpinnerSmallLoader,
     FormControl: FormControl,
-    labels: labels
+    labels: labels,
+    primaryText: PLEASE_CONFIRM_PASSWORD_ENABLE_2FA
   }));
 };
 MfaSetupFlow.propTypes = {
@@ -995,4 +999,4 @@ MfaSetupFlow.propTypes = {
   }).isRequired
 };
 
-export { MfaSetupFlow, OtpInput };
+export { ConfirmPasswordModal, MfaSetupFlow, OtpInput };

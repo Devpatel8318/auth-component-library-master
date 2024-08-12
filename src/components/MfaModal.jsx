@@ -13,11 +13,13 @@ const MfaModal = ({
     initialStep = 'QR_SCREEN',
     onMfaEnableStepComplete,
     onRecoveryEmailEnableStepComplete,
+    //
     successRedirect,
     showDialog,
     setShowDialog,
     cancelNavigation,
     confirmNavigation,
+    //
     isRecoveryEmailMandatory,
     onlyVerifyCode,
     onlyVerifyCodeSuccess,
@@ -339,9 +341,4 @@ const MfaModal = ({
     );
 };
 
-const MfaModalHOCWrapper = ({ HOC, ...props }) => {
-    const WrappedComponent = HOC(MfaModal);
-    return <WrappedComponent {...props} />;
-};
-
-export default MfaModalHOCWrapper;
+export default MfaModal;

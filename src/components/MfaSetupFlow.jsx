@@ -22,7 +22,6 @@ const MfaSetupFlow = ({
     onlyVerifyEmail,
     SPModal,
     Button,
-    HOCUnsavePrompt,
     DiscardMessage,
     TotpVerificationSignIn,
     verifyTotpSetupCode,
@@ -33,6 +32,12 @@ const MfaSetupFlow = ({
     labels,
     verifyEmailOtp,
     generateEmailOtp,
+    //HOC props
+    successRedirect,
+    showDialog,
+    setShowDialog,
+    cancelNavigation,
+    confirmNavigation,
 }) => {
     const [isPasswordConfirmed, setIsPasswordConfirmed] =
         useState(onlyVerifyEmail);
@@ -46,7 +51,6 @@ const MfaSetupFlow = ({
         <>
             {isPasswordConfirmed ? (
                 <MfaModal
-                    HOC={HOCUnsavePrompt}
                     closeModal={onCloseModal}
                     userEmail={userEmail}
                     isMfaEnabled={isMfaEnabled}
@@ -72,6 +76,11 @@ const MfaSetupFlow = ({
                     labels={labels}
                     verifyEmailOtp={verifyEmailOtp}
                     generateEmailOtp={generateEmailOtp}
+                    successRedirect={successRedirect}
+                    showDialog={showDialog}
+                    setShowDialog={setShowDialog}
+                    cancelNavigation={cancelNavigation}
+                    confirmNavigation={confirmNavigation}
                 />
             ) : (
                 <ConfirmPasswordModal
@@ -114,18 +123,24 @@ MfaSetupFlow.propTypes = {
     verifyTotpSetupCode: PropTypes.func.isRequired,
     cognitoSignIn: PropTypes.func.isRequired,
     generateMfaQrLink: PropTypes.func.isRequired,
-
-    Button: PropTypes.elementType.isRequired,
+    verifyEmailOtp: PropTypes.func.isRequired,
+    generateEmailOtp: PropTypes.func.isRequired,
 
     // try to remove this
     SPModal: PropTypes.elementType.isRequired,
-    // temp ignore
-    HOCUnsavePrompt: PropTypes.elementType.isRequired,
     // inside
     DiscardMessage: PropTypes.elementType.isRequired,
 
     SpinnerSmallLoader: PropTypes.elementType,
     FormControl: PropTypes.elementType,
+    Button: PropTypes.elementType.isRequired,
+
+    // HOC Props
+    successRedirect: PropTypes.shape({ current: PropTypes.string.isRequired }),
+    showDialog: PropTypes.bool,
+    setShowDialog: PropTypes.func.isRequired,
+    cancelNavigation: PropTypes.func.isRequired,
+    confirmNavigation: PropTypes.func.isRequired,
 
     labels: PropTypes.shape({
         CONFIRM_PASSWORD: PropTypes.string.isRequired,

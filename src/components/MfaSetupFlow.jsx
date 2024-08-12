@@ -5,7 +5,7 @@ import MfaModal from './MfaModal.jsx';
 import './index.scss';
 import FormControl from '../sharedComponents/FormControl.js';
 import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader.js';
-import Button from '../sharedComponents/Button.js';
+import Button from '../sharedComponents/Button.jsx';
 
 const MfaSetupFlow = ({
     userEmail,

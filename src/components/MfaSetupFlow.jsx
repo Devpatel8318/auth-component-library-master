@@ -43,6 +43,8 @@ const MfaSetupFlow = ({
         setIsPasswordConfirmed(true);
     };
 
+    const { PLEASE_CONFIRM_PASSWORD_ENABLE_2FA } = labels;
+
     return (
         <>
             {isPasswordConfirmed ? (
@@ -92,6 +94,7 @@ const MfaSetupFlow = ({
                     SpinnerSmallLoader={SpinnerSmallLoader}
                     FormControl={FormControl}
                     labels={labels}
+                    primaryText={PLEASE_CONFIRM_PASSWORD_ENABLE_2FA}
                 />
             )}
         </>

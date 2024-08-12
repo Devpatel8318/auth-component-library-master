@@ -11,6 +11,7 @@ const ConfirmPasswordModal = ({
     SpinnerSmallLoader,
     FormControl,
     labels,
+    primaryText,
 }) => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +51,7 @@ const ConfirmPasswordModal = ({
         }
     };
 
-    const { CONFIRM_PASSWORD, CONFIRM, PLEASE_CONFIRM_PASSWORD_ENABLE_2FA } =
-        labels;
+    const { CONFIRM_PASSWORD, CONFIRM } = labels;
 
     return (
         <SPModal
@@ -69,7 +69,7 @@ const ConfirmPasswordModal = ({
                     <div className="row mb-40">
                         <div className="col-lg-12 text-center">
                             <h5 className="mfa-password-text mb-8 text-grey mt-0">
-                                {PLEASE_CONFIRM_PASSWORD_ENABLE_2FA}
+                                {primaryText}
                             </h5>
                             <h3 className="mfa-password-email mb-2 mt-0">
                                 {userEmail}

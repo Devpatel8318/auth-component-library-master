@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'react-qr-code';
 
@@ -100,6 +100,96 @@ OtpInput.propTypes = {
   setErrorMessage: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
+
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
+class FormControl extends PureComponent {
+  render() {
+    const {
+      placeholder,
+      type,
+      onChange,
+      value,
+      bsClass,
+      id,
+      onEnterKeyPress,
+      onKeyDown,
+      disabled,
+      hasError,
+      maxLength,
+      autoFocus,
+      handleOnFocus,
+      inputRef
+    } = this.props;
+    return /*#__PURE__*/React.createElement("input", {
+      disabled: disabled,
+      placeholder: placeholder
+      // eslint-disable-next-line jsx-a11y/no-autofocus
+      ,
+      autoFocus: autoFocus,
+      type: type,
+      id: id,
+      className: `form-control ${bsClass || ''} ${hasError && 'is-invalid'}`,
+      value: value,
+      maxLength: maxLength,
+      onChange: onChange,
+      onKeyPress: event => {
+        if (event.key === 'Enter') {
+          onEnterKeyPress(event);
+        }
+      },
+      onKeyDown: onKeyDown,
+      onFocus: handleOnFocus,
+      ref: inputRef
+    });
+  }
+}
+FormControl.propTypes = {
+  bsClass: PropTypes.string,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onEnterKeyPress: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  disabled: PropTypes.bool,
+  hasError: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  maxLength: PropTypes.number,
+  autoFocus: PropTypes.bool.isRequired,
+  handleOnFocus: PropTypes.func,
+  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({
+    current: PropTypes.object
+  })])
+};
+FormControl.defaultProps = {
+  bsClass: '',
+  id: '',
+  onChange: () => {},
+  disabled: false,
+  maxLength: null,
+  onEnterKeyPress: () => {},
+  onKeyDown: () => {},
+  placeholder: '',
+  type: '',
+  value: '',
+  hasError: '',
+  handleOnFocus: () => {},
+  inputRef: {
+    current: ''
+  }
+};
+var FormControl$1 = /*#__PURE__*/React.forwardRef((props, ref) => /*#__PURE__*/React.createElement(FormControl, _extends({
+  inputRef: ref
+}, props)));
 
 const ConfirmPasswordModal = _ref => {
   let {
@@ -212,19 +302,32 @@ ConfirmPasswordModal.propTypes = {
   Button: PropTypes.elementType.isRequired,
   cognitoSignIn: PropTypes.func.isRequired,
   SpinnerSmallLoader: PropTypes.elementType.isRequired,
-  FormControl: PropTypes.elementType.isRequired,
+  FormControl: PropTypes.elementType,
   labels: PropTypes.shape({
     CONFIRM_PASSWORD: PropTypes.string.isRequired,
     CONFIRM: PropTypes.string.isRequired,
     PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes.string.isRequired
   }).isRequired
 };
+ConfirmPasswordModal.defaultProps = {
+  FormControl: FormControl$1
+};
 
+const emailTester = email => {
+  // eslint-disable-next-line no-useless-escape
+  const tester = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+  if (!email) return false;
+  if (email.length > 254) return false;
+  if (!tester.test(email)) return false;
+  const parts = email.split('@');
+  if (parts.length !== 2) return false;
+  if (parts[0].length > 64) return false;
+  return true;
+};
 const mfaRecoveryEmailValidator = function (email, loginEmail) {
   let allowEmptyString = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  let emailTester = arguments.length > 3 ? arguments[3] : undefined;
-  let RECOVERY_EMAIL_MANDATORY = arguments.length > 4 ? arguments[4] : undefined;
-  let NOT_VALID_EMAIL = arguments.length > 5 ? arguments[5] : undefined;
+  let RECOVERY_EMAIL_MANDATORY = arguments.length > 3 ? arguments[3] : undefined;
+  let NOT_VALID_EMAIL = arguments.length > 4 ? arguments[4] : undefined;
   if (!email || !email.trim()) {
     return allowEmptyString ? '' : RECOVERY_EMAIL_MANDATORY;
   }
@@ -240,10 +343,9 @@ const RecoveryEmail = _ref => {
     userEmail,
     skip,
     onComplete,
-    isOwner,
+    isRecoveryEmailMandatory,
     Button,
     FormControl,
-    emailTester,
     ADD_RECOVERY_EMAIL,
     LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
     SKIP,
@@ -260,7 +362,7 @@ const RecoveryEmail = _ref => {
   };
   useEffect(() => {
     if (!recoveryEmail) return setRecoveryEmailError('');
-    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, emailTester, RECOVERY_EMAIL_MANDATORY, NOT_VALID_EMAIL);
+    const error = mfaRecoveryEmailValidator(recoveryEmail, userEmail, false, RECOVERY_EMAIL_MANDATORY, NOT_VALID_EMAIL);
     if (error) {
       setRecoveryEmailError(error);
     }
@@ -301,7 +403,7 @@ const RecoveryEmail = _ref => {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col d-flex justify-content-end"
-  }, !isOwner && /*#__PURE__*/React.createElement("a", {
+  }, !isRecoveryEmailMandatory && /*#__PURE__*/React.createElement("a", {
     className: "delete-group btn-medium",
     href: "javascript:;",
     onClick: skip
@@ -316,10 +418,9 @@ RecoveryEmail.propTypes = {
   userEmail: PropTypes.string.isRequired,
   skip: PropTypes.func.isRequired,
   onComplete: PropTypes.func.isRequired,
-  isOwner: PropTypes.bool.isRequired,
+  isRecoveryEmailMandatory: PropTypes.bool.isRequired,
   Button: PropTypes.elementType.isRequired,
   FormControl: PropTypes.elementType.isRequired,
-  emailTester: PropTypes.func.isRequired,
   ADD_RECOVERY_EMAIL: PropTypes.string.isRequired,
   LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: PropTypes.string.isRequired,
   SKIP: PropTypes.string.isRequired,
@@ -449,7 +550,7 @@ const OtpVerification = _ref => {
     className: "row flex-column justify-content-center"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-lg-12 mb-2"
-  }, Icon), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Icon, null)), /*#__PURE__*/React.createElement("div", {
     className: "col-lg-12 mb-2"
   }, /*#__PURE__*/React.createElement("h3", {
     className: "mfa-otp-text mb-8"
@@ -518,6 +619,28 @@ OtpVerification.propTypes = {
   RESEND_CODE: PropTypes.string.isRequired
 };
 
+const emailOtpLock = () => /*#__PURE__*/React.createElement("svg", {
+  width: "100",
+  height: "100",
+  viewBox: "0 0 100 100",
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M50 50.4819L83.3333 28.6861L82.051 25.0007L50 45.834L17.949 25.0007L16.6667 28.6861L50 50.4819ZM77.0833 79.1673C76.0389 79.1673 75.1635 78.8142 74.4573 78.1079C73.751 77.401 73.3979 76.5257 73.3979 75.4819V62.9819C73.3979 61.9076 73.8104 61.0246 74.6354 60.3329C75.4604 59.6413 76.4368 59.2954 77.5646 59.2954V54.6486C77.5646 52.4888 78.3333 50.6402 79.8708 49.1027C81.4083 47.5645 83.2569 46.7954 85.4167 46.7954C87.5764 46.7954 89.425 47.5645 90.9625 49.1027C92.5 50.6402 93.2687 52.4888 93.2687 54.6486V59.2954C94.3965 59.2954 95.3729 59.6413 96.1979 60.3329C97.0229 61.0246 97.4354 61.9076 97.4354 62.9819V75.4819C97.4354 76.5257 97.0823 77.401 96.376 78.1079C95.6698 78.8142 94.7944 79.1673 93.75 79.1673H77.0833ZM80.7687 59.2954H90.0646V54.6788C90.0646 53.3711 89.6118 52.2645 88.7063 51.359C87.8007 50.4534 86.7042 50.0007 85.4167 50.0007C84.1292 50.0007 83.0326 50.4534 82.1271 51.359C81.2215 52.2645 80.7687 53.3711 80.7687 54.6788V59.2954ZM19.2312 79.1673C17.3799 79.1673 15.7951 78.5083 14.4771 77.1902C13.159 75.8722 12.5 74.2875 12.5 72.4361V27.5652C12.5 25.7138 13.159 24.1291 14.4771 22.8111C15.7951 21.493 17.3799 20.834 19.2312 20.834H80.7687C82.6201 20.834 84.2049 21.493 85.5229 22.8111C86.841 24.1291 87.5 25.7138 87.5 27.5652V38.4621H85.4167C79.7861 38.4621 74.9865 40.4934 71.0177 44.5559C67.049 48.6184 65.0646 53.5048 65.0646 59.2152V79.1673H19.2312Z",
+  fill: "#777A80"
+}));
+
+const mfaOtpLock = () => /*#__PURE__*/React.createElement("svg", {
+  width: "100",
+  height: "100",
+  viewBox: "0 0 100 100",
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M26.6025 87.5C25.0574 87.5 23.7096 86.9248 22.5591 85.7743C21.4086 84.6238 20.8333 83.276 20.8333 81.7308V43.5736C20.8333 41.9871 21.4086 40.629 22.5591 39.4992C23.7096 38.3694 25.0574 37.8045 26.6025 37.8045H33.8141V28.6858C33.8141 24.1767 35.386 20.3518 38.53 17.2111C41.674 14.0704 45.5028 12.5 50.0165 12.5C54.5301 12.5 58.3534 14.0704 61.4864 17.2111C64.6194 20.3518 66.1859 24.1767 66.1859 28.6858V37.8045H73.3975C74.9426 37.8045 76.2905 38.3694 77.4409 39.4992C78.5914 40.629 79.1667 41.9871 79.1667 43.5736V81.7308C79.1667 83.276 78.5914 84.6238 77.4409 85.7743C76.2905 86.9248 74.9426 87.5 73.3975 87.5H26.6025ZM50.0175 68.75C51.6939 68.75 53.1264 68.1586 54.3149 66.9759C55.5035 65.7932 56.0978 64.368 56.0978 62.7003C56.0978 61.0977 55.4977 59.6728 54.2974 58.4255C53.0971 57.1782 51.6588 56.5545 49.9825 56.5545C48.3061 56.5545 46.8736 57.1782 45.6851 58.4255C44.4965 59.6728 43.9022 61.1151 43.9022 62.7524C43.9022 64.3897 44.5023 65.7986 45.7026 66.9792C46.9029 68.1597 48.3412 68.75 50.0175 68.75ZM37.0193 37.8045H62.9807V28.6858C62.9807 25.0801 61.7204 22.0152 59.1997 19.4911C56.6789 16.9671 53.618 15.7051 50.017 15.7051C46.4159 15.7051 43.3494 16.9671 40.8173 19.4911C38.2853 22.0152 37.0193 25.0801 37.0193 28.6858V37.8045Z",
+  fill: "#777A80"
+}));
+
 const MfaModal = _ref => {
   let {
     closeModal,
@@ -531,29 +654,23 @@ const MfaModal = _ref => {
     setShowDialog,
     cancelNavigation,
     confirmNavigation,
-    isOwner,
+    isRecoveryEmailMandatory,
     onlyVerifyCode,
     onlyVerifyCodeSuccess,
     setupNewAuthenticator,
     setupNewAuthenticatorSuccess,
     recoveryEmail,
     onlyVerifyEmail,
-    showResendOption,
     FormControl,
     generateMfaQrLink,
     SPModal,
     Button,
     DiscardMessage,
-    TOTPVerificationSignIn,
-    verifyTOTPSetupCode,
+    TotpVerificationSignIn,
+    verifyTotpSetupCode,
     callAPI,
     SpinnerSmallLoader,
     API_AUTH_BASE_URL,
-    emailTester,
-    EmailOtpLock,
-    MfaOtpLockIcon,
-    FormattedMessage,
-    recoveryEmailOtplength,
     labels
   } = _ref;
   let startingStep = initialStep;
@@ -573,9 +690,9 @@ const MfaModal = _ref => {
   }, []);
   const handleVerifyOtp = code => {
     if (setupNewAuthenticator || !isMfaEnabled) {
-      return verifyTOTPSetupCode(code);
+      return verifyTotpSetupCode(code);
     }
-    return TOTPVerificationSignIn(code);
+    return TotpVerificationSignIn(code);
   };
   const handleOtpVerificationSubmit = async () => {
     if (onlyVerifyCode && onlyVerifyCodeSuccess) {
@@ -597,7 +714,7 @@ const MfaModal = _ref => {
       return;
     }
     if (modalStep === 'RECOVERY_EMAIL') {
-      if (isOwner) {
+      if (isRecoveryEmailMandatory) {
         setShowDialog(true, true);
         setDidUserWannaLeave(true);
         return;
@@ -629,7 +746,7 @@ const MfaModal = _ref => {
     if (isMailOtpVerified) {
       onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
     }
-    if (isOwner && !onlyVerifyCode) return;
+    if (isRecoveryEmailMandatory && !onlyVerifyCode) return;
     if (isAuthenticatorOtpVerified) {
       if (setupNewAuthenticator) {
         setupNewAuthenticatorSuccess();
@@ -678,7 +795,7 @@ const MfaModal = _ref => {
     }
   };
   const handleEmailOtpVerificationSubmit = () => {
-    // if (!isOwner) {
+    // if (!isRecoveryEmailMandatory) {
     //   onMfaEnableStepComplete();
     // }
     onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
@@ -734,7 +851,7 @@ const MfaModal = _ref => {
           isMfaEnabled: isMfaEnabled,
           primaryText: ENTER_VERIFICATION_CODE,
           secondaryText: ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR,
-          Icon: /*#__PURE__*/React.createElement(MfaOtpLockIcon, null),
+          Icon: mfaOtpLock,
           secondaryButtonText: BACK,
           goBack: () => setModalPage('QR_SCREEN'),
           primaryButtonText: onlyVerifyCode ? FINISH : NEXT,
@@ -757,10 +874,9 @@ const MfaModal = _ref => {
             setModalPage('RECOVERY_EMAIL_OTP_VERIFICATION');
             generateOtp();
           },
-          isOwner: isOwner,
+          isRecoveryEmailMandatory: isRecoveryEmailMandatory,
           Button: Button,
           FormControl: FormControl,
-          emailTester: emailTester,
           ADD_RECOVERY_EMAIL: ADD_RECOVERY_EMAIL,
           LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
           SKIP: SKIP,
@@ -770,11 +886,11 @@ const MfaModal = _ref => {
         });
       case 'RECOVERY_EMAIL_OTP_VERIFICATION':
         return /*#__PURE__*/React.createElement(OtpVerification, {
-          length: recoveryEmailOtplength,
+          length: 6,
           isMfaEnabled: isMfaEnabled,
           primaryText: ENTER_VERIFICATION_CODE_SENT_EMAIL,
           secondaryText: ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL,
-          Icon: /*#__PURE__*/React.createElement(EmailOtpLock, null),
+          Icon: emailOtpLock,
           secondaryButtonText: BACK,
           goBack: () => {
             if (onlyVerifyEmail) {
@@ -790,7 +906,7 @@ const MfaModal = _ref => {
           onComplete: handleEmailOtpVerificationSubmit,
           isOtpVerified: isMailOtpVerified,
           setIsOtpVerified: setIsMailOtpVerified,
-          showResendOption: showResendOption,
+          showResendOption: true,
           resendOtp: generateOtp,
           Button: Button,
           SpinnerSmallLoader: SpinnerSmallLoader,
@@ -827,18 +943,12 @@ const MfaModal = _ref => {
     bsClass: "btn btn-secondary btn-medium ml-2",
     onClick: () => setShowDialog(false),
     disabled: false
-  }, /*#__PURE__*/React.createElement(FormattedMessage, {
-    id: SAVE,
-    defaultMessage: SAVE
-  })), /*#__PURE__*/React.createElement(Button, {
+  }, SAVE), /*#__PURE__*/React.createElement(Button, {
     type: "submit",
     bsClass: "btn btn-danger btn-medium ml-2",
     onClick: () => handleDiscardPopup(),
     disabled: false
-  }, /*#__PURE__*/React.createElement(FormattedMessage, {
-    id: DISCARD,
-    defaultMessage: DISCARD
-  }))), getModalContent());
+  }, DISCARD)), getModalContent());
 };
 const MfaModalHOCWrapper = _ref2 => {
   let {
@@ -849,6 +959,36 @@ const MfaModalHOCWrapper = _ref2 => {
   return /*#__PURE__*/React.createElement(WrappedComponent, props);
 };
 
+/* eslint-disable react/prop-types */
+const SpinnerSmallLoader = _ref => {
+  let {
+    id,
+    className
+  } = _ref;
+  return /*#__PURE__*/React.createElement("svg", {
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    className: `primary-loader ${className} `
+  }, /*#__PURE__*/React.createElement("mask", {
+    id: id,
+    fill: "white"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M16 8C16 9.89522 15.3272 11.7289 14.1014 13.1743C12.8755 14.6197 11.1764 15.583 9.30662 15.8926C7.43685 16.2021 5.51791 15.8378 3.89169 14.8645C2.26547 13.8913 1.03759 12.3723 0.426816 10.5782C-0.183955 8.78405 -0.137946 6.83137 0.556646 5.06803C1.25124 3.30468 2.5493 1.84519 4.21955 0.949594C5.88981 0.0539972 7.82378 -0.219538 9.6769 0.177723C11.53 0.574984 13.1819 1.61724 14.3383 3.11879L13.1615 4.02504C12.2198 2.80227 10.8746 1.95352 9.36556 1.63002C7.8565 1.30651 6.28159 1.52926 4.92144 2.25858C3.56128 2.9879 2.50422 4.17642 1.93859 5.61238C1.37296 7.04834 1.33549 8.63848 1.83287 10.0995C2.33024 11.5605 3.33015 12.7975 4.65444 13.5901C5.97874 14.3826 7.54141 14.6793 9.06403 14.4272C10.5867 14.1752 11.9703 13.3907 12.9686 12.2136C13.9668 11.0366 14.5147 9.54335 14.5147 8H16Z"
+  })), /*#__PURE__*/React.createElement("path", {
+    d: "M16 8C16 9.89522 15.3272 11.7289 14.1014 13.1743C12.8755 14.6197 11.1764 15.583 9.30662 15.8926C7.43685 16.2021 5.51791 15.8378 3.89169 14.8645C2.26547 13.8913 1.03759 12.3723 0.426816 10.5782C-0.183955 8.78405 -0.137946 6.83137 0.556646 5.06803C1.25124 3.30468 2.5493 1.84519 4.21955 0.949594C5.88981 0.0539972 7.82378 -0.219538 9.6769 0.177723C11.53 0.574984 13.1819 1.61724 14.3383 3.11879L13.1615 4.02504C12.2198 2.80227 10.8746 1.95352 9.36556 1.63002C7.8565 1.30651 6.28159 1.52926 4.92144 2.25858C3.56128 2.9879 2.50422 4.17642 1.93859 5.61238C1.37296 7.04834 1.33549 8.63848 1.83287 10.0995C2.33024 11.5605 3.33015 12.7975 4.65444 13.5901C5.97874 14.3826 7.54141 14.6793 9.06403 14.4272C10.5867 14.1752 11.9703 13.3907 12.9686 12.2136C13.9668 11.0366 14.5147 9.54335 14.5147 8H16Z",
+    stroke: "#0F67EA",
+    strokeWidth: 3,
+    mask: `url(#${id})`
+  }));
+};
+SpinnerSmallLoader.defaultProps = {
+  id: 'spinnerSmall',
+  className: ''
+};
+
 const MfaSetupFlow = _ref => {
   let {
     userEmail,
@@ -856,31 +996,25 @@ const MfaSetupFlow = _ref => {
     onCloseModal,
     onMfaEnableStepComplete,
     onRecoveryEmailEnableStepComplete,
-    isOwner,
+    isRecoveryEmailMandatory,
     onlyVerifyCode,
     onlyVerifyCodeSuccess,
     setupNewAuthenticator,
     setupNewAuthenticatorSuccess,
     recoveryEmail,
     onlyVerifyEmail,
-    showResendOption,
     SPModal,
     Button,
     HOCUnsavePrompt,
     DiscardMessage,
-    TOTPVerificationSignIn,
-    verifyTOTPSetupCode,
+    TotpVerificationSignIn,
+    verifyTotpSetupCode,
     callAPI,
     API_AUTH_BASE_URL,
-    emailTester,
     SpinnerSmallLoader,
     FormControl,
     generateMfaQrLink,
-    MfaOtpLockIcon,
-    EmailOtpLock,
-    FormattedMessage,
     cognitoSignIn,
-    recoveryEmailOtplength,
     labels
   } = _ref;
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(onlyVerifyEmail);
@@ -897,30 +1031,23 @@ const MfaSetupFlow = _ref => {
     isMfaEnabled: isMfaEnabled,
     onMfaEnableStepComplete: onMfaEnableStepComplete,
     onRecoveryEmailEnableStepComplete: onRecoveryEmailEnableStepComplete,
-    isOwner: isOwner,
+    isRecoveryEmailMandatory: isRecoveryEmailMandatory,
     onlyVerifyCode: onlyVerifyCode,
     onlyVerifyCodeSuccess: onlyVerifyCodeSuccess,
     setupNewAuthenticator: setupNewAuthenticator,
     recoveryEmail: recoveryEmail,
     setupNewAuthenticatorSuccess: setupNewAuthenticatorSuccess,
     onlyVerifyEmail: onlyVerifyEmail,
-    showResendOption: showResendOption,
     FormControl: FormControl,
     generateMfaQrLink: generateMfaQrLink,
     SPModal: SPModal,
     Button: Button,
     DiscardMessage: DiscardMessage,
-    TOTPVerificationSignIn: TOTPVerificationSignIn,
-    verifyTOTPSetupCode: verifyTOTPSetupCode,
+    TotpVerificationSignIn: TotpVerificationSignIn,
+    verifyTotpSetupCode: verifyTotpSetupCode,
     callAPI: callAPI,
     SpinnerSmallLoader: SpinnerSmallLoader,
     API_AUTH_BASE_URL: API_AUTH_BASE_URL,
-    emailTester: emailTester,
-    EmailOtpLock: EmailOtpLock,
-    MfaOtpLockIcon: MfaOtpLockIcon,
-    HOCUnsavePrompt: HOCUnsavePrompt,
-    FormattedMessage: FormattedMessage,
-    recoveryEmailOtplength: recoveryEmailOtplength,
     labels: labels
   }) : /*#__PURE__*/React.createElement(ConfirmPasswordModal, {
     onCloseModal: onCloseModal,
@@ -938,34 +1065,33 @@ const MfaSetupFlow = _ref => {
 MfaSetupFlow.propTypes = {
   userEmail: PropTypes.string.isRequired,
   isMfaEnabled: PropTypes.bool.isRequired,
+  recoveryEmail: PropTypes.string.isRequired,
   onCloseModal: PropTypes.func.isRequired,
   onMfaEnableStepComplete: PropTypes.func.isRequired,
   onRecoveryEmailEnableStepComplete: PropTypes.func.isRequired,
-  isOwner: PropTypes.bool.isRequired,
-  onlyVerifyCode: PropTypes.bool.isRequired,
-  onlyVerifyCodeSuccess: PropTypes.bool.isRequired,
-  setupNewAuthenticator: PropTypes.bool.isRequired,
-  setupNewAuthenticatorSuccess: PropTypes.bool.isRequired,
-  recoveryEmail: PropTypes.string.isRequired,
-  onlyVerifyEmail: PropTypes.bool.isRequired,
-  showResendOption: PropTypes.bool.isRequired,
-  SPModal: PropTypes.elementType.isRequired,
-  Button: PropTypes.elementType.isRequired,
-  HOCUnsavePrompt: PropTypes.elementType.isRequired,
-  DiscardMessage: PropTypes.elementType.isRequired,
-  TOTPVerificationSignIn: PropTypes.func.isRequired,
-  verifyTOTPSetupCode: PropTypes.func.isRequired,
-  callAPI: PropTypes.func.isRequired,
+  // flags
+  isRecoveryEmailMandatory: PropTypes.bool,
+  onlyVerifyEmail: PropTypes.bool,
+  onlyVerifyCode: PropTypes.bool,
+  onlyVerifyCodeSuccess: PropTypes.func,
+  setupNewAuthenticator: PropTypes.bool,
+  setupNewAuthenticatorSuccess: PropTypes.func,
+  // api
   API_AUTH_BASE_URL: PropTypes.string.isRequired,
-  emailTester: PropTypes.func.isRequired,
-  SpinnerSmallLoader: PropTypes.elementType.isRequired,
-  FormControl: PropTypes.elementType.isRequired,
-  generateMfaQrLink: PropTypes.func.isRequired,
-  MfaOtpLockIcon: PropTypes.node.isRequired,
-  EmailOtpLock: PropTypes.node.isRequired,
-  FormattedMessage: PropTypes.elementType.isRequired,
+  TotpVerificationSignIn: PropTypes.func.isRequired,
+  verifyTotpSetupCode: PropTypes.func.isRequired,
   cognitoSignIn: PropTypes.func.isRequired,
-  recoveryEmailOtplength: PropTypes.number.isRequired,
+  generateMfaQrLink: PropTypes.func.isRequired,
+  Button: PropTypes.elementType.isRequired,
+  // try to remove this
+  SPModal: PropTypes.elementType.isRequired,
+  // temp ignore
+  HOCUnsavePrompt: PropTypes.elementType.isRequired,
+  // inside
+  DiscardMessage: PropTypes.elementType.isRequired,
+  callAPI: PropTypes.func.isRequired,
+  SpinnerSmallLoader: PropTypes.elementType,
+  FormControl: PropTypes.elementType,
   labels: PropTypes.shape({
     CONFIRM_PASSWORD: PropTypes.string.isRequired,
     CONFIRM: PropTypes.string.isRequired,
@@ -997,6 +1123,16 @@ MfaSetupFlow.propTypes = {
     RECOVERY_EMAIL_MANDATORY: PropTypes.string.isRequired,
     NOT_VALID_EMAIL: PropTypes.string.isRequired
   }).isRequired
+};
+MfaSetupFlow.defaultProps = {
+  FormControl: FormControl$1,
+  setupNewAuthenticator: false,
+  setupNewAuthenticatorSuccess: () => {},
+  onlyVerifyEmail: false,
+  isRecoveryEmailMandatory: true,
+  onlyVerifyCode: false,
+  onlyVerifyCodeSuccess: () => {},
+  SpinnerSmallLoader: SpinnerSmallLoader
 };
 
 export { ConfirmPasswordModal, MfaSetupFlow, OtpInput };

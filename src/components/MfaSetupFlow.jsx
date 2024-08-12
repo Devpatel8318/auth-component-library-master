@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ConfirmPasswordModal from './ConfirmPasswordModal.jsx';
 import MfaModal from './MfaModal.jsx';
 import './index.scss';
+import FormControl from '../sharedComponents/FormControl.js';
+import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader.js';
 
 const MfaSetupFlow = ({
     userEmail,
@@ -10,31 +12,25 @@ const MfaSetupFlow = ({
     onCloseModal,
     onMfaEnableStepComplete,
     onRecoveryEmailEnableStepComplete,
-    isOwner,
+    isRecoveryEmailMandatory,
     onlyVerifyCode,
     onlyVerifyCodeSuccess,
     setupNewAuthenticator,
     setupNewAuthenticatorSuccess,
     recoveryEmail,
     onlyVerifyEmail,
-    showResendOption,
     SPModal,
     Button,
     HOCUnsavePrompt,
     DiscardMessage,
-    TOTPVerificationSignIn,
-    verifyTOTPSetupCode,
+    TotpVerificationSignIn,
+    verifyTotpSetupCode,
     callAPI,
     API_AUTH_BASE_URL,
-    emailTester,
     SpinnerSmallLoader,
     FormControl,
     generateMfaQrLink,
-    MfaOtpLockIcon,
-    EmailOtpLock,
-    FormattedMessage,
     cognitoSignIn,
-    recoveryEmailOtplength,
     labels,
 }) => {
     const [isPasswordConfirmed, setIsPasswordConfirmed] =
@@ -57,30 +53,23 @@ const MfaSetupFlow = ({
                     onRecoveryEmailEnableStepComplete={
                         onRecoveryEmailEnableStepComplete
                     }
-                    isOwner={isOwner}
+                    isRecoveryEmailMandatory={isRecoveryEmailMandatory}
                     onlyVerifyCode={onlyVerifyCode}
                     onlyVerifyCodeSuccess={onlyVerifyCodeSuccess}
                     setupNewAuthenticator={setupNewAuthenticator}
                     recoveryEmail={recoveryEmail}
                     setupNewAuthenticatorSuccess={setupNewAuthenticatorSuccess}
                     onlyVerifyEmail={onlyVerifyEmail}
-                    showResendOption={showResendOption}
                     FormControl={FormControl}
                     generateMfaQrLink={generateMfaQrLink}
                     SPModal={SPModal}
                     Button={Button}
                     DiscardMessage={DiscardMessage}
-                    TOTPVerificationSignIn={TOTPVerificationSignIn}
-                    verifyTOTPSetupCode={verifyTOTPSetupCode}
+                    TotpVerificationSignIn={TotpVerificationSignIn}
+                    verifyTotpSetupCode={verifyTotpSetupCode}
                     callAPI={callAPI}
                     SpinnerSmallLoader={SpinnerSmallLoader}
                     API_AUTH_BASE_URL={API_AUTH_BASE_URL}
-                    emailTester={emailTester}
-                    EmailOtpLock={EmailOtpLock}
-                    MfaOtpLockIcon={MfaOtpLockIcon}
-                    HOCUnsavePrompt={HOCUnsavePrompt}
-                    FormattedMessage={FormattedMessage}
-                    recoveryEmailOtplength={recoveryEmailOtplength}
                     labels={labels}
                 />
             ) : (
@@ -104,34 +93,41 @@ const MfaSetupFlow = ({
 MfaSetupFlow.propTypes = {
     userEmail: PropTypes.string.isRequired,
     isMfaEnabled: PropTypes.bool.isRequired,
+    recoveryEmail: PropTypes.string.isRequired,
+
     onCloseModal: PropTypes.func.isRequired,
+
     onMfaEnableStepComplete: PropTypes.func.isRequired,
     onRecoveryEmailEnableStepComplete: PropTypes.func.isRequired,
-    isOwner: PropTypes.bool.isRequired,
-    onlyVerifyCode: PropTypes.bool.isRequired,
-    onlyVerifyCodeSuccess: PropTypes.bool.isRequired,
-    setupNewAuthenticator: PropTypes.bool.isRequired,
-    setupNewAuthenticatorSuccess: PropTypes.bool.isRequired,
-    recoveryEmail: PropTypes.string.isRequired,
-    onlyVerifyEmail: PropTypes.bool.isRequired,
-    showResendOption: PropTypes.bool.isRequired,
-    SPModal: PropTypes.elementType.isRequired,
-    Button: PropTypes.elementType.isRequired,
-    HOCUnsavePrompt: PropTypes.elementType.isRequired,
-    DiscardMessage: PropTypes.elementType.isRequired,
-    TOTPVerificationSignIn: PropTypes.func.isRequired,
-    verifyTOTPSetupCode: PropTypes.func.isRequired,
-    callAPI: PropTypes.func.isRequired,
+
+    // flags
+    isRecoveryEmailMandatory: PropTypes.bool,
+    onlyVerifyEmail: PropTypes.bool,
+    onlyVerifyCode: PropTypes.bool,
+    onlyVerifyCodeSuccess: PropTypes.func,
+    setupNewAuthenticator: PropTypes.bool,
+    setupNewAuthenticatorSuccess: PropTypes.func,
+
+    // api
     API_AUTH_BASE_URL: PropTypes.string.isRequired,
-    emailTester: PropTypes.func.isRequired,
-    SpinnerSmallLoader: PropTypes.elementType.isRequired,
-    FormControl: PropTypes.elementType.isRequired,
-    generateMfaQrLink: PropTypes.func.isRequired,
-    MfaOtpLockIcon: PropTypes.node.isRequired,
-    EmailOtpLock: PropTypes.node.isRequired,
-    FormattedMessage: PropTypes.elementType.isRequired,
+    TotpVerificationSignIn: PropTypes.func.isRequired,
+    verifyTotpSetupCode: PropTypes.func.isRequired,
     cognitoSignIn: PropTypes.func.isRequired,
-    recoveryEmailOtplength: PropTypes.number.isRequired,
+    generateMfaQrLink: PropTypes.func.isRequired,
+
+    Button: PropTypes.elementType.isRequired,
+
+    // try to remove this
+    SPModal: PropTypes.elementType.isRequired,
+    // temp ignore
+    HOCUnsavePrompt: PropTypes.elementType.isRequired,
+    // inside
+    DiscardMessage: PropTypes.elementType.isRequired,
+    callAPI: PropTypes.func.isRequired,
+
+    SpinnerSmallLoader: PropTypes.elementType,
+    FormControl: PropTypes.elementType,
+
     labels: PropTypes.shape({
         CONFIRM_PASSWORD: PropTypes.string.isRequired,
         CONFIRM: PropTypes.string.isRequired,
@@ -164,6 +160,17 @@ MfaSetupFlow.propTypes = {
         RECOVERY_EMAIL_MANDATORY: PropTypes.string.isRequired,
         NOT_VALID_EMAIL: PropTypes.string.isRequired,
     }).isRequired,
+};
+
+MfaSetupFlow.defaultProps = {
+    FormControl: FormControl,
+    setupNewAuthenticator: false,
+    setupNewAuthenticatorSuccess: () => {},
+    onlyVerifyEmail: false,
+    isRecoveryEmailMandatory: true,
+    onlyVerifyCode: false,
+    onlyVerifyCodeSuccess: () => {},
+    SpinnerSmallLoader: SpinnerSmallLoader,
 };
 
 export default MfaSetupFlow;

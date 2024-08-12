@@ -49,7 +49,9 @@ const OtpVerification = ({
                 <div className="row justify-content-center">
                     <div className="col-lg-12 text-center mt-2 mfa-qr-container p-0">
                         <div className="row flex-column justify-content-center">
-                            <div className="col-lg-12 mb-2">{Icon}</div>
+                            <div className="col-lg-12 mb-2">
+                                <Icon />
+                            </div>
                             <div className="col-lg-12 mb-2">
                                 <h3 className="mfa-otp-text mb-8">
                                     {primaryText}

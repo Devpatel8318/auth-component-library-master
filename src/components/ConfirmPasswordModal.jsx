@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import FormControl from '../sharedComponents/FormControl';
 
 const ConfirmPasswordModal = ({
     onCloseModal,
@@ -127,12 +128,16 @@ ConfirmPasswordModal.propTypes = {
     Button: PropTypes.elementType.isRequired,
     cognitoSignIn: PropTypes.func.isRequired,
     SpinnerSmallLoader: PropTypes.elementType.isRequired,
-    FormControl: PropTypes.elementType.isRequired,
+    FormControl: PropTypes.elementType,
     labels: PropTypes.shape({
         CONFIRM_PASSWORD: PropTypes.string.isRequired,
         CONFIRM: PropTypes.string.isRequired,
         PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes.string.isRequired,
     }).isRequired,
+};
+
+ConfirmPasswordModal.defaultProps = {
+    FormControl: FormControl,
 };
 
 export default ConfirmPasswordModal;

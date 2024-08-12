@@ -7,7 +7,7 @@
         "registry": "https://registry.npmjs.org/"
     },
     "repository": "git://github.com/Devpatel8318/auth-component-library-master",
-    "version": "1.0.28",
+    "version": "1.0.29",
     "main": "dist/index.cjs.js",
     "module": "dist/index.esm.js",
     "source": "src/index.js",
@@ -52,7 +52,8 @@
     "peerDependencies": {
         "react": ">=16.8.0",
         "react-dom": ">=16.8.0",
-        "prop-types": "^15.7.2"
+        "prop-types": "^15.7.2",
+        "react-router-dom": "^6.14.1"
     },
     "license": "MIT"
 }

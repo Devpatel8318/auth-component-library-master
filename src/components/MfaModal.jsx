@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
 import OtpVerification from './OtpVerification.jsx';
+import EmailOtpLock from '../sharedComponents/emailOtpLockIcon.js';
+import MfaOtpLockIcon from '../sharedComponents/mfaOtpLockIcon.js';
 
 const MfaModal = ({
     closeModal,
@@ -16,29 +18,23 @@ const MfaModal = ({
     setShowDialog,
     cancelNavigation,
     confirmNavigation,
-    isOwner,
+    isRecoveryEmailMandatory,
     onlyVerifyCode,
     onlyVerifyCodeSuccess,
     setupNewAuthenticator,
     setupNewAuthenticatorSuccess,
     recoveryEmail,
     onlyVerifyEmail,
-    showResendOption,
     FormControl,
     generateMfaQrLink,
     SPModal,
     Button,
     DiscardMessage,
-    TOTPVerificationSignIn,
-    verifyTOTPSetupCode,
+    TotpVerificationSignIn,
+    verifyTotpSetupCode,
     callAPI,
     SpinnerSmallLoader,
     API_AUTH_BASE_URL,
-    emailTester,
-    EmailOtpLock,
-    MfaOtpLockIcon,
-    FormattedMessage,
-    recoveryEmailOtplength,
     labels,
 }) => {
     let startingStep = initialStep;
@@ -63,9 +59,9 @@ const MfaModal = ({
 
     const handleVerifyOtp = (code) => {
         if (setupNewAuthenticator || !isMfaEnabled) {
-            return verifyTOTPSetupCode(code);
+            return verifyTotpSetupCode(code);
         }
-        return TOTPVerificationSignIn(code);
+        return TotpVerificationSignIn(code);
     };
 
     const handleOtpVerificationSubmit = async () => {
@@ -90,7 +86,7 @@ const MfaModal = ({
         }
 
         if (modalStep === 'RECOVERY_EMAIL') {
-            if (isOwner) {
+            if (isRecoveryEmailMandatory) {
                 setShowDialog(true, true);
                 setDidUserWannaLeave(true);
                 return;
@@ -129,7 +125,7 @@ const MfaModal = ({
             onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
         }
 
-        if (isOwner && !onlyVerifyCode) return;
+        if (isRecoveryEmailMandatory && !onlyVerifyCode) return;
 
         if (isAuthenticatorOtpVerified) {
             if (setupNewAuthenticator) {
@@ -189,7 +185,7 @@ const MfaModal = ({
     };
 
     const handleEmailOtpVerificationSubmit = () => {
-        // if (!isOwner) {
+        // if (!isRecoveryEmailMandatory) {
         //   onMfaEnableStepComplete();
         // }
         onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
@@ -256,7 +252,7 @@ const MfaModal = ({
                         isMfaEnabled={isMfaEnabled}
                         primaryText={ENTER_VERIFICATION_CODE}
                         secondaryText={ENTER_6_DIGIT_CODE_FROM_AUTHENTICATOR}
-                        Icon={<MfaOtpLockIcon />}
+                        Icon={MfaOtpLockIcon}
                         secondaryButtonText={BACK}
                         goBack={() => setModalPage('QR_SCREEN')}
                         primaryButtonText={onlyVerifyCode ? FINISH : NEXT}
@@ -282,10 +278,9 @@ const MfaModal = ({
                             setModalPage('RECOVERY_EMAIL_OTP_VERIFICATION');
                             generateOtp();
                         }}
-                        isOwner={isOwner}
+                        isRecoveryEmailMandatory={isRecoveryEmailMandatory}
                         Button={Button}
                         FormControl={FormControl}
-                        emailTester={emailTester}
                         ADD_RECOVERY_EMAIL={ADD_RECOVERY_EMAIL}
                         LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP={
                             LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP
@@ -300,11 +295,11 @@ const MfaModal = ({
             case 'RECOVERY_EMAIL_OTP_VERIFICATION':
                 return (
                     <OtpVerification
-                        length={recoveryEmailOtplength}
+                        length={6}
                         isMfaEnabled={isMfaEnabled}
                         primaryText={ENTER_VERIFICATION_CODE_SENT_EMAIL}
                         secondaryText={ENTER_6_DIGIT_CODE_FROM_RECOVERY_EMAIL}
-                        Icon={<EmailOtpLock />}
+                        Icon={EmailOtpLock}
                         secondaryButtonText={BACK}
                         goBack={() => {
                             if (onlyVerifyEmail) {
@@ -320,7 +315,7 @@ const MfaModal = ({
                         onComplete={handleEmailOtpVerificationSubmit}
                         isOtpVerified={isMailOtpVerified}
                         setIsOtpVerified={setIsMailOtpVerified}
-                        showResendOption={showResendOption}
+                        showResendOption
                         resendOtp={generateOtp}
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
@@ -364,7 +359,7 @@ const MfaModal = ({
                         onClick={() => setShowDialog(false)}
                         disabled={false}
                     >
-                        <FormattedMessage id={SAVE} defaultMessage={SAVE} />
+                        {SAVE}
                     </Button>
                     <Button
                         type="submit"
@@ -372,10 +367,7 @@ const MfaModal = ({
                         onClick={() => handleDiscardPopup()}
                         disabled={false}
                     >
-                        <FormattedMessage
-                            id={DISCARD}
-                            defaultMessage={DISCARD}
-                        />
+                        {DISCARD}
                     </Button>
                 </DiscardMessage>
             )}

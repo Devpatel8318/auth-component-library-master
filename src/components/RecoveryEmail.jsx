@@ -6,10 +6,9 @@ const RecoveryEmail = ({
     userEmail,
     skip,
     onComplete,
-    isOwner,
+    isRecoveryEmailMandatory,
     Button,
     FormControl,
-    emailTester,
     ADD_RECOVERY_EMAIL,
     LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
     SKIP,
@@ -33,7 +32,6 @@ const RecoveryEmail = ({
             recoveryEmail,
             userEmail,
             false,
-            emailTester,
             RECOVERY_EMAIL_MANDATORY,
             NOT_VALID_EMAIL
         );
@@ -84,7 +82,7 @@ const RecoveryEmail = ({
                 </div>
                 <div className="row">
                     <div className="col d-flex justify-content-end">
-                        {!isOwner && (
+                        {!isRecoveryEmailMandatory && (
                             <a
                                 className="delete-group btn-medium"
                                 href="javascript:;"
@@ -113,10 +111,9 @@ RecoveryEmail.propTypes = {
     userEmail: PropTypes.string.isRequired,
     skip: PropTypes.func.isRequired,
     onComplete: PropTypes.func.isRequired,
-    isOwner: PropTypes.bool.isRequired,
+    isRecoveryEmailMandatory: PropTypes.bool.isRequired,
     Button: PropTypes.elementType.isRequired,
     FormControl: PropTypes.elementType.isRequired,
-    emailTester: PropTypes.func.isRequired,
     ADD_RECOVERY_EMAIL: PropTypes.string.isRequired,
     LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP: PropTypes.string.isRequired,
     SKIP: PropTypes.string.isRequired,

@@ -33,6 +33,7 @@ const MfaSetupFlow = ({
     verifyEmailOtp,
     generateEmailOtp,
     //HOC props
+    successRedirect,
     showDialog,
     setShowDialog,
     cancelNavigation,
@@ -75,6 +76,7 @@ const MfaSetupFlow = ({
                     labels={labels}
                     verifyEmailOtp={verifyEmailOtp}
                     generateEmailOtp={generateEmailOtp}
+                    successRedirect={successRedirect}
                     showDialog={showDialog}
                     setShowDialog={setShowDialog}
                     cancelNavigation={cancelNavigation}

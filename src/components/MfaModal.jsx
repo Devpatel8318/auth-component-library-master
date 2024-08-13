@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
@@ -37,6 +37,7 @@ const MfaModal = ({
     labels,
     verifyEmailOtp,
     generateEmailOtp,
+    successRedirect,
 }) => {
     let startingStep = initialStep;
 
@@ -52,6 +53,10 @@ const MfaModal = ({
         useState(false);
     const [isMailOtpVerified, setIsMailOtpVerified] = useState(false);
     const recoveryEmailRef = useRef('');
+
+    useEffect(() => {
+        successRedirect.current = '/setting/security';
+    }, []);
 
     const handleVerifyOtp = (code) => {
         if (setupNewAuthenticator || !isMfaEnabled) {
@@ -225,6 +230,7 @@ const MfaModal = ({
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
                         RESEND_CODE={RESEND_CODE}
+                        setShowDialog={setShowDialog}
                     />
                 );
 
@@ -249,6 +255,7 @@ const MfaModal = ({
                         VERIFY={VERIFY}
                         RECOVERY_EMAIL_MANDATORY={RECOVERY_EMAIL_MANDATORY}
                         NOT_VALID_EMAIL={NOT_VALID_EMAIL}
+                        setShowDialog={setShowDialog}
                     />
                 );
 

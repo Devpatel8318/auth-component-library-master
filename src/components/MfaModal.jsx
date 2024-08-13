@@ -230,7 +230,6 @@ const MfaModal = ({
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
                         RESEND_CODE={RESEND_CODE}
-                        setShowDialog={setShowDialog}
                     />
                 );
 
@@ -255,7 +254,6 @@ const MfaModal = ({
                         VERIFY={VERIFY}
                         RECOVERY_EMAIL_MANDATORY={RECOVERY_EMAIL_MANDATORY}
                         NOT_VALID_EMAIL={NOT_VALID_EMAIL}
-                        setShowDialog={setShowDialog}
                     />
                 );
 

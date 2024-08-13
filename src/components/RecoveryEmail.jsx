@@ -15,7 +15,6 @@ const RecoveryEmail = ({
     VERIFY,
     RECOVERY_EMAIL_MANDATORY,
     NOT_VALID_EMAIL,
-    setShowDialog,
 }) => {
     const [recoveryEmail, setRecoveryEmail] = useState('');
     const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -42,7 +41,6 @@ const RecoveryEmail = ({
     }, [recoveryEmail]);
 
     useEffect(() => {
-        setShowDialog(true, true);
         if (recoveryEmailInputRef.current) {
             recoveryEmailInputRef.current.focus();
         }

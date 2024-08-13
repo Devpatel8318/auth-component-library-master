@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import OtpInput from './OtpInput.jsx';
 
@@ -21,6 +21,7 @@ const OtpVerification = ({
     Button,
     SpinnerSmallLoader,
     RESEND_CODE,
+    setShowDialog,
 }) => {
     const [OTP, setOTP] = useState(Array(length).fill(''));
     const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +43,10 @@ const OtpVerification = ({
         setIsOtpVerified(true);
         return true;
     };
+
+    useEffect(() => {
+        setShowDialog(true, true);
+    }, []);
 
     return (
         <div className="row mfa-qr">

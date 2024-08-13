@@ -46,6 +46,9 @@ const OtpVerification = ({
 
     useEffect(() => {
         setShowDialog(true);
+        return () => {
+            setShowDialog(false);
+        };
     }, []);
 
     return (

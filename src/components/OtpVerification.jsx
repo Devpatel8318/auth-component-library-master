@@ -21,7 +21,6 @@ const OtpVerification = ({
     Button,
     SpinnerSmallLoader,
     RESEND_CODE,
-    setShowDialog,
 }) => {
     const [OTP, setOTP] = useState(Array(length).fill(''));
     const [isLoading, setIsLoading] = useState(false);
@@ -43,10 +42,6 @@ const OtpVerification = ({
         setIsOtpVerified(true);
         return true;
     };
-
-    useEffect(() => {
-        setShowDialog(true, true);
-    }, []);
 
     return (
         <div className="row mfa-qr">

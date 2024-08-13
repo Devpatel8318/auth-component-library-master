@@ -37,7 +37,6 @@ const MfaModal = ({
     labels,
     verifyEmailOtp,
     generateEmailOtp,
-    successRedirect,
 }) => {
     let startingStep = initialStep;
 
@@ -53,10 +52,6 @@ const MfaModal = ({
         useState(false);
     const [isMailOtpVerified, setIsMailOtpVerified] = useState(false);
     const recoveryEmailRef = useRef('');
-
-    useEffect(() => {
-        successRedirect.current = '/setting/security';
-    }, []);
 
     const handleVerifyOtp = (code) => {
         if (setupNewAuthenticator || !isMfaEnabled) {

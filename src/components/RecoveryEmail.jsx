@@ -42,6 +42,7 @@ const RecoveryEmail = ({
     }, [recoveryEmail]);
 
     useEffect(() => {
+        setShowDialog(true, true);
         if (recoveryEmailInputRef.current) {
             recoveryEmailInputRef.current.focus();
         }

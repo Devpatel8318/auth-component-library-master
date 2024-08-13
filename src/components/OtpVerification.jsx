@@ -48,7 +48,6 @@ const OtpVerification = ({
         setShowDialog(true);
 
         return () => {
-            console.log('unMpunted');
             setShowDialog(false);
         };
     }, []);

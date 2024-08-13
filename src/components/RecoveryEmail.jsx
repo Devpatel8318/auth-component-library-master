@@ -9,6 +9,7 @@ const RecoveryEmail = ({
     isRecoveryEmailMandatory,
     Button,
     FormControl,
+    setShowDialog,
     ADD_RECOVERY_EMAIL,
     LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
     SKIP,
@@ -44,6 +45,11 @@ const RecoveryEmail = ({
         if (recoveryEmailInputRef.current) {
             recoveryEmailInputRef.current.focus();
         }
+        setShowDialog(true);
+
+        return () => {
+            setShowDialog(false);
+        };
     }, []);
 
     const isBtnDisabled =

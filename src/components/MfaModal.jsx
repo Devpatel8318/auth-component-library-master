@@ -242,6 +242,7 @@ const MfaModal = ({
                         isRecoveryEmailMandatory={isRecoveryEmailMandatory}
                         Button={Button}
                         FormControl={FormControl}
+                        setShowDialog={setShowDialog}
                         ADD_RECOVERY_EMAIL={ADD_RECOVERY_EMAIL}
                         LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP={
                             LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP

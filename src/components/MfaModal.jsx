@@ -225,6 +225,7 @@ const MfaModal = ({
                         Button={Button}
                         SpinnerSmallLoader={SpinnerSmallLoader}
                         RESEND_CODE={RESEND_CODE}
+                        setShowDialog={setShowDialog}
                     />
                 );
 

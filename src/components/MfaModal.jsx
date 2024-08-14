@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
@@ -7,7 +7,7 @@ import EmailOtpLock from '../sharedComponents/emailOtpLockIcon.js';
 import MfaOtpLockIcon from '../sharedComponents/mfaOtpLockIcon.js';
 
 const MfaModal = ({
-    closeModal,
+    onSetupClose,
     userEmail,
     isMfaEnabled,
     initialStep = 'QR_SCREEN',
@@ -63,12 +63,12 @@ const MfaModal = ({
     const handleOtpVerificationSubmit = async () => {
         if (onlyVerifyCode && onlyVerifyCodeSuccess) {
             onlyVerifyCodeSuccess();
-            closeModal();
+            onSetupClose();
             return;
         }
         if (setupNewAuthenticator && recoveryEmail) {
             setupNewAuthenticatorSuccess();
-            closeModal();
+            onSetupClose();
             return;
         }
         setModalPage('RECOVERY_EMAIL');
@@ -88,12 +88,12 @@ const MfaModal = ({
 
             if (setupNewAuthenticator) {
                 setupNewAuthenticatorSuccess();
-                closeModal();
+                onSetupClose();
                 return;
             }
 
             onMfaEnableStepComplete();
-            closeModal();
+            onSetupClose();
             return;
         }
 
@@ -101,18 +101,18 @@ const MfaModal = ({
             setShowDialog(true, true);
             return;
         }
-        closeModal();
+        onSetupClose();
     };
 
     const handleRecoveryEmailSkip = () => {
         onMfaEnableStepComplete();
-        closeModal();
+        onSetupClose();
     };
 
     const handleDiscardPopup = () => {
         setShowDialog(false);
         confirmNavigation();
-        closeModal();
+        onSetupClose();
 
         if (isMailOtpVerified) {
             onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
@@ -149,7 +149,7 @@ const MfaModal = ({
 
     const handleEmailOtpVerificationSubmit = () => {
         onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
-        closeModal();
+        onSetupClose();
     };
 
     const onDismiss = () => {
@@ -265,7 +265,7 @@ const MfaModal = ({
                         secondaryButtonText={BACK}
                         goBack={() => {
                             if (onlyVerifyEmail) {
-                                closeModal();
+                                onSetupClose();
                                 return;
                             }
                             setModalPage('RECOVERY_EMAIL');
@@ -293,7 +293,7 @@ const MfaModal = ({
     return (
         <SPModal
             showModal
-            onCloseModal={handleCloseModal}
+            onSetupClose={handleCloseModal}
             closeOnOverlayClick={false}
             closeIcon
             closeOnEsc

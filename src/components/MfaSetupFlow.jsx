@@ -10,14 +10,14 @@ import './index.scss';
 
 import RecoveryEmail from './RecoveryEmail.jsx';
 import QRScreen from './QRScreen.jsx';
-import ConfirmPasswordModal from './ConfirmPasswordModal.jsx';
+import ConfirmPassword from './ConfirmPassword.jsx';
 import OtpVerification from './OtpVerification.jsx';
 
-import EmailOtpLock from '../sharedComponents/emailOtpLockIcon.js';
-import MfaOtpLockIcon from '../sharedComponents/mfaOtpLockIcon.js';
-import FormControl from '../sharedComponents/FormControl.js';
-import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader.js';
-import Button from '../sharedComponents/Button.jsx';
+import EmailOtpLock from '../commonComponents/emailOtpLockIcon.js';
+import MfaOtpLockIcon from '../commonComponents/mfaOtpLockIcon.js';
+import FormControl from '../commonComponents/FormControl.js';
+import SpinnerSmallLoader from '../commonComponents/SpinnerSmallLoader.js';
+import Button from '../commonComponents/Button.jsx';
 
 const MfaSetupFlow = forwardRef(
     (
@@ -210,7 +210,7 @@ const MfaSetupFlow = forwardRef(
             switch (modalStep) {
                 case 'CONFIRM_PASSWORD':
                     return (
-                        <ConfirmPasswordModal
+                        <ConfirmPassword
                             onPasswordConfirm={() => setModalStep('QR_SCREEN')}
                             userEmail={userEmail}
                             Button={Button}

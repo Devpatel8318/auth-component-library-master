@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import OtpInput from './OtpInput.jsx';
 
-import Button from '../sharedComponents/Button.jsx';
-import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader.js';
+import Button from '../commonComponents/Button.jsx';
+import SpinnerSmallLoader from '../commonComponents/SpinnerSmallLoader.js';
 
 const OtpVerification = ({
     length,

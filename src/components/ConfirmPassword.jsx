@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './index.scss';
 
-import FormControl from '../sharedComponents/FormControl';
-import Button from '../sharedComponents/Button.jsx';
-import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader';
+import FormControl from '../commonComponents/FormControl';
+import Button from '../commonComponents/Button.jsx';
+import SpinnerSmallLoader from '../commonComponents/SpinnerSmallLoader';
 
-const ConfirmPasswordModal = ({
+const ConfirmPassword = ({
     onPasswordConfirm,
     userEmail,
     Button,
@@ -111,7 +112,7 @@ const ConfirmPasswordModal = ({
     );
 };
 
-ConfirmPasswordModal.propTypes = {
+ConfirmPassword.propTypes = {
     onPasswordConfirm: PropTypes.func.isRequired,
     userEmail: PropTypes.string.isRequired,
     Button: PropTypes.elementType,
@@ -123,7 +124,7 @@ ConfirmPasswordModal.propTypes = {
     }),
 };
 
-ConfirmPasswordModal.defaultProps = {
+ConfirmPassword.defaultProps = {
     FormControl: FormControl,
     Button: Button,
     SpinnerSmallLoader: SpinnerSmallLoader,
@@ -132,4 +133,4 @@ ConfirmPasswordModal.defaultProps = {
     },
 };
 
-export default ConfirmPasswordModal;
+export default ConfirmPassword;

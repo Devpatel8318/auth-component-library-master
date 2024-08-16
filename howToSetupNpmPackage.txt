@@ -1,0 +1,15 @@
+1. Begin by using the template, such as the one found [here](https://github.com/hinammehra/auth-component-library/blob/master/playground/package.json).
+2. Update the `package.json` file by editing the `name`, `publishConfig`, `repository`, and `version` (starting at 1.0.0).
+3. You can use `playground` folder to test package locally. In the `playground` folder, reference dependencies from the `src` directory using relative paths.
+4. Use Git if needed.
+5. Before publishing, run `yarn dev` to ensure the `dist` folder is up-to-date.
+6. Create an `.npmrc` file and add it to both `.gitignore` and `.npmignore`.
+7. In the `.npmrc` file, include the line: `//registry.npmjs.org/:_authToken=SECRET_TOKEN`.
+8. Log in to npm in browser, generate a new `SECRET_TOKEN` from the browser, and paste it into the link.
+9. Run `npm login`.
+10. Update the npm package version.
+11. Publish the package with `npm publish`.
+
+Done.
+
+Note CSS does not automatically attach when using the package, so you need to either configure a CSS compiler or import the CSS like this: `import "package-name/dist/styles.css"`.

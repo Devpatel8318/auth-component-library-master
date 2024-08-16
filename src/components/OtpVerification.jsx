@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import OtpInput from './OtpInput.jsx';
 
+import Button from '../sharedComponents/Button.jsx';
+import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader.js';
+
 const OtpVerification = ({
-    length = 6,
+    length,
     primaryText,
     secondaryText,
     Icon,
@@ -145,21 +149,34 @@ OtpVerification.propTypes = {
     length: PropTypes.number,
     primaryText: PropTypes.string.isRequired,
     secondaryText: PropTypes.string.isRequired,
-    Icon: PropTypes.node,
-    secondaryButtonText: PropTypes.string.isRequired,
+    Icon: PropTypes.elementType.isRequired,
+    secondaryButtonText: PropTypes.string,
     goBack: PropTypes.func.isRequired,
-    primaryButtonText: PropTypes.string.isRequired,
+    primaryButtonText: PropTypes.string,
     verifyOtp: PropTypes.func.isRequired,
-    successMessage: PropTypes.string.isRequired,
-    codeInvalidMessage: PropTypes.string.isRequired,
+    successMessage: PropTypes.string,
+    codeInvalidMessage: PropTypes.string,
     onComplete: PropTypes.func.isRequired,
-    isOtpVerified: PropTypes.bool.isRequired,
+    isOtpVerified: PropTypes.bool,
     setIsOtpVerified: PropTypes.func.isRequired,
-    showResendOption: PropTypes.bool.isRequired,
+    showResendOption: PropTypes.bool,
     resendOtp: PropTypes.func.isRequired,
-    Button: PropTypes.elementType.isRequired,
-    SpinnerSmallLoader: PropTypes.elementType.isRequired,
-    RESEND_CODE: PropTypes.string.isRequired,
+    Button: PropTypes.elementType,
+    SpinnerSmallLoader: PropTypes.elementType,
+    RESEND_CODE: PropTypes.string,
+};
+
+OtpVerification.defaultProps = {
+    length: 6,
+    showResendOption: false,
+    Button: Button,
+    SpinnerSmallLoader: SpinnerSmallLoader,
+    secondaryButtonText: 'Back',
+    primaryButtonText: 'Verify',
+    successMessage: 'Code is verified',
+    codeInvalidMessage: 'Code is invalid',
+    isOtpVerified: false,
+    RESEND_CODE: 'Resend code',
 };
 
 export default OtpVerification;

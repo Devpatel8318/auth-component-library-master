@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import mfaRecoveryEmailValidator from '../utils/mfaRecoveryEmailValidator';
 
 const RecoveryEmail = ({
@@ -27,7 +28,9 @@ const RecoveryEmail = ({
     };
 
     useEffect(() => {
-        if (!recoveryEmail) return setRecoveryEmailError('');
+        if (!recoveryEmail) {
+            return setRecoveryEmailError('');
+        }
 
         const error = mfaRecoveryEmailValidator(
             recoveryEmail,

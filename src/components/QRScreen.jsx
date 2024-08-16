@@ -64,7 +64,7 @@ function QRScreen({
                     <div className="col d-flex justify-content-end">
                         <Button
                             bsClass={`btn btn-primary btn-medium`}
-                            disabled={false}
+                            disabled={isLoading}
                             variant="primary"
                             onClick={next}
                         >

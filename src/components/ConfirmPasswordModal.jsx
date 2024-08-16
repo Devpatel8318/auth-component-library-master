@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import FormControl from '../sharedComponents/FormControl';
+import Button from '../sharedComponents/Button.jsx';
+import SpinnerSmallLoader from '../sharedComponents/SpinnerSmallLoader';
 
 const ConfirmPasswordModal = ({
     onPasswordConfirm,
@@ -111,17 +114,22 @@ const ConfirmPasswordModal = ({
 ConfirmPasswordModal.propTypes = {
     onPasswordConfirm: PropTypes.func.isRequired,
     userEmail: PropTypes.string.isRequired,
-    Button: PropTypes.elementType.isRequired,
+    Button: PropTypes.elementType,
     cognitoSignIn: PropTypes.func.isRequired,
-    SpinnerSmallLoader: PropTypes.elementType.isRequired,
+    SpinnerSmallLoader: PropTypes.elementType,
     FormControl: PropTypes.elementType,
     labels: PropTypes.shape({
-        CONFIRM: PropTypes.string.isRequired,
-    }).isRequired,
+        CONFIRM: PropTypes.string,
+    }),
 };
 
 ConfirmPasswordModal.defaultProps = {
     FormControl: FormControl,
+    Button: Button,
+    SpinnerSmallLoader: SpinnerSmallLoader,
+    labels: {
+        CONFIRM: 'Confirm',
+    },
 };
 
 export default ConfirmPasswordModal;

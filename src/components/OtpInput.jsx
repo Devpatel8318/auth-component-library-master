@@ -116,13 +116,19 @@ const OtpInput = ({
 };
 
 OtpInput.propTypes = {
-    length: PropTypes.number.isRequired,
+    length: PropTypes.number,
     OTP: PropTypes.arrayOf(PropTypes.string).isRequired,
     setOTP: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool,
     errorMessage: PropTypes.string,
     setErrorMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+};
+
+OtpInput.defaultProps = {
+    length: 6,
+    isLoading: false,
+    errorMessage: '',
 };
 
 export default OtpInput;

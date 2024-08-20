@@ -140,6 +140,7 @@ const MfaSetupFlow = forwardRef(
             CODE_HAS_EXPIRED,
             RECOVERY_EMAIL_MANDATORY,
             NOT_VALID_EMAIL,
+            RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL,
         } = labels;
 
         // Modal close handler
@@ -291,6 +292,9 @@ const MfaSetupFlow = forwardRef(
                             VERIFY={VERIFY}
                             RECOVERY_EMAIL_MANDATORY={RECOVERY_EMAIL_MANDATORY}
                             NOT_VALID_EMAIL={NOT_VALID_EMAIL}
+                            RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL={
+                                RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL
+                            }
                         />
                     );
 
@@ -412,6 +416,7 @@ MfaSetupFlow.propTypes = {
         CODE_HAS_EXPIRED: PropTypes.string,
         RECOVERY_EMAIL_MANDATORY: PropTypes.string,
         NOT_VALID_EMAIL: PropTypes.string,
+        RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL: PropTypes.string,
     }),
 };
 
@@ -457,6 +462,8 @@ MfaSetupFlow.defaultProps = {
         CODE_HAS_EXPIRED: 'Code has expired',
         RECOVERY_EMAIL_MANDATORY: 'Recovery email is mandatory',
         NOT_VALID_EMAIL: 'Please enter a valid email address.',
+        RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL:
+            'Recovery email cannot be the same as login email.',
     },
 };
 

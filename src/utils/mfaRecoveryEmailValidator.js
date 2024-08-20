@@ -21,7 +21,8 @@ const mfaRecoveryEmailValidator = (
     loginEmail,
     allowEmptyString = false,
     RECOVERY_EMAIL_MANDATORY,
-    NOT_VALID_EMAIL
+    NOT_VALID_EMAIL,
+    RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL
 ) => {
     if (!email || !email.trim()) {
         return allowEmptyString ? '' : RECOVERY_EMAIL_MANDATORY;
@@ -30,7 +31,7 @@ const mfaRecoveryEmailValidator = (
     if (!emailTester(email)) return NOT_VALID_EMAIL;
 
     if (email === loginEmail) {
-        return 'Recovery email cannot be same as login e-mail.';
+        return RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL;
     }
 
     return '';

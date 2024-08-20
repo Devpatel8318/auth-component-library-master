@@ -17,6 +17,7 @@ const RecoveryEmail = ({
     VERIFY,
     RECOVERY_EMAIL_MANDATORY,
     NOT_VALID_EMAIL,
+    RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL,
 }) => {
     const [recoveryEmail, setRecoveryEmail] = useState('');
     const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -37,7 +38,8 @@ const RecoveryEmail = ({
             userEmail,
             false,
             RECOVERY_EMAIL_MANDATORY,
-            NOT_VALID_EMAIL
+            NOT_VALID_EMAIL,
+            RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL
         );
         if (error) {
             setRecoveryEmailError(error);
@@ -130,6 +132,7 @@ RecoveryEmail.propTypes = {
     VERIFY: PropTypes.string.isRequired,
     RECOVERY_EMAIL_MANDATORY: PropTypes.string.isRequired,
     NOT_VALID_EMAIL: PropTypes.string.isRequired,
+    RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL: PropTypes.string.isRequired,
 };
 
 export default RecoveryEmail;

@@ -10,6 +10,7 @@ const OtpInput = ({
     errorMessage,
     setErrorMessage,
     handleSubmit,
+    customCss,
 }) => {
     const inputRef = useRef(Array(length).fill(null));
     const [lastInputIndex, setLastInputIndex] = useState(null);
@@ -91,7 +92,7 @@ const OtpInput = ({
 
     return (
         <div
-            className="d-flex justify-content-start w-100"
+            className={customCss || 'd-flex justify-content-start w-100'}
             onPaste={handlePaste}
         >
             {Array.from({ length }, (_, index) => (
@@ -123,12 +124,14 @@ OtpInput.propTypes = {
     errorMessage: PropTypes.string,
     setErrorMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    customCss: PropTypes.string,
 };
 
 OtpInput.defaultProps = {
     length: 6,
     isLoading: false,
     errorMessage: '',
+    customCss: '',
 };
 
 export default OtpInput;

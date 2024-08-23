@@ -18,6 +18,7 @@ const RecoveryEmail = ({
     RECOVERY_EMAIL_MANDATORY,
     NOT_VALID_EMAIL,
     RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL,
+    ENTER_EMAIL_HERE,
 }) => {
     const [recoveryEmail, setRecoveryEmail] = useState('');
     const [recoveryEmailError, setRecoveryEmailError] = useState('');
@@ -81,6 +82,7 @@ const RecoveryEmail = ({
                                 onChange={handleRecoveryEmailChange}
                                 bsClass={`text-center mfa-password-input-box`}
                                 autoFocus
+                                placeholder={ENTER_EMAIL_HERE}
                             />
                             <div
                                 className={`invalid-feedback ${
@@ -133,6 +135,7 @@ RecoveryEmail.propTypes = {
     RECOVERY_EMAIL_MANDATORY: PropTypes.string.isRequired,
     NOT_VALID_EMAIL: PropTypes.string.isRequired,
     RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL: PropTypes.string.isRequired,
+    ENTER_EMAIL_HERE: PropTypes.string.isRequired,
 };
 
 export default RecoveryEmail;

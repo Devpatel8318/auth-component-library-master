@@ -37,6 +37,8 @@ const MfaSetupFlow = forwardRef(
             onlyVerifyEmail,
             setupNewAuthenticator,
             setupNewAuthenticatorSuccess,
+            showSetupCompleteLoader,
+            isSetupCompleteApiLoading,
 
             // apis
             TotpVerificationSignIn,
@@ -108,11 +110,17 @@ const MfaSetupFlow = forwardRef(
         };
 
         const handleEmailOtpVerificationComplete = () => {
+            if (onlyVerifyEmail) {
+                onRecoveryEmailEnableStepComplete(recoveryEmail);
+            }
+
             if (recoveryEmailRef && recoveryEmailRef.current) {
                 onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
             }
 
-            onSetupClose();
+            if (!showSetupCompleteLoader) {
+                onSetupClose();
+            }
         };
 
         const {
@@ -141,6 +149,7 @@ const MfaSetupFlow = forwardRef(
             RECOVERY_EMAIL_MANDATORY,
             NOT_VALID_EMAIL,
             RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL,
+            ENTER_EMAIL_HERE,
         } = labels;
 
         // Modal close handler
@@ -295,6 +304,7 @@ const MfaSetupFlow = forwardRef(
                             RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL={
                                 RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL
                             }
+                            ENTER_EMAIL_HERE={ENTER_EMAIL_HERE}
                         />
                     );
 
@@ -329,6 +339,9 @@ const MfaSetupFlow = forwardRef(
                             SpinnerSmallLoader={SpinnerSmallLoader}
                             setShowDialog={setShowDialog}
                             RESEND_CODE={RESEND_CODE}
+                            isSetupCompleteApiLoading={
+                                isSetupCompleteApiLoading
+                            }
                         />
                     );
                 default:
@@ -372,6 +385,8 @@ MfaSetupFlow.propTypes = {
     setupNewAuthenticator: PropTypes.bool,
     setupNewAuthenticatorSuccess: PropTypes.func,
     onlyVerifyEmail: PropTypes.bool,
+    showSetupCompleteLoader: PropTypes.bool,
+    isSetupCompleteApiLoading: PropTypes.bool,
 
     // api
     TotpVerificationSignIn: PropTypes.func.isRequired,
@@ -417,6 +432,7 @@ MfaSetupFlow.propTypes = {
         RECOVERY_EMAIL_MANDATORY: PropTypes.string,
         NOT_VALID_EMAIL: PropTypes.string,
         RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL: PropTypes.string,
+        ENTER_EMAIL_HERE: PropTypes.string,
     }),
 };
 
@@ -428,6 +444,8 @@ MfaSetupFlow.defaultProps = {
     isRecoveryEmailMandatory: true,
     SpinnerSmallLoader: SpinnerSmallLoader,
     Button: Button,
+    showSetupCompleteLoader: false,
+    isSetupCompleteApiLoading: false,
     labels: {
         CONFIRM: 'Confirm',
         CONFIRM_PASSWORD: 'Confirm Password',
@@ -464,6 +482,7 @@ MfaSetupFlow.defaultProps = {
         NOT_VALID_EMAIL: 'Please enter a valid email address.',
         RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL:
             'Recovery email cannot be the same as login email.',
+        ENTER_EMAIL_HERE: 'Enter e-mail here',
     },
 };
 

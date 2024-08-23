@@ -30,7 +30,7 @@ const mfaRecoveryEmailValidator = (
 
     if (!emailTester(email)) return NOT_VALID_EMAIL;
 
-    if (email === loginEmail) {
+    if (email.toLowerCase() === loginEmail) {
         return RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL;
     }
 

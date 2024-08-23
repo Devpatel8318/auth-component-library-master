@@ -26,6 +26,7 @@ const OtpVerification = ({
     SpinnerSmallLoader,
     RESEND_CODE,
     setShowDialog,
+    isSetupCompleteApiLoading,
 }) => {
     const [OTP, setOTP] = useState(Array(length).fill(''));
     const [isLoading, setIsLoading] = useState(false);
@@ -121,8 +122,13 @@ const OtpVerification = ({
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="d-flex justify-content-end align-items-center">
+                            {isSetupCompleteApiLoading && (
+                                <SpinnerSmallLoader className="circular-spinner mr-8" />
+                            )}
                             <a
-                                className=""
+                                className={
+                                    isSetupCompleteApiLoading ? 'disabled' : ''
+                                }
                                 href="javascript:;"
                                 onClick={goBack}
                             >
@@ -131,7 +137,9 @@ const OtpVerification = ({
 
                             <Button
                                 bsClass="btn btn-primary btn-medium ml-2"
-                                disabled={!isOtpVerified}
+                                disabled={
+                                    !isOtpVerified || isSetupCompleteApiLoading
+                                }
                                 variant="primary"
                                 onClick={onComplete}
                             >
@@ -161,6 +169,7 @@ OtpVerification.propTypes = {
     setIsOtpVerified: PropTypes.func.isRequired,
     showResendOption: PropTypes.bool,
     resendOtp: PropTypes.func.isRequired,
+    isSetupCompleteApiLoading: PropTypes.bool,
     Button: PropTypes.elementType,
     SpinnerSmallLoader: PropTypes.elementType,
     RESEND_CODE: PropTypes.string,
@@ -171,6 +180,7 @@ OtpVerification.defaultProps = {
     showResendOption: false,
     Button: Button,
     SpinnerSmallLoader: SpinnerSmallLoader,
+    isSetupCompleteApiLoading: false,
     secondaryButtonText: 'Back',
     primaryButtonText: 'Verify',
     successMessage: 'Code is verified',

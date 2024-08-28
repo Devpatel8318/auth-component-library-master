@@ -95,6 +95,12 @@ const MfaSetupFlow = forwardRef(
         };
 
         const handleGenerateEmailOtp = () => {
+            console.log(
+                '98 , recoveryEmailRef.current',
+                recoveryEmailRef,
+                'recoveryEmailRef',
+                recoveryEmailRef.current
+            );
             if (recoveryEmailRef && recoveryEmailRef.current) {
                 generateEmailOtp(recoveryEmailRef.current);
             }

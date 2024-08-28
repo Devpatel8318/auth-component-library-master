@@ -94,35 +94,21 @@ const MfaSetupFlow = forwardRef(
             setModalStep('RECOVERY_EMAIL');
         };
 
+        // if onlyVerifyEmail is true, then use the recoveryEmail prop, else use the recoveryEmailRef set from RecoveryEmail component.
+        const recipientEmail = onlyVerifyEmail
+            ? recoveryEmail
+            : recoveryEmailRef && recoveryEmailRef.current;
+
         const handleGenerateEmailOtp = () => {
-            console.log(
-                '98 , recoveryEmailRef.current',
-                recoveryEmailRef,
-                'recoveryEmailRef',
-                recoveryEmailRef.current
-            );
-            if (recoveryEmailRef && recoveryEmailRef.current) {
-                generateEmailOtp(recoveryEmailRef.current);
-            }
+            generateEmailOtp(recipientEmail);
         };
 
         const handleVerifyEmailOtp = (code) => {
-            // if onlyVerifyEmail is true, then use the recoveryEmail prop, else use the recoveryEmailRef set from RecoveryEmail component.
-            const newRecoveryEmail = onlyVerifyEmail
-                ? recoveryEmail
-                : recoveryEmailRef && recoveryEmailRef.current;
-
-            return verifyEmailOtp(code, newRecoveryEmail);
+            return verifyEmailOtp(code, recipientEmail);
         };
 
         const handleEmailOtpVerificationComplete = () => {
-            if (onlyVerifyEmail) {
-                onRecoveryEmailEnableStepComplete(recoveryEmail);
-            }
-
-            if (recoveryEmailRef && recoveryEmailRef.current) {
-                onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
-            }
+            onRecoveryEmailEnableStepComplete(recipientEmail);
 
             if (!showSetupCompleteLoader) {
                 onSetupClose();

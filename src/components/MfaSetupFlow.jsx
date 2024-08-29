@@ -160,6 +160,7 @@ const MfaSetupFlow = forwardRef(
                 } else {
                     setShowDialog(true, true);
                 }
+                return;
             }
 
             if (modalStep === 'RECOVERY_EMAIL') {

@@ -473,7 +473,7 @@ MfaSetupFlow.defaultProps = {
         RECOVERY_EMAIL_MANDATORY: 'Recovery email is mandatory',
         NOT_VALID_EMAIL: 'Please enter a valid email address.',
         RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL:
-            'Recovery email cannot be the same as login email.',
+            'Recovery email cannot be the same as login e-mail.',
         ENTER_EMAIL_HERE: 'Enter e-mail here',
     },
 };

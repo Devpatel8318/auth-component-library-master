@@ -32,6 +32,12 @@ const OtpVerification = ({
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const handleResendCode = async () => {
+        setIsLoading(true);
+        await resendOtp();
+        setIsLoading(false);
+    };
+
     const handleSubmit = async (code) => {
         setIsLoading(true);
         setErrorMessage('');
@@ -54,6 +60,7 @@ const OtpVerification = ({
 
         return () => {
             setShowDialog(false);
+            setIsOtpVerified(false);
         };
     }, []);
 
@@ -84,6 +91,14 @@ const OtpVerification = ({
                                     errorMessage={errorMessage}
                                     setErrorMessage={setErrorMessage}
                                     handleSubmit={handleSubmit}
+                                    disabled={
+                                        (!isLoading &&
+                                            !errorMessage &&
+                                            OTP.every(
+                                                (digit) => digit !== ''
+                                            )) ||
+                                        isLoading
+                                    }
                                 />
                                 {isLoading && (
                                     <div className="mt-8 mfa-otp-spinner-loader">
@@ -99,7 +114,7 @@ const OtpVerification = ({
                                             <a
                                                 className="delete-group"
                                                 href="javascript:;"
-                                                onClick={resendOtp}
+                                                onClick={handleResendCode}
                                             >
                                                 {RESEND_CODE}
                                             </a>

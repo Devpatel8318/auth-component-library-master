@@ -11,6 +11,7 @@ const OtpInput = ({
     setErrorMessage,
     handleSubmit,
     customCss,
+    disabled,
 }) => {
     const inputRef = useRef(Array(length).fill(null));
     const [lastInputIndex, setLastInputIndex] = useState(null);
@@ -101,7 +102,7 @@ const OtpInput = ({
                     type="text"
                     maxLength={1}
                     value={OTP[index]}
-                    disabled={isLoading}
+                    disabled={disabled}
                     onChange={(e) => handleTextChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     ref={(ref) => {
@@ -125,6 +126,7 @@ OtpInput.propTypes = {
     setErrorMessage: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     customCss: PropTypes.string,
+    disabled: PropTypes.bool,
 };
 
 OtpInput.defaultProps = {
@@ -132,6 +134,7 @@ OtpInput.defaultProps = {
     isLoading: false,
     errorMessage: '',
     customCss: '',
+    disabled: false,
 };
 
 export default OtpInput;

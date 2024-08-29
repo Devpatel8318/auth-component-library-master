@@ -95,20 +95,23 @@ const MfaSetupFlow = forwardRef(
         };
 
         // if onlyVerifyEmail is true, then use the recoveryEmail prop, else use the recoveryEmailRef set from RecoveryEmail component.
-        const recipientEmail = onlyVerifyEmail
-            ? recoveryEmail
-            : recoveryEmailRef && recoveryEmailRef.current;
 
-        const handleGenerateEmailOtp = () => {
-            generateEmailOtp(recipientEmail);
+        const getRecipientEmail = () => {
+            return onlyVerifyEmail
+                ? recoveryEmail
+                : recoveryEmailRef && recoveryEmailRef.current;
+        };
+
+        const handleGenerateEmailOtp = async () => {
+            await generateEmailOtp(getRecipientEmail());
         };
 
         const handleVerifyEmailOtp = (code) => {
-            return verifyEmailOtp(code, recipientEmail);
+            return verifyEmailOtp(code, getRecipientEmail());
         };
 
         const handleEmailOtpVerificationComplete = () => {
-            onRecoveryEmailEnableStepComplete(recipientEmail);
+            onRecoveryEmailEnableStepComplete(getRecipientEmail());
 
             if (!showSetupCompleteLoader) {
                 onSetupClose();
@@ -146,12 +149,17 @@ const MfaSetupFlow = forwardRef(
 
         // Modal close handler
         const handleCloseModal = () => {
-            if (
-                modalStep === 'OTP_VERIFICATION' ||
-                modalStep === 'RECOVERY_EMAIL_OTP_VERIFICATION'
-            ) {
+            if (modalStep === 'OTP_VERIFICATION') {
                 setShowDialog(true, true);
                 return;
+            }
+
+            if (modalStep === 'RECOVERY_EMAIL_OTP_VERIFICATION') {
+                if (isMailOtpVerified) {
+                    onRecoveryEmailEnableStepComplete(getRecipientEmail());
+                } else {
+                    setShowDialog(true, true);
+                }
             }
 
             if (modalStep === 'RECOVERY_EMAIL') {
@@ -186,7 +194,7 @@ const MfaSetupFlow = forwardRef(
 
             if (isMailOtpVerified) {
                 // If the email OTP is verified (recoveryEmail verified) means User is in last step (RECOVERY_EMAIL_OTP_VERIFICATION)
-                onRecoveryEmailEnableStepComplete(recoveryEmailRef.current);
+                onRecoveryEmailEnableStepComplete(getRecipientEmail());
             } else if (isRecoveryEmailMandatory) {
                 // User hasn't verified email OTP and recovery email is mandatory, do nothing
                 return;

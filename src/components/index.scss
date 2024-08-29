@@ -70,7 +70,7 @@
   margin-top: 20px;
 }
 
-input[type='text'].mfa-otp-input {
+input[type="text"].mfa-otp-input {
   border: 1px solid #b7bcc4;
   border-radius: 4px;
   background-color: #fff;
@@ -80,7 +80,8 @@ input[type='text'].mfa-otp-input {
   text-align: center;
   padding: 0px;
   font-size: 24px !important;
-  margin-right:20px;
+  margin-right: 20px;
+  font-weight: 600;
 }
 
 .mfa-otp-input-invalid {
@@ -110,10 +111,10 @@ input[type='text'].mfa-otp-input {
   padding-bottom: 24px;
 }
 
-.mfa-otp-message-text{
+.mfa-otp-message-text {
   font-size: 12px;
 }
 
-.mfa-text-24{
+.mfa-text-24 {
   font-size: 24px !important;
 }

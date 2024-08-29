@@ -100,7 +100,7 @@ const ConfirmPassword = ({
                     <div className="col d-flex justify-content-end">
                         <Button
                             bsClass="btn btn-primary btn-medium"
-                            disabled={isLoading}
+                            disabled={isLoading || password === ""}
                             variant="primary"
                             type="submit"
                         >

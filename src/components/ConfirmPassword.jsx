@@ -41,6 +41,7 @@ const ConfirmPassword = ({
 
         if (error) {
             setPasswordError(error);
+            setPassword('')
         }
 
         if (success) {

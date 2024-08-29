@@ -40,7 +40,7 @@ const ConfirmPassword = ({
         setIsLoading(false);
 
         if (error) {
-            setPasswordError(error);
+            setPasswordError(PASSWORD_IS_INCORRECT);
             setPassword('')
         }
 
@@ -49,7 +49,7 @@ const ConfirmPassword = ({
         }
     };
 
-    const { CONFIRM } = labels;
+    const { CONFIRM,PASSWORD_IS_INCORRECT } = labels;
 
     useEffect(() => {
         if (passwordInputRef.current) {
@@ -122,6 +122,7 @@ ConfirmPassword.propTypes = {
     FormControl: PropTypes.elementType,
     labels: PropTypes.shape({
         CONFIRM: PropTypes.string,
+        PASSWORD_IS_INCORRECT:PropTypes.string,
     }),
 };
 
@@ -131,6 +132,7 @@ ConfirmPassword.defaultProps = {
     SpinnerSmallLoader: SpinnerSmallLoader,
     labels: {
         CONFIRM: 'Confirm',
+        PASSWORD_IS_INCORRECT :'Password is Incorrect.'
     },
 };
 

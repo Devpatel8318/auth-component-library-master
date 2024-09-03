@@ -15,6 +15,7 @@ const ConfirmPassword = ({
     FormControl,
     labels,
     primaryText,
+    enterpriseId
 }) => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,7 @@ const ConfirmPassword = ({
         const { success, error } = await cognitoSignIn(
             userEmail,
             password,
-            1,
+            enterpriseId,
             true
         );
         setIsLoading(false);
@@ -124,6 +125,7 @@ ConfirmPassword.propTypes = {
         CONFIRM: PropTypes.string,
         PASSWORD_IS_INCORRECT:PropTypes.string,
     }),
+    enterpriseId: PropTypes.string
 };
 
 ConfirmPassword.defaultProps = {
@@ -134,6 +136,7 @@ ConfirmPassword.defaultProps = {
         CONFIRM: 'Confirm',
         PASSWORD_IS_INCORRECT :'Password is Incorrect.'
     },
+    enterpriseId:'1'
 };
 
 export default ConfirmPassword;

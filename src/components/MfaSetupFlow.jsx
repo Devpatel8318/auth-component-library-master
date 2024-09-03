@@ -25,6 +25,7 @@ const MfaSetupFlow = forwardRef(
             userEmail,
             isMfaEnabled,
             recoveryEmail,
+            enterpriseId,
 
             onSetupClose,
             setModalConfig,
@@ -156,7 +157,7 @@ const MfaSetupFlow = forwardRef(
 
             if (modalStep === 'RECOVERY_EMAIL_OTP_VERIFICATION') {
                 if (isMailOtpVerified) {
-                    onRecoveryEmailEnableStepComplete(getRecipientEmail());
+                    handleEmailOtpVerificationComplete();
                 } else {
                     setShowDialog(true, true);
                 }
@@ -180,7 +181,9 @@ const MfaSetupFlow = forwardRef(
 
                 // If adding a recovery email is optional, mark the MFA enable step as complete and close the modal.
                 onMfaEnableStepComplete();
-                onSetupClose();
+                if (!showSetupCompleteLoader) {
+                    onSetupClose();
+                }
                 return;
             }
 
@@ -195,7 +198,7 @@ const MfaSetupFlow = forwardRef(
 
             if (isMailOtpVerified) {
                 // If the email OTP is verified (recoveryEmail verified) means User is in last step (RECOVERY_EMAIL_OTP_VERIFICATION)
-                onRecoveryEmailEnableStepComplete(getRecipientEmail());
+                handleEmailOtpVerificationComplete();
             } else if (isRecoveryEmailMandatory) {
                 // User hasn't verified email OTP and recovery email is mandatory, do nothing
                 return;
@@ -230,6 +233,8 @@ const MfaSetupFlow = forwardRef(
                             FormControl={FormControl}
                             labels={labels}
                             primaryText={PLEASE_CONFIRM_PASSWORD_ENABLE_2FA}
+                            enterpriseId={enterpriseId}
+
                         />
                     );
 
@@ -263,7 +268,11 @@ const MfaSetupFlow = forwardRef(
                             Icon={MfaOtpLockIcon}
                             secondaryButtonText={BACK}
                             goBack={() => setModalStep('QR_SCREEN')}
-                            primaryButtonText={NEXT}
+                            primaryButtonText={
+                                setupNewAuthenticator && recoveryEmail
+                                ? FINISH
+                                : NEXT
+                            }
                             verifyOtp={handleVerifyOtp}
                             successMessage={CODE_IS_VERIFIED}
                             codeInvalidMessage={CODE_IS_INVALID}
@@ -283,7 +292,9 @@ const MfaSetupFlow = forwardRef(
                             userEmail={userEmail}
                             skip={() => {
                                 onMfaEnableStepComplete();
-                                onSetupClose();
+                                if (!showSetupCompleteLoader) {
+                                    onSetupClose();
+                                }
                             }}
                             onComplete={(recoveryEmail) => {
                                 recoveryEmailRef.current = recoveryEmail;
@@ -294,6 +305,10 @@ const MfaSetupFlow = forwardRef(
                             Button={Button}
                             FormControl={FormControl}
                             setShowDialog={setShowDialog}
+                            isSetupCompleteApiLoading={
+                                isSetupCompleteApiLoading
+                            }
+                            SpinnerSmallLoader={SpinnerSmallLoader}
                             ADD_RECOVERY_EMAIL={ADD_RECOVERY_EMAIL}
                             LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP={
                                 LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP
@@ -374,6 +389,7 @@ MfaSetupFlow.propTypes = {
     userEmail: PropTypes.string.isRequired,
     isMfaEnabled: PropTypes.bool.isRequired,
     recoveryEmail: PropTypes.string.isRequired,
+    enterpriseId:PropTypes.string.isRequired,
 
     onSetupClose: PropTypes.func.isRequired,
     setModalConfig: PropTypes.func.isRequired,

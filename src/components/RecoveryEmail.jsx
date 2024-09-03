@@ -11,6 +11,8 @@ const RecoveryEmail = ({
     Button,
     FormControl,
     setShowDialog,
+    SpinnerSmallLoader,
+    isSetupCompleteApiLoading,
     ADD_RECOVERY_EMAIL,
     LOSE_ACCESS_AUTHENTICATOR_USE_EMAIL_BACKUP,
     SKIP,
@@ -29,11 +31,7 @@ const RecoveryEmail = ({
         setRecoveryEmail(e.target.value.trim());
     };
 
-    useEffect(() => {
-        if (!recoveryEmail) {
-            return setRecoveryEmailError('');
-        }
-
+    const handleSubmit = () => {
         const error = mfaRecoveryEmailValidator(
             recoveryEmail,
             userEmail,
@@ -44,6 +42,15 @@ const RecoveryEmail = ({
         );
         if (error) {
             setRecoveryEmailError(error);
+            return;
+        }
+
+        onComplete(recoveryEmail);
+    };
+
+    useEffect(() => {
+        if (!recoveryEmail) {
+            return setRecoveryEmailError('');
         }
     }, [recoveryEmail]);
 
@@ -83,6 +90,11 @@ const RecoveryEmail = ({
                                 bsClass={`text-center mfa-password-input-box`}
                                 autoFocus
                                 placeholder={ENTER_EMAIL_HERE}
+                                onEnterKeyPress={() => {
+                                    if (!isBtnDisabled) {
+                                        handleSubmit();
+                                    }
+                                }}
                             />
                             <div
                                 className={`invalid-feedback ${
@@ -95,10 +107,15 @@ const RecoveryEmail = ({
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col d-flex justify-content-end">
+                    <div className="col d-flex justify-content-end align-items-center">
+                        {isSetupCompleteApiLoading && (
+                            <SpinnerSmallLoader className="circular-spinner" />
+                        )}
                         {!isRecoveryEmailMandatory && (
                             <a
-                                className="delete-group btn-medium"
+                                className={`delete-group btn-medium ${
+                                    isSetupCompleteApiLoading ? 'disabled' : ''
+                                }`}
                                 href="javascript:;"
                                 onClick={skip}
                             >
@@ -108,9 +125,11 @@ const RecoveryEmail = ({
 
                         <Button
                             bsClass="btn btn-primary btn-medium"
-                            disabled={!!isBtnDisabled}
+                            disabled={
+                                !!isBtnDisabled || isSetupCompleteApiLoading
+                            }
                             variant="primary"
-                            onClick={() => onComplete(recoveryEmail)}
+                            onClick={handleSubmit}
                         >
                             {VERIFY}
                         </Button>
@@ -136,6 +155,7 @@ RecoveryEmail.propTypes = {
     NOT_VALID_EMAIL: PropTypes.string.isRequired,
     RECOVERY_EMAIL_CAN_NOT_BE_SAME_AS_LOGIN_EMAIL: PropTypes.string.isRequired,
     ENTER_EMAIL_HERE: PropTypes.string.isRequired,
+    SpinnerSmallLoader: PropTypes.elementType.isRequired,
 };
 
 export default RecoveryEmail;

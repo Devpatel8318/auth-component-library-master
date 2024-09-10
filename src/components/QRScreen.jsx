@@ -50,7 +50,7 @@ function QRScreen({
                         <p className="mb-0 text-grey">
                             {USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR}
                             <a
-                                href="https://help.socialpilot.co/article/438-why-am-i-being-asked-to-re-connect-my-accounts#Account-disconnection-due-to-Missing-Roles-andor-Permissions-on-Faceb-VNHYK"
+                                href="https://help.socialpilot.co/article/746-how-to-set-up-2fa-in-my-socialpilot-account"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >

@@ -64,6 +64,21 @@ const OtpVerification = ({
         };
     }, []);
 
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Enter' && isOtpVerified && !isSetupCompleteApiLoading)  {
+                onComplete();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isOtpVerified,isSetupCompleteApiLoading]);
+
     return (
         <div className="row mfa-qr">
             <div className="col-lg-12 d-flex flex-column justify-content-between">

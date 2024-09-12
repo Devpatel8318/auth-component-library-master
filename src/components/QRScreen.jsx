@@ -7,7 +7,8 @@ function QRScreen({
     userEmail,
     Button,
     generateMfaQrLink,
-    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+    companyName,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK,
     USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
     LEARN_MORE,
     NEXT,
@@ -19,7 +20,7 @@ function QRScreen({
         const getQrLink = async () => {
             setIsLoading(true);
             const qrLinkResponse = await generateMfaQrLink(
-                'SocialPilot',
+                companyName,
                 userEmail
             );
             if (!qrLinkResponse.error) {
@@ -45,7 +46,7 @@ function QRScreen({
                             </div>
                         )}
                         <h3 className="mfa-qr-text mt-0 mb-8">
-                            {SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP}
+                            {SCAN_QR_USING_AUTHENTICATOR_TO_LINK} {companyName}
                         </h3>
                         <p className="mb-0 text-grey">
                             {USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR}
@@ -82,10 +83,16 @@ QRScreen.propTypes = {
     userEmail: PropTypes.string.isRequired,
     Button: PropTypes.elementType.isRequired,
     generateMfaQrLink: PropTypes.func.isRequired,
-    SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: PropTypes.string.isRequired,
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK: PropTypes.string,
     USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: PropTypes.string.isRequired,
     LEARN_MORE: PropTypes.string.isRequired,
     NEXT: PropTypes.string.isRequired,
+    companyName: PropTypes.string.isRequired,
 };
+
+QRScreen.defaultProps = {
+    SCAN_QR_USING_AUTHENTICATOR_TO_LINK: 'Scan using authenticator to link',
+};
+
 
 export default QRScreen;

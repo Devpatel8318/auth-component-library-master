@@ -33,6 +33,8 @@ const MfaSetupFlow = forwardRef(
             onMfaEnableStepComplete,
             onRecoveryEmailEnableStepComplete,
 
+            companyName,
+
             // settings
             isRecoveryEmailMandatory,
             onlyVerifyEmail,
@@ -92,6 +94,11 @@ const MfaSetupFlow = forwardRef(
                 return;
             }
 
+            if(recoveryEmail){
+                onMfaEnableStepComplete();
+                onSetupClose();
+            }
+
             setModalStep('RECOVERY_EMAIL');
         };
 
@@ -123,7 +130,7 @@ const MfaSetupFlow = forwardRef(
             CONFIRM_PASSWORD,
             PLEASE_CONFIRM_PASSWORD_ENABLE_2FA,
             TWO_FACTOR_AUTHENTICATOR_2FA,
-            SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP,
+            SCAN_QR_USING_AUTHENTICATOR_TO_LINK,
             USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR,
             LEARN_MORE,
             NEXT,
@@ -245,8 +252,9 @@ const MfaSetupFlow = forwardRef(
                             userEmail={userEmail}
                             Button={Button}
                             generateMfaQrLink={generateMfaQrLink}
-                            SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP={
-                                SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP
+                            companyName={companyName}
+                            SCAN_QR_USING_AUTHENTICATOR_TO_LINK={
+                                SCAN_QR_USING_AUTHENTICATOR_TO_LINK
                             }
                             USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR={
                                 USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR
@@ -269,13 +277,14 @@ const MfaSetupFlow = forwardRef(
                             secondaryButtonText={BACK}
                             goBack={() => setModalStep('QR_SCREEN')}
                             primaryButtonText={
-                                setupNewAuthenticator && recoveryEmail
+                                recoveryEmail
                                 ? FINISH
                                 : NEXT
                             }
                             verifyOtp={handleVerifyOtp}
                             successMessage={CODE_IS_VERIFIED}
-                            codeInvalidMessage={CODE_IS_INVALID}
+                            codeExpired={CODE_HAS_EXPIRED}
+                            codeInvalid={CODE_IS_INVALID}
                             onComplete={handleOtpVerificationComplete}
                             isOtpVerified={isAuthenticatorOtpVerified}
                             setIsOtpVerified={setIsAuthenticatorOtpVerified}
@@ -345,7 +354,8 @@ const MfaSetupFlow = forwardRef(
                             primaryButtonText={FINISH}
                             verifyOtp={handleVerifyEmailOtp}
                             successMessage={RECOVERY_EMAIL_HAS_BEEN_VERIFIED}
-                            codeInvalidMessage={CODE_HAS_EXPIRED}
+                            codeExpired={CODE_HAS_EXPIRED}
+                            codeInvalid={CODE_IS_INVALID}
                             onComplete={handleEmailOtpVerificationComplete}
                             isOtpVerified={isMailOtpVerified}
                             setIsOtpVerified={setIsMailOtpVerified}
@@ -358,6 +368,7 @@ const MfaSetupFlow = forwardRef(
                             isSetupCompleteApiLoading={
                                 isSetupCompleteApiLoading
                             }
+                            modalStep={modalStep}
                         />
                     );
                 default:
@@ -397,6 +408,8 @@ MfaSetupFlow.propTypes = {
     onMfaEnableStepComplete: PropTypes.func.isRequired,
     onRecoveryEmailEnableStepComplete: PropTypes.func.isRequired,
 
+    companyName:PropTypes.string,
+
     // settings
     isRecoveryEmailMandatory: PropTypes.bool,
     setupNewAuthenticator: PropTypes.bool,
@@ -427,7 +440,7 @@ MfaSetupFlow.propTypes = {
         CONFIRM_PASSWORD: PropTypes.string,
 
         PLEASE_CONFIRM_PASSWORD_ENABLE_2FA: PropTypes.string,
-        SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP: PropTypes.string,
+        SCAN_QR_USING_AUTHENTICATOR_TO_LINK: PropTypes.string,
         USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR: PropTypes.string,
         LEARN_MORE: PropTypes.string,
         NEXT: PropTypes.string,
@@ -457,6 +470,7 @@ MfaSetupFlow.defaultProps = {
     FormControl: FormControl,
     setupNewAuthenticator: false,
     setupNewAuthenticatorSuccess: () => {},
+    companyName:"SocialPilot",
     onlyVerifyEmail: false,
     isRecoveryEmailMandatory: true,
     SpinnerSmallLoader: SpinnerSmallLoader,
@@ -469,8 +483,8 @@ MfaSetupFlow.defaultProps = {
         TWO_FACTOR_AUTHENTICATOR_2FA: 'Two Factor Authenticator (2FA)',
         PLEASE_CONFIRM_PASSWORD_ENABLE_2FA:
             'Please confirm your password to enable 2FA',
-        SCAN_QR_USING_AUTHENTICATOR_TO_LINK_SP:
-            'Scan using authenticator to link SocialPilot',
+        SCAN_QR_USING_AUTHENTICATOR_TO_LINK:
+            'Scan using authenticator to link',
         USE_GOOGLE_MICROSOFT_AUTH_DUO_AUTHENTICATOR:
             'Use Google authenticator, Microsoft authenticator, Authy or Duo mobile',
         LEARN_MORE: 'Learn more',

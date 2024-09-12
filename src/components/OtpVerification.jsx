@@ -16,7 +16,6 @@ const OtpVerification = ({
     primaryButtonText,
     verifyOtp,
     successMessage,
-    codeInvalidMessage,
     onComplete,
     isOtpVerified,
     setIsOtpVerified,
@@ -27,6 +26,9 @@ const OtpVerification = ({
     RESEND_CODE,
     setShowDialog,
     isSetupCompleteApiLoading,
+    codeExpired,
+    codeInvalid,
+    modalStep
 }) => {
     const [OTP, setOTP] = useState(Array(length).fill(''));
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +48,11 @@ const OtpVerification = ({
         setIsLoading(false);
 
         if (verificationCodeResponse.error) {
-            setErrorMessage(codeInvalidMessage);
+            if(verificationCodeResponse.expiredOtp){
+                setErrorMessage(codeExpired);
+            }else{
+                setErrorMessage(codeInvalid);
+            }
             setOTP(Array(length).fill(''));
             return false;
         }
@@ -83,7 +89,7 @@ const OtpVerification = ({
         <div className="row mfa-qr">
             <div className="col-lg-12 d-flex flex-column justify-content-between">
                 <div className="row justify-content-center">
-                    <div className="col-lg-12 text-center mt-2 mfa-qr-container p-0">
+                    <div className="col-lg-12 text-center mt-2 mfa-otp-container p-0">
                         <div className="row flex-column justify-content-center">
                             <div className="col-lg-12 mb-2">
                                 <Icon />
@@ -92,7 +98,7 @@ const OtpVerification = ({
                                 <h3 className="mfa-otp-text mb-8">
                                     {primaryText}
                                 </h3>
-                                <p className="mb-0 text-grey">
+                                <p className={`mb-0 text-grey ${modalStep === 'RECOVERY_EMAIL_OTP_VERIFICATION' ? 'mfa-recovery-otp-text' : ''}`}>
                                     {secondaryText}
                                 </p>
                             </div>
@@ -203,6 +209,7 @@ OtpVerification.propTypes = {
     Button: PropTypes.elementType,
     SpinnerSmallLoader: PropTypes.elementType,
     RESEND_CODE: PropTypes.string,
+    modalStep:PropTypes.string
 };
 
 OtpVerification.defaultProps = {
@@ -217,6 +224,7 @@ OtpVerification.defaultProps = {
     codeInvalidMessage: 'Code is invalid',
     isOtpVerified: false,
     RESEND_CODE: 'Resend code',
+    modalStep:'OTP_VERIFICATION'
 };
 
 export default OtpVerification;

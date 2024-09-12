@@ -90,7 +90,7 @@ const ConfirmPassword = ({
                                 {passwordError}
                             </div>
                             {isLoading && (
-                                <div className="mt-1 input-spinner-loader">
+                                <div className="input-spinner-loader">
                                     <SpinnerSmallLoader className="circular-spinner mr-8" />
                                 </div>
                             )}

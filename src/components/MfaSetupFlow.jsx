@@ -77,7 +77,6 @@ const MfaSetupFlow = forwardRef(
 
         const recoveryEmailRef = useRef('');
 
-        // verify totp code
         const handleVerifyOtp = (code) => {
             if (!isMfaEnabled || setupNewAuthenticator) {
                 // configuring mfa first time or setting-up new authenticator
@@ -103,7 +102,6 @@ const MfaSetupFlow = forwardRef(
         };
 
         // if onlyVerifyEmail is true, then use the recoveryEmail prop, else use the recoveryEmailRef set from RecoveryEmail component.
-
         const getRecipientEmail = () => {
             return onlyVerifyEmail
                 ? recoveryEmail

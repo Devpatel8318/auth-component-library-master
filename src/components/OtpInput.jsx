@@ -24,12 +24,14 @@ const OtpInput = ({
         setOTP(newOtp);
 
         if (input && index < length - 1) {
+            // not on last input box
             if (inputRef.current[index + 1]) {
-                inputRef.current[index + 1].focus();
+                inputRef.current[index + 1].focus(); // focus to next input box
             }
         }
 
         if (newOtp.every((digit) => digit !== '')) {
+            // all input boxes are filled
             setLastInputIndex(index);
             const submitResponse = await handleSubmit(newOtp.join(''));
             if (!submitResponse) {
@@ -45,10 +47,12 @@ const OtpInput = ({
         if (e.key === 'Backspace') {
             setErrorMessage('');
             if (OTP[index] === '' && index > 0) {
+                // not on first input box and current input box is empty -> then focus to previous input box
                 if (inputRef.current[index - 1]) {
                     inputRef.current[index - 1].focus();
                 }
             } else {
+                // current input box is not empty -> clear the input box
                 const newPin = [...OTP];
                 newPin[index] = '';
                 setOTP(newPin);

@@ -36,6 +36,7 @@ const OtpVerification = ({
 
     const handleResendCode = async () => {
         setIsLoading(true);
+        setErrorMessage('');
         await resendOtp();
         setIsLoading(false);
     };
